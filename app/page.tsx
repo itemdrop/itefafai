@@ -21,7 +21,7 @@ export default function Home() {
             .
           </li>
           <li className="tracking-[-.01em]">
-            Learn more about FAISALS MOM Next.js.s
+            Learn more about Efans MOM Next.js.s
           </li>
         </ol>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
