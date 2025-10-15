@@ -157,7 +157,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">Office Address</h3>
-                  <p className="text-gray-600">123 Business Street<br />Suite 100<br />City, State 12345</p>
+                  <p className="text-gray-600">Föreningsgatan 41<br />Malmö<br />Sweden</p>
                 </div>
               </div>
 
@@ -169,7 +169,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">Phone Number</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
+                  <p className="text-gray-600">+46720062874</p>
                 </div>
               </div>
 
@@ -181,7 +181,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">Email Address</h3>
-                  <p className="text-gray-600">hello@yoursite.com</p>
+                  <p className="text-gray-600">efansavage@gmail.com</p>
                 </div>
               </div>
 

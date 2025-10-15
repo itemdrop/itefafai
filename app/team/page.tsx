@@ -1,26 +1,26 @@
 export default function Team() {
   const teamMembers = [
     {
-      name: "Sarah Johnson",
+      name: "Efan Savage",
       role: "CEO & Founder",
       bio: "Visionary leader with 10+ years of experience in digital strategy and business development. Passionate about creating innovative solutions that drive business growth.",
       skills: ["Strategic Planning", "Business Development", "Team Leadership", "Digital Transformation"],
       social: {
         linkedin: "#",
         twitter: "#",
-        email: "sarah@yoursite.com"
+        email: "savage@yoursite.com"
       },
       image: "bg-gradient-to-br from-blue-400 to-blue-600"
     },
     {
-      name: "Mike Chen",
+      name: "Faisal Faisal Sameer",
       role: "CTO & Lead Developer",
       bio: "Full-stack developer and technology architect with expertise in scalable web applications and cloud infrastructure. Loves solving complex technical challenges.",
       skills: ["Full-Stack Development", "Cloud Architecture", "DevOps", "System Design"],
       social: {
         linkedin: "#",
         github: "#",
-        email: "mike@yoursite.com"
+        email: "faisal@yoursite.com"
       },
       image: "bg-gradient-to-br from-green-400 to-green-600"
     }
@@ -37,8 +37,9 @@ export default function Team() {
       </div>
 
       {/* Team Members Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        {teamMembers.map((member, index) => (
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-4xl">
+          {teamMembers.map((member, index) => (
           <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
             {/* Profile Image Placeholder */}
             <div className={`h-64 ${member.image} flex items-center justify-center`}>
@@ -116,6 +117,7 @@ export default function Team() {
             </div>
           </div>
         ))}
+        </div>
       </div>
 
       {/* Company Culture Section */}
