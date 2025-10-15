@@ -1,18 +1,9 @@
 export default function Blog() {
   const blogPosts = [
     {
-      title: "The Future of Web Development: Trends to Watch in 2025",
-      excerpt: "Explore the latest trends shaping the web development landscape, from AI integration to new frameworks and technologies.",
-      author: "Sarah Johnson",
-      date: "March 15, 2025",
-      category: "Technology",
-      readTime: "5 min read",
-      featured: true
-    },
-    {
       title: "Building Scalable Applications with Microservices",
       excerpt: "Learn how microservices architecture can help you build more maintainable and scalable applications.",
-      author: "Mike Chen",
+      author: "Efan Savage",
       date: "March 10, 2025",
       category: "Architecture",
       readTime: "8 min read",
@@ -21,7 +12,7 @@ export default function Blog() {
     {
       title: "UX Design Principles That Drive Conversions",
       excerpt: "Discover the key UX design principles that can significantly improve your website's conversion rates.",
-      author: "Emily Rodriguez",
+      author: "Lina Witt",
       date: "March 8, 2025",
       category: "Design",
       readTime: "6 min read",
@@ -30,25 +21,16 @@ export default function Blog() {
     {
       title: "Mobile-First Development: Best Practices",
       excerpt: "Essential strategies for implementing mobile-first development in your next project.",
-      author: "David Kim",
+      author: "Faisal Faisal Sameer",
       date: "March 5, 2025",
       category: "Mobile",
       readTime: "7 min read",
       featured: false
     },
     {
-      title: "Securing Your Web Applications: A Complete Guide",
-      excerpt: "Comprehensive security practices to protect your web applications from common vulnerabilities.",
-      author: "Alex Thompson",
-      date: "March 1, 2025",
-      category: "Security",
-      readTime: "10 min read",
-      featured: true
-    },
-    {
       title: "The Rise of AI in Software Development",
       excerpt: "How artificial intelligence is transforming the way we develop, test, and deploy software applications.",
-      author: "Lisa Wang",
+      author: "Phil Savage",
       date: "February 28, 2025",
       category: "AI & ML",
       readTime: "9 min read",
