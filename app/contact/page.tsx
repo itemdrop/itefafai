@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -18,43 +19,34 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    try {
-      // Send email directly to efansav@gmail.com using Formspree
-      const response = await fetch('https://formspree.io/f/efansav@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          subject: formData.subject,
-          message: formData.message,
-          _replyto: formData.email, // This allows you to reply directly to the sender
-          _subject: `New Contact Form Message: ${formData.subject}`,
-        }),
-      });
-
-      if (response.ok) {
-        alert('Thank you for your message! We\'ll get back to you soon.');
-        setFormData({
-          name: '',
-          email: '',
-          company: '',
-          subject: '',
-          message: ''
-        });
-      } else {
-        alert('There was an error sending your message. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('There was an error sending your message. Please try again.');
-    }
+    // Create email content
+    const subject = encodeURIComponent(`New Contact Form Message: ${formData.subject}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Company: ${formData.company || 'Not provided'}\n` +
+      `Subject: ${formData.subject}\n\n` +
+      `Message:\n${formData.message}\n\n` +
+      `---\nThis message was sent from your website contact form.`
+    );
+    
+    // Open default email client with pre-filled content
+    const mailtoLink = `mailto:efansav@gmail.com?subject=${subject}&body=${body}`;
+    window.open(mailtoLink, '_blank');
+    
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      company: '',
+      subject: '',
+      message: ''
+    });
+    
+    alert('Your email client should open with the message ready to send!');
   };
 
   return (
