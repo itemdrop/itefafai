@@ -1,8 +1,8 @@
 # Email Setup Instructions
 
-## ✅ ACTIVE: Using Formspree for Automatic Email Sending
+## Current Status: Using mailto: (opens email client)
 
-The contact form is now configured with Formspree endpoint `https://formspree.io/f/xvgwdrvo` and will automatically send emails to efansav@gmail.com when users submit the form.
+The contact form is currently set to open your default email client with the message pre-filled. This works immediately but requires users to have an email client set up.
 
 ## To Set Up Automatic Email Sending:
 
@@ -17,7 +17,7 @@ The contact form is now configured with Formspree endpoint `https://formspree.io
 const handleSubmit = async (e) => {
   e.preventDefault();
   
-https://formspree.io/f/xvgwdrvo, {
+  const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -48,12 +48,10 @@ https://formspree.io/f/xvgwdrvo, {
 2. Enter efansav@gmail.com to get an access key
 3. Replace the current handleSubmit with Web3Forms API call
 
-## ✅ Current Active Method: Formspree
-- ✅ Automatic email sending
-- ✅ Professional user experience
-- ✅ No user email client required
-- ✅ Direct delivery to efansav@gmail.com
-- ✅ Reply-to functionality included
-- ✅ Free for up to 50 submissions/month
+## Current Method (mailto:)
+- ✅ Works immediately
+- ✅ No setup required
+- ❌ Requires user to have email client
+- ❌ Less professional experience
 
-The contact form is now fully functional and ready to receive messages!
+Choose the option that works best for your needs!
