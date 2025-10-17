@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Your Professional Website",
   description: "A modern website with multiple pages showcasing services, portfolio, and more",
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({

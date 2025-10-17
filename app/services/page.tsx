@@ -63,28 +63,28 @@ export default function Services() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       {/* Header */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+      <div className="text-center mb-12 sm:mb-16">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our Services</h1>
+        <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
           We offer a comprehensive range of digital services to help your business succeed in today's competitive market.
         </p>
       </div>
 
       {/* Services Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
         {services.map((service, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md p-6 border hover:shadow-lg transition-shadow">
-            <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4 text-blue-600">
+          <div key={index} className="bg-white rounded-lg shadow-md p-4 sm:p-6 border hover:shadow-lg transition-shadow">
+            <div className="w-12 sm:w-16 h-12 sm:h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4 text-blue-600">
               {service.icon}
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
-            <p className="text-gray-600 mb-4">{service.description}</p>
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
+            <p className="text-gray-600 mb-4 text-sm sm:text-base">{service.description}</p>
             <ul className="space-y-2">
               {service.features.map((feature, featureIndex) => (
                 <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                  <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   {feature}
@@ -96,8 +96,8 @@ export default function Services() {
       </div>
 
       {/* Process Section */}
-      <section className="bg-gray-50 rounded-lg p-8 md:p-12 mb-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Our Process</h2>
+      <section className="bg-gray-50 rounded-lg p-6 sm:p-8 md:p-12 mb-12 sm:mb-16">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12">Our Process</h2>
         <div className="grid md:grid-cols-4 gap-8">
           <div className="text-center">
             <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>

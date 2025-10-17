@@ -27,35 +27,35 @@ export default function Team() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       {/* Header */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Meet Our Team</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+      <div className="text-center mb-12 sm:mb-16">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Meet Our Team</h1>
+        <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
           Our diverse team of experts is passionate about delivering exceptional results and helping your business succeed.
         </p>
       </div>
 
       {/* Team Members Grid */}
       <div className="flex justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-4xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16 max-w-4xl">
           {teamMembers.map((member, index) => (
           <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
             {/* Profile Image Placeholder */}
-            <div className={`h-64 ${member.image} flex items-center justify-center`}>
+            <div className={`h-48 sm:h-64 ${member.image} flex items-center justify-center`}>
               <div className="text-white text-center">
-                <div className="w-24 h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 sm:w-24 h-16 sm:h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 sm:w-12 h-8 sm:h-12" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                   </svg>
                 </div>
-                <p className="text-sm opacity-80">Profile Photo</p>
+                <p className="text-xs sm:text-sm opacity-80">Profile Photo</p>
               </div>
             </div>
 
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
-              <p className="text-blue-600 font-medium mb-3">{member.role}</p>
+            <div className="p-4 sm:p-6">
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
+              <p className="text-blue-600 font-medium mb-3 text-sm sm:text-base">{member.role}</p>
               <p className="text-gray-600 mb-4 text-sm leading-relaxed">{member.bio}</p>
               
               {/* Skills */}
