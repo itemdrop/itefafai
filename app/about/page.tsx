@@ -87,19 +87,25 @@ export default function About() {
         <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
         <div className="prose max-w-none text-gray-600">
           <p className="text-lg mb-4">
-            Founded in 2020, our company began with a simple vision: to bridge the gap between innovative technology 
-            and practical business solutions. What started as a small team of passionate developers has grown into 
-            a full-service digital agency.
+            In August 2025, as part of a school project, I invited a friend to collaborate with me on its development.
+            Having prior experience with Next.js and confidence in my web development skills,
+            I chose to utilize this framework for the project. 
+            This collaboration also provided an opportunity for me to share my knowledge and guide my friend through the process of building a website.
           </p>
           <p className="text-lg mb-4">
-            Over the years, we've had the privilege of working with businesses of all sizes, from startups to 
-            enterprise corporations. Each project has taught us valuable lessons and helped us refine our approach 
-            to delivering exceptional results.
+         We are continually striving to improve our skills and expand our knowledge in web development. 
+         Our goal is to create high-quality, innovative websites that reflect our dedication and attention to detail. 
+         We believe that growth comes through constant learning and perseverance, and we are committed to refining our abilities to achieve the best possible results.
+          We aim not only to meet expectations but to exceed them, and we will not stop pursuing excellence in everything we create.
           </p>
           <p className="text-lg">
             Today, we continue to evolve and adapt to the changing digital landscape, always staying true to our 
             core values of innovation, integrity, and excellence. We're excited about the future and look forward 
-            to helping more businesses achieve their goals through technology.
+            to helping more businesses achieve their goals through technology. 
+            </p>
+
+          <p className="text-lg">
+          -CEO Efan Savage & CTO Faisal Faisal Sammer
           </p>
         </div>
       </section>
