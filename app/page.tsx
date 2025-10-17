@@ -2,11 +2,11 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-blue-600 mb-6">
             Welcome to <span className="text-blue-600">YourSight</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">

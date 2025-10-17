@@ -27,11 +27,11 @@ export default function Team() {
   ];
 
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Meet Our <span className="text-blue-600">Team</span></h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">Meet Our <span className="text-blue-600">Team</span></h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
             Our diverse team of experts is passionate about delivering exceptional results and helping your business succeed.
           </p>

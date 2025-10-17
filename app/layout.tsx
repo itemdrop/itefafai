@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "./components/Navigation";
 import PageTransition from "./components/PageTransition";
+import LiveBackground from "./components/LiveBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +33,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white relative`}
       >
+        <LiveBackground />
         <Navigation />
         <PageTransition>
-          <main className="min-h-screen">
+          <main className="min-h-screen relative z-10">
             {children}
           </main>
         </PageTransition>

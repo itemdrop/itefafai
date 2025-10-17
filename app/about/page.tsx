@@ -1,10 +1,10 @@
 export default function About() {
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">About <span className="text-blue-600">Us</span></h1>
+          <h1 className="text-4xl font-bold text-blue-600 mb-4">About <span className="text-blue-600">Us</span></h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Learn more about our company, our mission, and what drives us to deliver exceptional results for our clients.
           </p>

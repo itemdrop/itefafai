@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 export default function Services() {
   const services = [
     {
@@ -62,39 +66,149 @@ export default function Services() {
     }
   ];
 
+  // Animation variants for service cards
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.9
+    },
+    visible: (index: number) => ({
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        delay: index * 0.1,
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94] as const
+      }
+    }),
+    hover: {
+      y: -8,
+      scale: 1.02,
+      boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+      transition: {
+        duration: 0.3,
+        ease: [0.25, 0.46, 0.45, 0.94] as const
+      }
+    }
+  };
+
+  // Animation variants for icons
+  const iconVariants = {
+    hover: {
+      scale: 1.1,
+      rotate: 5,
+      transition: {
+        duration: 0.3,
+        ease: [0.25, 0.46, 0.45, 0.94] as const
+      }
+    }
+  };
+
+  // Animation variants for features
+  const featureVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (index: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: 0.2 + (index * 0.1),
+        duration: 0.4,
+        ease: [0.25, 0.46, 0.45, 0.94] as const
+      }
+    })
+  };
+
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our <span className="text-blue-600">Services</span></h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">Our <span className="text-blue-600">Services</span></h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
             We offer a comprehensive range of digital services to help your business succeed in today's competitive market.
           </p>
         </div>
 
       {/* Services Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+      <motion.div 
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16"
+        initial="hidden"
+        animate="visible"
+      >
         {services.map((service, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md p-4 sm:p-6 border hover:shadow-lg transition-shadow">
-            <div className="w-12 sm:w-16 h-12 sm:h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4 text-blue-600">
+          <motion.div 
+            key={index} 
+            className="bg-white rounded-lg shadow-md p-4 sm:p-6 border cursor-pointer overflow-hidden"
+            variants={cardVariants}
+            custom={index}
+            whileHover="hover"
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div 
+              className="w-12 sm:w-16 h-12 sm:h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4 text-blue-600"
+              variants={iconVariants}
+              whileHover="hover"
+            >
               {service.icon}
-            </div>
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
-            <p className="text-gray-600 mb-4 text-sm sm:text-base">{service.description}</p>
-            <ul className="space-y-2">
+            </motion.div>
+            
+            <motion.h3 
+              className="text-lg sm:text-xl font-semibold text-gray-900 mb-3"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 + 0.2, duration: 0.5 }}
+            >
+              {service.title}
+            </motion.h3>
+            
+            <motion.p 
+              className="text-gray-600 mb-4 text-sm sm:text-base"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
+            >
+              {service.description}
+            </motion.p>
+            
+            <motion.ul 
+              className="space-y-2"
+              initial="hidden"
+              animate="visible"
+            >
               {service.features.map((feature, featureIndex) => (
-                <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                  <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <motion.li 
+                  key={featureIndex} 
+                  className="flex items-center text-sm text-gray-600"
+                  variants={featureVariants}
+                  custom={featureIndex}
+                  whileHover={{
+                    x: 5,
+                    transition: { duration: 0.2 }
+                  }}
+                >
+                  <motion.svg 
+                    className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    whileHover={{
+                      scale: 1.2,
+                      rotate: 360,
+                      transition: { duration: 0.3 }
+                    }}
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+                  </motion.svg>
                   {feature}
-                </li>
+                </motion.li>
               ))}
-            </ul>
-          </div>
+            </motion.ul>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Process Section */}
       <section className="bg-gray-50 rounded-lg p-6 sm:p-8 md:p-12 mb-12 sm:mb-16">
