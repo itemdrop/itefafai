@@ -22,17 +22,22 @@ export default function Contact() {
     e.preventDefault();
     
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://formspree.io/f/xvgwdrvo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          subject: formData.subject,
+          message: formData.message,
+          _replyto: formData.email,
+        }),
       });
 
-      const result = await response.json();
-
-      if (result.success) {
+      if (response.ok) {
         alert('Message sent successfully! We\'ll get back to you soon.');
         // Reset form
         setFormData({
