@@ -68,3 +68,56 @@ a, button, input, textarea, select {
     transform: translateX(0);
   }
 }
+
+/* Page transition overflow fix */
+.page-transition {
+  overflow-x: hidden;
+}
+
+/* Prevent horizontal scroll during slide transitions */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Smooth page transitions */
+.page-container {
+  position: relative;
+  width: 100%;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* Enhanced transition performance */
+.page-container * {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Smooth blur transitions */
+.blur-transition {
+  transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Advanced easing for smoother animations */
+.smooth-entrance {
+  animation: smoothEntrance 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes smoothEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96) rotateX(10deg);
+    filter: blur(4px);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(10px) scale(0.98) rotateX(2deg);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0px);
+  }
+}

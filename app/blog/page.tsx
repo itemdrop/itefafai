@@ -43,14 +43,15 @@ export default function Blog() {
   const regularPosts = blogPosts.filter(post => !post.featured);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Header */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Blog</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Stay updated with the latest insights, trends, and best practices in technology and digital innovation.
-        </p>
-      </div>
+    <div className="bg-gradient-to-b from-blue-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Our <span className="text-blue-600">Blog</span></h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Stay updated with the latest insights, trends, and best practices in technology and digital innovation.
+          </p>
+        </div>
 
       {/* Featured Post */}
       {featuredPost && (
@@ -167,6 +168,7 @@ export default function Blog() {
           ))}
         </div>
       </section>
+      </div>
     </div>
   );
 }

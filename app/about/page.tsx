@@ -1,13 +1,14 @@
 export default function About() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Header */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">About Us</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Learn more about our company, our mission, and what drives us to deliver exceptional results for our clients.
-        </p>
-      </div>
+    <div className="bg-gradient-to-b from-blue-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">About <span className="text-blue-600">Us</span></h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Learn more about our company, our mission, and what drives us to deliver exceptional results for our clients.
+          </p>
+        </div>
 
       {/* Mission Section */}
       <section className="mb-16">
@@ -103,12 +104,12 @@ export default function About() {
             core values of innovation, integrity, and excellence. We're excited about the future and look forward 
             to helping more businesses achieve their goals through technology. 
             </p>
-
           <p className="text-lg">
           -CEO Efan Savage & CTO Faisal Faisal Sammer
           </p>
         </div>
       </section>
+      </div>
     </div>
   );
 }
