@@ -43,10 +43,10 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ease-in-out transform hover:scale-105 ${
                     pathname === item.href
-                      ? 'bg-blue-100 text-blue-700'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                      ? 'bg-blue-100 text-blue-700 shadow-sm'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600 hover:shadow-sm'
                   }`}
                 >
                   {item.name}
@@ -79,18 +79,22 @@ const Navigation = () => {
       {/* Mobile Navigation Menu */}
       <div className={`md:hidden transition-all duration-300 ease-in-out ${
         isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-      } overflow-hidden bg-white border-t border-gray-200`}>
+      } overflow-hidden bg-white border-t border-gray-200 shadow-lg`}>
         <div className="px-2 pt-2 pb-3 space-y-1">
-          {navItems.map((item) => (
+          {navItems.map((item, index) => (
             <Link
               key={item.name}
               href={item.href}
               onClick={closeMobileMenu}
-              className={`block px-3 py-3 rounded-md text-base font-medium transition-colors ${
+              className={`block px-3 py-3 rounded-md text-base font-medium transition-all duration-200 ease-in-out transform hover:scale-105 ${
                 pathname === item.href
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                  ? 'bg-blue-100 text-blue-700 shadow-sm'
+                  : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600 hover:shadow-sm'
               }`}
+              style={{ 
+                animationDelay: `${index * 50}ms`,
+                animation: isMobileMenuOpen ? 'slideInFromLeft 0.3s ease-out forwards' : 'none'
+              }}
             >
               {item.name}
             </Link>

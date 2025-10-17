@@ -69,7 +69,7 @@ export default function Portfolio() {
         {categories.map((category) => (
           <button
             key={category}
-            className="px-4 sm:px-6 py-2 text-sm sm:text-base rounded-full border border-gray-300 text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors"
+            className="px-4 sm:px-6 py-2 text-sm sm:text-base rounded-full border border-gray-300 text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-lg"
           >
             {category}
           </button>
@@ -79,11 +79,11 @@ export default function Portfolio() {
       {/* Projects Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
         {projects.map((project, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+          <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden hover-lift">
             {/* Project Image Placeholder */}
-            <div className={`h-40 sm:h-48 ${project.image} flex items-center justify-center`}>
+            <div className={`h-40 sm:h-48 ${project.image} flex items-center justify-center transition-all duration-200 hover:brightness-110`}>
               <div className="text-white text-center">
-                <svg className="w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-2 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-2 opacity-80 transition-all duration-200 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 <p className="text-xs sm:text-sm opacity-80">Project Preview</p>
