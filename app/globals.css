@@ -1,26 +1,189 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Cyan palette for layout and accents */
+  --cyan-50:  #e9fbfc;
+  --cyan-100: #d6f7f9;
+  --cyan-200: #bff0f4;
+  --cyan-400: #2dd7e3;
+  --cyan-500: #00c4d1; /* primary cyan */
+  --cyan-600: #00a7b0;
+  --cyan-700: #04878a;
+  --cyan-900: #003a3f;
+
+  --bg: #fbfdfe;
+  --text: #083032;
+  --radius: 10px;
+  --btn-padding: 0.6rem 1rem;
+  --transition-fast: 180ms cubic-bezier(.2,.9,.2,1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Page layout using the cyan tone */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--text);
+  background: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Optional container with subtle cyan accent */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(180deg, rgba(0,196,209,0.03), rgba(255,255,255,0.6));
+  border-radius: calc(var(--radius) + 2px);
+  box-shadow: 0 6px 20px rgba(3,28,30,0.04);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Stronger, more defined button system */
+.btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: var(--btn-padding);
+  border-radius: var(--radius);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+  user-select: none;
+  border: 1px solid transparent;
+}
+
+/* Primary button: bold cyan, depth and accessible focus */
+.btn-primary {
+  background: linear-gradient(180deg, var(--cyan-400), var(--cyan-500));
+  color: white;
+  box-shadow:
+    0 10px 30px rgba(0,196,209,0.12),
+    inset 0 -1px 0 rgba(255,255,255,0.08);
+  border-color: rgba(0,0,0,0.06);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0,196,209,0.16);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow:
+    0 12px 36px rgba(0,196,209,0.14),
+    0 0 0 6px rgba(0,196,209,0.12); /* focus ring for accessibility */
+}
+
+/* Outline / Secondary variant using cyan border */
+.btn-outline {
+  background: transparent;
+  color: var(--cyan-700);
+  border: 1.5px solid rgba(0,196,209,0.18);
+  box-shadow: none;
+}
+
+.btn-outline:hover {
+  background: rgba(0,196,209,0.06);
+  transform: translateY(-2px);
+}
+
+/* Small / Large modifiers */
+.btn-sm { padding: 0.35rem 0.7rem; font-size: 0.875rem; border-radius: 8px; }
+.btn-lg { padding: 0.85rem 1.4rem; font-size: 1.05rem; border-radius: 12px; }
+
+/* Disabled state */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Utility: subtle cyan divider */
+.hr-cyan {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,196,209,0.18), transparent);
+  border: none;
+  margin: 1rem 0;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* Layout styles */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 320px;
+  padding: 24px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.05);
+}
+
+.header {
+  margin: 0;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  text-decoration: none;
+  color: white !important;
+  border-color: rgba(255,255,255,0.2) !important;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.1) !important;
+  color: white !important;
+}
+
+.main-content {
+  flex: 1;
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+/* Responsive layout */
+@media (max-width: 720px) {
+  .container { 
+    flex-direction: column; 
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .sidebar { 
+    width: 100% !important; 
+    border-right: none !important; 
+    border-bottom: 1px solid rgba(255,255,255,0.1); 
+  }
+  .main-content { 
+    padding: 16px !important; 
+  }
+  .nav-grid { 
+    grid-template-columns: 1fr 1fr !important; 
+  }
 }
