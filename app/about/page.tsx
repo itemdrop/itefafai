@@ -4,7 +4,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-Blue mb-4">About <span className="text-Blue">Us</span></h1>
+          <h1 className="text-4xl font-bold text-Blue-600 mb-4">About <span className="text-Blue-600">Us</span></h1>
           <p className="text-xl text-white max-w-3xl mx-auto">
             Learn more about our company, our mission, and what drives us to deliver exceptional results for our clients.
           </p>
@@ -14,7 +14,7 @@ export default function About() {
       <section className="mb-16">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold text-Blue mb-6">Our Mission</h2>
+            <h2 className="text-3xl font-bold text-Blue-600 mb-6">Our Mission</h2>
             <p className="text-lg text-white mb-4">
               We are dedicated to providing innovative solutions that help businesses thrive in today's digital landscape. 
               Our commitment to excellence and customer satisfaction drives everything we do.
@@ -49,7 +49,7 @@ export default function About() {
 
       {/* Values Section */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold text-center text-white mb-12">Our Values</h2>
+        <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Our Values</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <div className="text-center p-6 bg-white rounded-lg shadow-md border">
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -57,7 +57,7 @@ export default function About() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3 text-black">Innovation</h3>
+            <h3 className="text-xl font-semibold mb-3 text-blue-600">Innovation</h3>
             <p className="text-black">We embrace cutting-edge technologies and creative solutions to stay ahead of the curve.</p>
           </div>
 
@@ -67,7 +67,7 @@ export default function About() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.Ws 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3 text-black">Integrity</h3>
+            <h3 className="text-xl font-semibold mb-3 text-blue-600">Integrity</h3>
             <p className="text-black">We build trust through transparency, honesty, and ethical business practices.</p>
           </div>
 
@@ -77,7 +77,7 @@ export default function About() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3 text-black">Excellence</h3>
+            <h3 className="text-xl font-semibold mb-3 text-blue-600">Excellence</h3>
             <p className="text-black">We strive for perfection in every project, delivering quality that exceeds expectations.</p>
           </div>
         </div>
@@ -85,7 +85,7 @@ export default function About() {
 
       {/* Story Section */}
       <section className="bg-gray-50 rounded-lg p-8 md:p-12">
-        <h2 className="text-3xl font-bold text-black mb-6">Our Journey</h2>
+        <h2 className="text-3xl font-bold text-blue-600 mb-6">Our Journey</h2>
         <div className="prose max-w-none text-black">
           <p className="text-lg mb-4">
             In August 2025, as part of a school project, I invited a friend to collaborate with me on its development.
