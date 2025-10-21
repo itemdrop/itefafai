@@ -65,8 +65,10 @@ export default function LiveBackground() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Animate particles
+  // Animate particles with requestAnimationFrame for smoother performance
   useEffect(() => {
+    let animationFrameId: number;
+    
     const animateParticles = () => {
       setParticles(prevParticles =>
         prevParticles.map(particle => {
@@ -90,105 +92,131 @@ export default function LiveBackground() {
           };
         })
       );
+      
+      animationFrameId = requestAnimationFrame(animateParticles);
     };
 
-    const interval = setInterval(animateParticles, 32);
-    return () => clearInterval(interval);
+    animationFrameId = requestAnimationFrame(animateParticles);
+    
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, [dimensions]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" style={{ isolation: 'isolate' }}>
       {/* Animated gradient background */}
       <motion.div
         className="absolute inset-0"
         animate={{
           background: [
-            'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 50%)',
-            'radial-gradient(circle at 80% 20%, rgba(147, 197, 253, 0.15) 0%, transparent 50%)',
-            'radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.14) 0%, transparent 50%)',
-            'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 50%)'
+            'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%)',
+            'radial-gradient(circle at 80% 20%, rgba(147, 197, 253, 0.10) 0%, transparent 50%)',
+            'radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.09) 0%, transparent 50%)',
+            'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%)'
           ]
         }}
         transition={{
-          duration: 20,
+          duration: 25,
           repeat: Infinity,
           ease: "easeInOut"
         }}
       />
 
-      {/* Floating morphing shapes */}
-      {[...Array(4)].map((_, index) => {
-        const baseX = 100 + index * 200;
-        const baseY = 100 + index * 150;
+      {/* Floating morphing shapes - reduced from 4 to 2 */}
+      {[...Array(2)].map((_, index) => {
+        const baseX = 150 + index * 300;
+        const baseY = 150 + index * 200;
         
         return (
           <motion.div
             key={`shape-${index}`}
-            className="absolute opacity-40"
+            className="absolute opacity-30"
             animate={{
               x: [
                 baseX,
-                baseX + 100,
+                baseX + 60,
                 baseX
               ],
               y: [
                 baseY,
-                baseY + 80,
+                baseY + 40,
                 baseY
               ],
-              rotate: [0, 180, 360],
-              borderRadius: ["50%", "25%", "50%"],
-              scale: [0.8, 1.1, 0.8]
+              rotate: [0, 90, 180],
+              borderRadius: ["50%", "30%", "50%"],
+              scale: [0.9, 1.05, 0.9]
             }}
             transition={{
-              duration: 25 + index * 5,
+              duration: 20 + index * 8,
               repeat: Infinity,
               ease: "easeInOut"
             }}
             style={{
-              width: `${60 + index * 25}px`,
-              height: `${60 + index * 25}px`,
-              background: `linear-gradient(45deg, rgba(59, 130, 246, ${0.08 + index * 0.02}), rgba(147, 197, 253, ${0.06 + index * 0.01}))`,
-              border: `2px solid rgba(59, 130, 246, ${0.15 + index * 0.03})`,
-              boxShadow: `0 0 20px rgba(59, 130, 246, ${0.1 + index * 0.02})`
+              width: `${80 + index * 30}px`,
+              height: `${80 + index * 30}px`,
+              background: `linear-gradient(45deg, rgba(59, 130, 246, ${0.06 + index * 0.02}), rgba(147, 197, 253, ${0.04 + index * 0.01}))`,
+              border: `1px solid rgba(59, 130, 246, ${0.12 + index * 0.02})`,
+              boxShadow: `0 0 15px rgba(59, 130, 246, ${0.08 + index * 0.02})`
             }}
           />
         );
       })}
 
-      {/* Interactive mouse follower */}
+      {/* Interactive mouse follower - simplified */}
       <motion.div
         className="absolute pointer-events-none"
         animate={{
-          x: mousePosition.x - 75,
-          y: mousePosition.y - 75
+          x: mousePosition.x - 50,
+          y: mousePosition.y - 50
         }}
         transition={{
           type: "spring",
-          stiffness: 50,
-          damping: 15
+          stiffness: 30,
+          damping: 20
         }}
       >
         <motion.div
-          className="w-40 h-40 rounded-full opacity-30"
+          className="w-24 h-24 rounded-full opacity-20"
           style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
-            filter: 'blur(20px)'
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
+            filter: 'blur(15px)'
           }}
           animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.4, 0.2],
-            rotate: [0, 360]
+            scale: [1, 1.15, 1],
+            opacity: [0.15, 0.25, 0.15]
           }}
           transition={{
-            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-            opacity: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-            rotate: { duration: 15, repeat: Infinity, ease: "linear" }
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
           }}
         />
       </motion.div>
 
-      {/* Floating particles */}
+      {/* Subtle grid overlay - simplified */}
+      <motion.div
+        className="absolute inset-0 opacity-5"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '80px 80px'
+        }}
+        animate={{
+          opacity: [0.03, 0.08, 0.03]
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+
+      {/* Floating particles - reduced and optimized */}
       {particles.map((particle) => (
         <motion.div
           key={`particle-${particle.id}`}
@@ -198,77 +226,44 @@ export default function LiveBackground() {
             top: particle.y,
             width: particle.size,
             height: particle.size,
-            background: `rgba(59, 130, 246, ${particle.opacity * 4.5})`,
-            boxShadow: `0 0 ${particle.size * 6}px rgba(59, 130, 246, ${particle.opacity * 3.5}), 0 0 ${particle.size * 12}px rgba(59, 130, 246, ${particle.opacity * 0.8}), 0 0 ${particle.size * 18}px rgba(147, 197, 253, ${particle.opacity * 0.4})`
+            background: `rgba(59, 130, 246, ${particle.opacity * 0.6})`,
+            boxShadow: `0 0 ${particle.size * 3}px rgba(59, 130, 246, ${particle.opacity * 0.4}), 0 0 ${particle.size * 6}px rgba(59, 130, 246, ${particle.opacity * 0.2})`
           }}
           animate={{
-            scale: [1, 1.8, 1],
-            opacity: [particle.opacity * 9, particle.opacity * 11.5, particle.opacity * 18]
+            scale: [1, 1.2, 1],
+            opacity: [particle.opacity * 0.8, particle.opacity * 1.2, particle.opacity * 0.8]
           }}
           transition={{
-            duration: 3 + Math.random() * 2,
+            duration: 4 + Math.random() * 2,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
       ))}
 
-      {/* Subtle grid overlay */}
+      {/* Central morphing loader - simplified */}
       <motion.div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.15) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px'
-        }}
-        animate={{
-          opacity: [0.05, 0.12, 0.05],
-          backgroundSize: ['60px 60px', '80px 80px', '60px 60px']
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      {/* Central morphing loader (more visible) */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-5"
         animate={{
           rotate: [0, 360]
         }}
         transition={{
-          duration: 30,
+          duration: 40,
           repeat: Infinity,
           ease: "linear"
         }}
       >
         <motion.div
-          className="w-32 h-32 border-2 border-blue-300"
+          className="w-24 h-24 border border-blue-300"
           style={{
-            boxShadow: '0 0 30px rgba(59, 130, 246, 0.1)'
+            boxShadow: '0 0 20px rgba(59, 130, 246, 0.08)'
           }}
           animate={{
-            borderRadius: ["50%", "20%", "50%"],
-            scale: [0.8, 1.1, 0.8]
+            borderRadius: ["50%", "25%", "50%"],
+            scale: [0.9, 1.05, 0.9]
           }}
           transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute inset-3 bg-gradient-to-r from-blue-400 to-blue-600 opacity-15"
-          animate={{
-            borderRadius: ["50%", "20%", "50%"],
-            scale: [1, 1.05, 1]
-          }}
-          transition={{
-            duration: 6,
+            duration: 12,
             repeat: Infinity,
             ease: "easeInOut"
           }}

@@ -67,33 +67,65 @@ const pageTransition = {
   damping: 20,
   stiffness: 300,
   mass: 0.8,
-  duration: 0.7
+  duration: 0.8
 };
 
-// Transition overlay variants
+// Synchronized transition timing - all animations use this duration
+const TRANSITION_DURATION = 0.8;
+
+// Transition overlay variants - synced with page transition and optimized for rapid changes
 const overlayVariants = {
   hidden: { 
     opacity: 0,
-    scale: 0,
+    scale: 0.8,
     rotate: 0
   },
   visible: { 
     opacity: 1,
     scale: 1,
-    rotate: 360
+    rotate: 180,
+    transition: {
+      duration: TRANSITION_DURATION * 0.25, // Faster appearance
+      ease: [0.25, 0.46, 0.45, 0.94]
+    }
   },
   exit: { 
     opacity: 0,
-    scale: 0,
-    rotate: 720
+    scale: 1.1,
+    rotate: 270,
+    transition: {
+      duration: TRANSITION_DURATION * 0.15, // Faster exit
+      ease: [0.25, 0.46, 0.45, 0.94]
+    }
   }
 };
 
-// Page loading indicator
+// Page loading indicator - synchronized with page transition
 const loadingVariants = {
-  hidden: { width: 0 },
+  hidden: { 
+    width: 0,
+    opacity: 0
+  },
   visible: { 
-    width: "100%"
+    width: "100%",
+    opacity: 1,
+    transition: {
+      width: {
+        duration: TRANSITION_DURATION * 0.7, // Complete 70% through transition
+        ease: [0.25, 0.46, 0.45, 0.94]
+      },
+      opacity: {
+        duration: 0.2,
+        ease: "easeOut"
+      }
+    }
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.2,
+      ease: "easeIn"
+    }
   }
 };
 
@@ -105,6 +137,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const pathname = usePathname();
   const previousPathname = useRef<string>('');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
+  const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   // Determine navigation direction
   const getDirection = (from: string, to: string): 'forward' | 'backward' | 'none' => {
@@ -121,25 +155,52 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const slideVariants = getMorphVariants(direction);
   
   useEffect(() => {
+    // Clear any existing timeout to prevent race conditions
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+      loadingTimeoutRef.current = null;
+    }
+    
+    if (previousPathname.current !== pathname && previousPathname.current !== '') {
+      setIsTransitioning(true);
+      setShowLoading(true);
+      
+      // Hide loading overlay after most of transition is complete
+      loadingTimeoutRef.current = setTimeout(() => {
+        setShowLoading(false);
+        loadingTimeoutRef.current = null;
+      }, TRANSITION_DURATION * 1000 * 0.7);
+    }
+    
     previousPathname.current = pathname;
+    
+    // Cleanup on unmount
+    return () => {
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+        loadingTimeoutRef.current = null;
+      }
+    };
   }, [pathname]);
 
   return (
     <>
-      {/* Transition Overlay Effect */}
+      {/* Transition Overlay Effect - clean central loader only */}
       <AnimatePresence>
-        {isTransitioning && (
+        {showLoading && (
           <motion.div
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={overlayVariants}
             className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
-            style={{ 
-              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(147, 197, 253, 0.05) 100%)'
+            onAnimationComplete={(definition) => {
+              if (definition === "exit") {
+                setShowLoading(false);
+              }
             }}
           >
-            {/* Animated Logo/Icon */}
+            {/* Animated Logo/Icon - synchronized rotation */}
             <div className="relative">
               <motion.div 
                 className="w-16 h-16 border-4 border-blue-500 rounded-full"
@@ -148,9 +209,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
                   rotate: [0, 180, 360]
                 }}
                 transition={{ 
-                  duration: 0.6,
-                  repeat: Infinity,
-                  ease: "easeInOut"
+                  duration: TRANSITION_DURATION * 0.6,
+                  repeat: 1,
+                  ease: [0.25, 0.46, 0.45, 0.94]
                 }}
               />
               <motion.div 
@@ -160,24 +221,12 @@ export default function PageTransition({ children }: PageTransitionProps) {
                   opacity: [0.8, 0.4, 0.8]
                 }}
                 transition={{ 
-                  duration: 0.8,
-                  repeat: Infinity,
-                  ease: "easeInOut"
+                  duration: TRANSITION_DURATION * 0.5,
+                  repeat: 1,
+                  ease: [0.25, 0.46, 0.45, 0.94]
                 }}
               />
             </div>
-            
-            {/* Loading Progress Bar */}
-            <motion.div 
-              className="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gray-200 rounded-full overflow-hidden"
-            >
-              <motion.div
-                initial="hidden"
-                animate="visible" 
-                variants={loadingVariants}
-                className="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"
-              />
-            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -189,6 +238,12 @@ export default function PageTransition({ children }: PageTransitionProps) {
         onExitComplete={() => {
           window.scrollTo(0, 0);
           setIsTransitioning(false);
+          setShowLoading(false);
+          // Clear any pending timeouts
+          if (loadingTimeoutRef.current) {
+            clearTimeout(loadingTimeoutRef.current);
+            loadingTimeoutRef.current = null;
+          }
         }}
       >
         <motion.div
@@ -201,10 +256,26 @@ export default function PageTransition({ children }: PageTransitionProps) {
           className="min-h-screen page-container"
           style={{ 
             willChange: 'transform, opacity, filter',
-            isolation: 'isolate'
+            isolation: 'isolate',
+            backfaceVisibility: 'hidden',
+            perspective: '1000px'
           }}
-          onAnimationStart={() => setIsTransitioning(true)}
-          onAnimationComplete={() => setIsTransitioning(false)}
+          onAnimationStart={(definition) => {
+            if (definition === "in") {
+              setIsTransitioning(true);
+            }
+          }}
+          onAnimationComplete={(definition) => {
+            if (definition === "in") {
+              setIsTransitioning(false);
+              // Ensure loading is hidden when page transition completes
+              setShowLoading(false);
+              if (loadingTimeoutRef.current) {
+                clearTimeout(loadingTimeoutRef.current);
+                loadingTimeoutRef.current = null;
+              }
+            }
+          }}
         >
           {children}
         </motion.div>

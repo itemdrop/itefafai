@@ -126,7 +126,7 @@ export default function Services() {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">Our <span className="text-blue-600">Services</span></h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+          <p className="text-lg sm:text-xl text-white max-w-3xl mx-auto px-4">
             We offer a comprehensive range of digital services to help your business succeed in today's competitive market.
           </p>
         </div>
@@ -156,7 +156,7 @@ export default function Services() {
             </motion.div>
             
             <motion.h3 
-              className="text-lg sm:text-xl font-semibold text-gray-900 mb-3"
+              className="text-lg sm:text-xl font-semibold text-blue-600 mb-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.2, duration: 0.5 }}
@@ -212,26 +212,26 @@ export default function Services() {
 
       {/* Process Section */}
       <section className="bg-gray-50 rounded-lg p-6 sm:p-8 md:p-12 mb-12 sm:mb-16">
-        <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12">Our Process</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-blue-600 mb-8 sm:mb-12">Our Process</h2>
         <div className="grid md:grid-cols-4 gap-8">
           <div className="text-center">
             <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
-            <h3 className="text-lg font-semibold mb-2">Discovery</h3>
+            <h3 className="text-blue-600 font-semibold mb-2">Discovery</h3>
             <p className="text-gray-600">We understand your needs, goals, and challenges through detailed consultation.</p>
           </div>
           <div className="text-center">
             <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
-            <h3 className="text-lg font-semibold mb-2">Planning</h3>
+            <h3 className="text-blue-600  font-semibold mb-2">Planning</h3>
             <p className="text-gray-600">We create a comprehensive strategy and roadmap for your project.</p>
           </div>
           <div className="text-center">
             <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
-            <h3 className="text-lg font-semibold mb-2">Execution</h3>
+            <h3 className="text-blue-600 font-semibold mb-2">Execution</h3>
             <p className="text-gray-600">Our team implements the solution with regular updates and feedback loops.</p>
           </div>
           <div className="text-center">
             <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
-            <h3 className="text-lg font-semibold mb-2">Delivery</h3>
+            <h3 className="text-blue-600 font-semibold mb-2">Delivery</h3>
             <p className="text-gray-600">We deliver the final product with ongoing support and maintenance.</p>
           </div>
         </div>
