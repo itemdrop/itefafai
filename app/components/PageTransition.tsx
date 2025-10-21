@@ -98,7 +98,7 @@ const loadingVariants = {
 };
 
 interface PageTransitionProps {
-  children: React.ReactNode;
+  children?: any;
 }
 
 export default function PageTransition({ children }: PageTransitionProps) {
