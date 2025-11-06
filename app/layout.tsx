@@ -42,6 +42,7 @@ export default function RootLayout({
             {children}
           </main>
         </PageTransition>
+        <div id="portal-root" />
       </body>
     </html>
   );

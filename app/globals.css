@@ -121,3 +121,8 @@ html, body {
     filter: blur(0px);
   }
 }
+
+html.has-modal {
+  overflow: hidden;
+}
+
