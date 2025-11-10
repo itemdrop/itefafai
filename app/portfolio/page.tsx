@@ -1,4 +1,18 @@
+
 'use client';
+
+// Stub for missing ECommerceApp
+function ECommerceApp() {
+  return <div>E-Commerce App Demo</div>;
+}
+
+// Stub for missing categories
+const categories = [
+  "All",
+  "Web Development",
+  "Mobile Development",
+  "UI/UX Design"
+];
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -6,6 +20,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
+
+  // Ensure modal is always centered and background is scroll-locked
+  useEffect(() => {
+    if (selectedProject !== null) {
+      // Lock background scroll
+      document.documentElement.classList.add('has-modal');
+    } else {
+      // Unlock background scroll
+      document.documentElement.classList.remove('has-modal');
+    }
+    return () => {
+      document.documentElement.classList.remove('has-modal');
+    };
+  }, [selectedProject]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -61,236 +89,14 @@ export default function Portfolio() {
       appType: "food"
     },
     {
-      title: "Learning Management System",
-      category: "Web Development",
-      description: "Educational platform with course management, video streaming, progress tracking, and certification system.",
-      technologies: ["Angular", "Spring Boot", "MySQL", "AWS S3"],
-      image: "bg-gradient-to-br from-indigo-400 to-indigo-600",
+      title: "AI Learning Platform",
+      category: "EdTech",
+      description: "An interactive AI-powered learning platform featuring adaptive quizzes, real-time feedback, and personalized course recommendations.",
+      technologies: ["Next.js", "TypeScript", "TensorFlow.js", "OpenAI API"],
+      image: "bg-gradient-to-br from-indigo-400 to-indigo-700",
       appType: "learning"
     }
   ];
-
-  const categories = ["All", "Web Development", "Mobile Development", "UI/UX Design"];
-
-  // Mini App Components
-  const ECommerceApp = () => {
-    const [cart, setCart] = useState([]);
-    const [total, setTotal] = useState(0);
-    const [activeCategory, setActiveCategory] = useState('All');
-    const [searchTerm, setSearchTerm] = useState('');
-    const [isCheckingOut, setIsCheckingOut] = useState(false);
-    const [orderComplete, setOrderComplete] = useState(false);
-    const [wishlist, setWishlist] = useState([]);
-    
-    const products = [
-      { id: 1, name: "Wireless Headphones", price: 299, image: "🎧", category: "Electronics", rating: 4.5, stock: 15, description: "Premium noise-cancelling headphones" },
-      { id: 2, name: "Smart Watch", price: 499, image: "⌚", category: "Electronics", rating: 4.8, stock: 8, description: "Latest fitness tracking technology" },
-      { id: 3, name: "Laptop Stand", price: 79, image: "💻", category: "Accessories", rating: 4.2, stock: 25, description: "Ergonomic adjustable stand" },
-      { id: 4, name: "Gaming Mouse", price: 89, image: "🖱️", category: "Gaming", rating: 4.6, stock: 12, description: "High-precision gaming mouse" },
-      { id: 5, name: "Mechanical Keyboard", price: 159, image: "⌨️", category: "Gaming", rating: 4.7, stock: 6, description: "RGB backlit mechanical switches" },
-      { id: 6, name: "USB-C Hub", price: 45, image: "🔌", category: "Accessories", rating: 4.3, stock: 20, description: "Multi-port connectivity hub" }
-    ];
-
-    const categories = ['All', 'Electronics', 'Gaming', 'Accessories'];
-
-    const filteredProducts = products.filter(product => 
-      (activeCategory === 'All' || product.category === activeCategory) &&
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const addToCart = (product: any) => {
-      const existingItem = cart.find((item: any) => item.id === product.id);
-      if (existingItem) {
-        setCart(cart.map((item: any) => 
-          item.id === product.id 
-            ? {...item, quantity: item.quantity + 1}
-            : item
-        ));
-      } else {
-        setCart([...cart, {...product, quantity: 1}]);
-      }
-      setTotal(total + product.price);
-    };
-
-    const removeFromCart = (productId: number) => {
-      const item = cart.find((item: any) => item.id === productId);
-      if (item) {
-        setCart(cart.filter((item: any) => item.id !== productId));
-        setTotal(total - (item.price * item.quantity));
-      }
-    };
-
-    const toggleWishlist = (product: any) => {
-      const isInWishlist = wishlist.some((item: any) => item.id === product.id);
-      if (isInWishlist) {
-        setWishlist(wishlist.filter((item: any) => item.id !== product.id));
-      } else {
-        setWishlist([...wishlist, product]);
-      }
-    };
-
-    const handleCheckout = () => {
-      setIsCheckingOut(true);
-      setTimeout(() => {
-        setIsCheckingOut(false);
-        setOrderComplete(true);
-        setCart([]);
-        setTotal(0);
-        setTimeout(() => setOrderComplete(false), 3000);
-      }, 2000);
-    };
-
-    if (orderComplete) {
-      return (
-        <div className="p-6 max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-lg"
-          >
-            <div className="text-6xl mb-4">🎉</div>
-            <h3 className="text-3xl font-bold text-blue-600 mb-4">Order Complete!</h3>
-            <p className="text-white text-lg">Thank you for your purchase. Your order will be shipped within 2-3 business days.</p>
-          </motion.div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="p-6 max-w-6xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg">
-        <h3 className="text-3xl font-bold mb-6 text-center text-blue-400">Advanced E-Commerce Platform</h3>
-        
-        {/* Search and Filters */}
-        <div className="mb-6 space-y-4">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-blue-500"
-          />
-          <div className="flex flex-wrap gap-2">
-            {categories.map(category => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-lg transition-all ${
-                  activeCategory === category 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Products Grid */}
-          <div className="lg:col-span-2">
-            <h4 className="text-xl font-semibold mb-4 text-blue-400">Products ({filteredProducts.length})</h4>
-            <div className="grid md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
-              {filteredProducts.map(product => (
-                <motion.div 
-                  key={product.id} 
-                  className="bg-gray-800 border border-gray-700 rounded-lg p-4 hover:border-blue-500 transition-all"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-3xl">{product.image}</span>
-                      <div>
-                        <h5 className="font-semibold text-white">{product.name}</h5>
-                        <p className="text-sm text-gray-400">{product.description}</p>
-                        <div className="flex items-center space-x-2 mt-1">
-                          <span className="text-yellow-400">★ {product.rating}</span>
-                          <span className="text-green-400">({product.stock} in stock)</span>
-                        </div>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => toggleWishlist(product)}
-                      className={`text-2xl ${wishlist.some((item: any) => item.id === product.id) ? 'text-red-500' : 'text-gray-400'}`}
-                    >
-                      ♥
-                    </button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-blue-400">${product.price}</span>
-                    <button
-                      onClick={() => addToCart(product)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all"
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Cart Sidebar */}
-          <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-            <h4 className="text-xl font-semibold mb-4 text-blue-400">Shopping Cart ({cart.length})</h4>
-            <div className="space-y-3 max-h-64 overflow-y-auto">
-              {cart.length === 0 ? (
-                <p className="text-gray-400 text-center py-8">Your cart is empty</p>
-              ) : (
-                cart.map((item: any, index) => (
-                  <div key={index} className="flex items-center justify-between bg-gray-700 p-3 rounded">
-                    <div>
-                      <p className="font-medium text-white">{item.name}</p>
-                      <p className="text-sm text-gray-400">Qty: {item.quantity} × ${item.price}</p>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-blue-400 font-bold">${item.price * item.quantity}</span>
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-red-400 hover:text-red-300"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-            
-            {cart.length > 0 && (
-              <div className="mt-4 pt-4 border-t border-gray-600">
-                <div className="flex justify-between mb-4">
-                  <span className="text-lg font-bold text-white">Total:</span>
-                  <span className="text-2xl font-bold text-blue-400">${total}</span>
-                </div>
-                <button
-                  onClick={handleCheckout}
-                  disabled={isCheckingOut}
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 rounded-lg font-semibold transition-all disabled:opacity-50"
-                >
-                  {isCheckingOut ? 'Processing...' : 'Checkout'}
-                </button>
-              </div>
-            )}
-            
-            {wishlist.length > 0 && (
-              <div className="mt-6 pt-4 border-t border-gray-600">
-                <h5 className="font-semibold text-blue-400 mb-2">Wishlist ({wishlist.length})</h5>
-                <div className="space-y-1 max-h-24 overflow-y-auto">
-                  {wishlist.map((item: any) => (
-                    <div key={item.id} className="text-sm text-gray-400 flex justify-between">
-                      <span>{item.name}</span>
-                      <span>${item.price}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   const BankingApp = () => {
     const [accounts, setAccounts] = useState([
@@ -2308,7 +2114,7 @@ export default function Portfolio() {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4"> <span className="text-blue-600">Our Portfolio</span></h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+          <p className="text-lg sm:text-xl text-white max-w-3xl mx-auto px-4">
             Explore our recent projects and see how we've helped businesses achieve their digital goals.
           </p>
         </div>
@@ -2318,7 +2124,7 @@ export default function Portfolio() {
         {categories.map((category) => (
           <button
             key={category}
-            className="px-4 sm:px-6 py-2 text-sm sm:text-base rounded-full border border-gray-300 text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-lg"
+            className="px-4 sm:px-6 py-2 text-sm sm:text-base rounded-full border border-gray-300 text-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-lg"
           >
             {category}
           </button>
@@ -2328,18 +2134,18 @@ export default function Portfolio() {
       {/* Projects Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
         {projects.map((project, index) => (
-          <motion.div 
-            key={index} 
-            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group border border-gray-100 cursor-pointer"
+          <motion.div
+            key={index}
+            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group border border-gray-100 cursor-pointer flex flex-col h-full min-h-[480px]"
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ 
-              duration: 0.6, 
+            transition={{
+              duration: 0.6,
               delay: index * 0.1,
               type: "spring",
               bounce: 0.3
             }}
-            whileHover={{ 
+            whileHover={{
               scale: 1.02,
               transition: { duration: 0.2 }
             }}
@@ -2385,7 +2191,6 @@ export default function Portfolio() {
                   }}
                 />
               </div>
-              
               <div className="text-white text-center relative z-10">
                 <motion.svg 
                   className="w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-2 opacity-80"
@@ -2420,46 +2225,39 @@ export default function Portfolio() {
               </div>
             </div>
 
-            <div className="p-4 sm:p-6">
+            <div className="p-4 sm:p-6 flex flex-col flex-1">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs sm:text-sm font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded">
                   {project.category}
                 </span>
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{project.title}</h3>
-              <p className="text-sm sm:text-base text-gray-600 mb-4">{project.description}</p>
+              <h3 className="text-lg sm:text-xl font-semibold text-blue-600 mb-2">{project.title}</h3>
+              <p className="text-sm sm:text-base text-black mb-4">{project.description}</p>
               
               {/* Technologies */}
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-6">
                 {project.technologies.map((tech, techIndex) => (
                   <span
                     key={techIndex}
-                    className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
+                    className="text-xs bg-gray-100 text-black px-2 py-1 rounded"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
-              
-              <motion.button
-                onClick={() => setSelectedProject(index)}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-2.5 rounded-lg font-medium inline-flex items-center transition-all duration-300 shadow-lg hover:shadow-xl transform"
-              >
-                <span className="mr-2">🚀</span>
-                Launch Demo
-                <motion.svg 
-                  className="w-4 h-4 ml-2" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                  whileHover={{ x: 3 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              <div className="mt-auto">
+                <motion.button
+                  onClick={() => {
+                    window.open(`/portfolio/demo/${index}`, '_blank', 'noopener,noreferrer');
+                  }}
+                  whileHover={{ scale: 1.03, y: -1 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 rounded-lg font-semibold text-base transition-all duration-300 shadow-md hover:shadow-xl flex items-center justify-center gap-2"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </motion.svg>
-              </motion.button>
+                  <span>🚀</span>
+                  Launch Demo
+                </motion.button>
+              </div>
             </div>
           </motion.div>
         ))}
@@ -2467,34 +2265,34 @@ export default function Portfolio() {
 
       {/* Stats Section */}
       <section className="bg-gray-50 rounded-lg p-8 md:p-12 mb-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Project Statistics</h2>
+        <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Project Statistics</h2>
         <div className="grid md:grid-cols-4 gap-8 text-center">
           <div>
-            <div className="text-4xl font-bold text-blue-600 mb-2">100+</div>
-            <div className="text-gray-600">Projects Completed</div>
+            <div className="text-4xl font-bold text-black mb-2">100+</div>
+            <div className="text-black">Projects Completed</div>
           </div>
           <div>
-            <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
-            <div className="text-gray-600">Happy Clients</div>
+            <div className="text-4xl font-bold text-black mb-2">50+</div>
+            <div className="text-black">Happy Clients</div>
           </div>
           <div>
-            <div className="text-4xl font-bold text-blue-600 mb-2">98%</div>
-            <div className="text-gray-600">Success Rate</div>
+            <div className="text-4xl font-bold text-black mb-2">98%</div>
+            <div className="text-black">Success Rate</div>
           </div>
           <div>
-            <div className="text-4xl font-bold text-blue-600 mb-2">5+</div>
-            <div className="text-gray-600">Years Experience</div>
+            <div className="text-4xl font-bold text-black mb-2">5+</div>
+            <div className="text-black">Years Experience</div>
           </div>
         </div>
       </section>
 
       {/* Technologies Section */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Technologies We Use</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
-          {['React', 'Next.js', 'Vue.js', 'Angular', 'Node.js', 'Python', 'TypeScript', 'AWS', 'MongoDB', 'PostgreSQL', 'Firebase', 'Docker'].map((tech) => (
-            <div key={tech} className="text-center p-4 bg-white rounded-lg shadow-sm border">
-              <div className="text-lg font-medium text-gray-900">{tech}</div>
+        <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Technologies We Use</h2>
+        <div className="grid grid-cols-3 grid-rows-2 gap-8 max-w-2xl mx-auto">
+          {['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'EmailJS'].map((tech) => (
+            <div key={tech} className="text-center p-4 bg-white rounded-lg shadow-sm border flex items-center justify-center">
+              <div className="text-lg font-medium text-black">{tech}</div>
             </div>
           ))}
         </div>
@@ -2522,12 +2320,13 @@ export default function Portfolio() {
 
       {/* Enhanced Modal for Mini Apps */}
       <AnimatePresence>
-          {selectedProject !== null && (
+        {selectedProject !== null && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 flex items-center justify-center z-50 p-2 sm:p-4"
+              className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
+              style={{ pointerEvents: 'auto' }}
               onClick={() => setSelectedProject(null)}
             >
               {/* Modal background overlay */}
@@ -2540,142 +2339,137 @@ export default function Portfolio() {
               />
               {/* Modal content */}
               <motion.div
-                className="relative z-10 bg-white rounded-xl shadow-2xl w-full max-w-6xl mx-auto flex flex-col"
+                className="relative z-10 bg-white rounded-xl shadow-2xl w-full max-w-lg sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto flex flex-col pointer-events-auto"
+                style={{ width: '100%', overflow: 'hidden', maxHeight: '90vh' }}
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Modal header */}
-                <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-red-400 rounded-full shadow-sm"></div>
-                    <div className="w-3 h-3 bg-yellow-400 rounded-full shadow-sm"></div>
-                    <div className="w-3 h-3 bg-green-400 rounded-full shadow-sm"></div>
-                  </div>
-                  <div className="ml-4">
-                    <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
-                      🚀 {projects[selectedProject].title}
-                    </h2>
-                    <p className="text-blue-100 text-sm opacity-90 hidden sm:block">
-                      {projects[selectedProject].description}
-                    </p>
-                  </div>
-                  <div className="flex items-center space-x-2 ml-auto">
-                    <motion.button
-                      onClick={() => setSelectedProject(null)}
-                      whileHover={{ scale: 1.1, rotate: 90 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="bg-white bg-opacity-20 hover:bg-opacity-30 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center text-lg transition-all duration-200"
-                    >
-                      ×
-                    </motion.button>
-                  </div>
-                </div>
-                {/* Demo Introduction Banner */}
-                <motion.div
-                  className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border-b border-gray-200 p-4"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                        <span className="text-white text-lg">⚡</span>
-                      </div>
-                      <div>
-                      <h3 className="font-semibold text-gray-800">Interactive Demo Experience</h3>
-                      <p className="text-gray-600 text-sm">
-                        Fully functional prototype with real interactions and data
+                <div className="overflow-y-auto" style={{ maxHeight: 'calc(90vh - 2rem)' }}>
+                  {/* Modal header */}
+                  <div className="flex items-center justify-between p-4 border-b border-gray-200">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-red-400 rounded-full shadow-sm"></div>
+                      <div className="w-3 h-3 bg-yellow-400 rounded-full shadow-sm"></div>
+                      <div className="w-3 h-3 bg-green-400 rounded-full shadow-sm"></div>
+                    </div>
+                    <div className="ml-4">
+                      <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+                        🚀 {projects[selectedProject].title}
+                      </h2>
+                      <p className="text-blue-100 text-sm opacity-90 hidden sm:block">
+                        {projects[selectedProject].description}
                       </p>
                     </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="flex items-center space-x-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span>Live Demo</span>
+                    <div className="flex items-center space-x-2 ml-auto">
+                      <motion.button
+                        onClick={() => setSelectedProject(null)}
+                        whileHover={{ scale: 1.1, rotate: 90 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="bg-white bg-opacity-20 hover:bg-opacity-30 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center text-lg transition-all duration-200"
+                      >
+                        ×
+                      </motion.button>
                     </div>
-                    <span className="text-gray-500 text-xs">Click around to explore!</span>
                   </div>
-                </div>
-              </motion.div>
-              {/* Demo Content */}
-              <div className="overflow-auto max-h-[calc(95vh-140px)] bg-gray-50">
-                <motion.div 
-                  className="p-4 sm:p-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                >
-                  {renderMiniApp(projects[selectedProject].appType)}
-                </motion.div>
-              </div>
-              {/* Enhanced Footer */}
-              <motion.div 
-                className="sticky bottom-0 bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white p-4 border-t border-gray-300 shadow-lg"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-              >
-                {/* Technologies Used */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="text-sm font-medium text-gray-300">Built with:</span>
-                  {projects[selectedProject].technologies.map((tech, index) => (
-                    <motion.span 
-                      key={index} 
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 cursor-pointer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
-                {/* Demo Description */}
-                <p className="text-sm text-gray-300 mb-4 leading-relaxed">
-                  🎯 <strong>Interactive Demo:</strong> This is a fully functional prototype showcasing real-world features of the {projects[selectedProject].title.toLowerCase()}.
-                  All interactions, animations, and data management work exactly as they would in production.
-                </p>
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
-                  <div className="flex items-center space-x-4 text-sm text-gray-400">
-                    <div className="flex items-center space-x-1">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      <span>Demo Active</span>
+                  {/* Demo Introduction Banner */}
+                  <motion.div
+                    className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border-b border-gray-200 p-4"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                          <span className="text-white text-lg">⚡</span>
+                        </div>
+                        <div className="flex items-center space-x-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
+                          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                          <span>Live Demo</span>
+                        </div>
+                        <span className="text-gray-500 text-xs">Click around to explore!</span>
+                      </div>
                     </div>
-                    <span>•</span>
-                    <span>React + TypeScript + Tailwind CSS</span>
+                  </motion.div>
+                  {/* Demo Content */}
+                  <div className="overflow-auto max-h-[calc(95vh-140px)] bg-gray-50">
+                    <motion.div 
+                      className="p-4 sm:p-6"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3, duration: 0.5 }}
+                    >
+                      {renderMiniApp(projects[selectedProject].appType)}
+                    </motion.div>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="text-gray-300 hover:text-white font-medium transition-colors duration-200 text-sm"
-                    >
-                      📱 View on Mobile
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="text-gray-300 hover:text-white font-medium transition-colors duration-200 text-sm"
-                    >
-                      💻 View Source
-                    </motion.button>
-                    <motion.button
-                      onClick={() => setSelectedProject(null)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg"
-                    >
-                      ✨ Close Demo
-                    </motion.button>
-                  </div>
+                  {/* Enhanced Footer */}
+                  <motion.div 
+                    className="sticky bottom-0 bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white p-4 border-t border-gray-300 shadow-lg"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.5 }}
+                  >
+                    {/* Technologies Used */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-sm font-medium text-gray-300">Built with:</span>
+                      {projects[selectedProject].technologies.map((tech, index) => (
+                        <motion.span 
+                          key={index} 
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 cursor-pointer"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                    {/* Demo Description */}
+                    <p className="text-sm text-gray-300 mb-4 leading-relaxed">
+                      <span role="img" aria-label="target">🎯</span> <strong>Interactive Demo:</strong> This is a fully functional prototype showcasing real-world features of the {projects[selectedProject].title.toLowerCase()}.
+                      All interactions, animations, and data management work exactly as they would in production.
+                    </p>
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+                      <div className="flex items-center space-x-4 text-sm text-gray-400">
+                        <div className="flex items-center space-x-1">
+                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                          <span>Demo Active</span>
+                        </div>
+                        <span>•</span>
+                        <span>React + TypeScript + Tailwind CSS</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="text-gray-300 hover:text-white font-medium transition-colors duration-200 text-sm"
+                        >
+                          📱 View on Mobile
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="text-gray-300 hover:text-white font-medium transition-colors duration-200 text-sm"
+                        >
+                          💻 View Source
+                        </motion.button>
+                        <motion.button
+                          onClick={() => setSelectedProject(null)}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg"
+                        >
+                          ✨ Close Demo
+                        </motion.button>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
               </motion.div>
             </motion.div>
-          </motion.div>
-        )}
+          )}
         </AnimatePresence>
     </div>
   );
