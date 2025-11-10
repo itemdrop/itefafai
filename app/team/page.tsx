@@ -6,8 +6,9 @@ export default function Team() {
       bio: "Visionary leader with 10+ years of experience in digital strategy and business development. Passionate about creating innovative solutions that drive business growth.",
       skills: ["Strategic Planning", "Business Development", "Team Leadership", "Digital Transformation"],
       social: {
-        linkedin: "#",
-        twitter: "#",
+        instagram: "https://www.instagram.com/efansavage_/",
+        github: "https://github.com/itemdrop",
+        facebook: "https://www.facebook.com/efan.savage",
         email: "savage@yoursite.com"
       },
       image: "bg-gradient-to-br from-blue-400 to-blue-600"
@@ -18,8 +19,9 @@ export default function Team() {
       bio: "Full-stack developer and technology architect with expertise in scalable web applications and cloud infrastructure. Loves solving complex technical challenges.",
       skills: ["Full-Stack Development", "Cloud Architecture", "DevOps", "System Design"],
       social: {
-        linkedin: "#",
-        github: "#",
+        instagram: "https://www.instagram.com/faisal079957/",
+        github: "https://github.com/Fasolia101",
+        facebook: "https://www.facebook.com/profile.php?id=100057024851439",
         email: "faisal@yoursite.com"
       },
       image: "bg-gradient-to-br from-green-400 to-green-600"
@@ -76,23 +78,13 @@ export default function Team() {
               
               {/* Social Links */}
               <div className="flex space-x-3">
-                {member.social.linkedin && (
+                {member.social.instagram && (
                   <a
-                    href={member.social.linkedin}
-                    className="w-8 h-8 bg-blue-600 text-white rounded flex items-center justify-center hover:bg-blue-700 transition-colors"
+                    href={member.social.instagram}
+                    className="w-8 h-8 bg-pink-500 text-white rounded flex items-center justify-center hover:bg-pink-600 transition-colors"
                   >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                  </a>
-                )}
-                {member.social.twitter && (
-                  <a
-                    href={member.social.twitter}
-                    className="w-8 h-8 bg-blue-400 text-white rounded flex items-center justify-center hover:bg-blue-500 transition-colors"
-                  >
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.054 1.97.24 2.43.403a4.92 4.92 0 011.675 1.1 4.92 4.92 0 011.1 1.675c.163.46.349 1.26.403 2.43.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.17-.24 1.97-.403 2.43a4.92 4.92 0 01-1.1 1.675 4.92 4.92 0 01-1.675 1.1c-.46.163-1.26.349-2.43.403-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.054-1.97-.24-2.43-.403a4.92 4.92 0 01-1.675-1.1 4.92 4.92 0 01-1.1-1.675c-.163-.46-.349-1.26-.403-2.43C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.054-1.17.24-1.97.403-2.43a4.92 4.92 0 011.1-1.675 4.92 4.92 0 011.675-1.1c.46-.163 1.26-.349 2.43-.403C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.74 0 8.332.014 7.052.072 5.773.13 4.802.347 4.05.6a6.92 6.92 0 00-2.5 1.65A6.92 6.92 0 00.6 4.05c-.253.752-.47 1.723-.528 3.002C.014 8.332 0 8.74 0 12c0 3.26.014 3.668.072 4.948.058 1.28.275 2.25.528 3.002a6.92 6.92 0 001.65 2.5 6.92 6.92 0 002.5 1.65c.752.253 1.723.47 3.002.528C8.332 23.986 8.74 24 12 24c3.26 0 3.668-.014 4.948-.072 1.28-.058 2.25-.275 3.002-.528a6.92 6.92 0 002.5-1.65 6.92 6.92 0 001.65-2.5c.253-.752.47-1.723.528-3.002.058-1.28.072-1.688.072-4.948 0-3.26-.014-3.668-.072-4.948-.058-1.28-.275-2.25-.528-3.002a6.92 6.92 0 00-1.65-2.5 6.92 6.92 0 00-2.5-1.65c-.752-.253-1.723-.47-3.002-.528C15.668.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
                     </svg>
                   </a>
                 )}
@@ -114,6 +106,16 @@ export default function Team() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </a>
+                {member.social.facebook && (
+                  <a
+                    href={member.social.facebook}
+                    className="w-8 h-8 bg-blue-600 text-white rounded flex items-center justify-center hover:bg-blue-700 transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M22.675 0h-21.35C.596 0 0 .596 0 1.325v21.35C0 23.404.596 24 1.325 24h11.494v-9.294H9.691V11.25h3.128V8.691c0-3.1 1.793-4.785 4.553-4.785 1.325 0 2.75.237 2.75.237v3.025h-1.548c-1.525 0-2.003.949-2.003 1.92v2.313h3.391l-.542 3.456h-2.849V24h5.384c.729 0 1.325-.596 1.325-1.325V1.325C24 .596 23.404 0 22.675 0z" />
+                    </svg>
+                  </a>
+                )}
               </div>
             </div>
           </div>
