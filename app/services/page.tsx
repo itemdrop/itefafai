@@ -84,9 +84,9 @@ export default function Services() {
       }
     }),
     hover: {
-      y: -8,
-      scale: 1.02,
-      boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+      y: -15,
+      scale: 1.04,
+      boxShadow: "0 30px 60px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(147, 197, 253, 0.25), 0 0 60px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)",
       transition: {
         duration: 0.3,
         ease: [0.25, 0.46, 0.45, 0.94] as const
@@ -140,7 +140,11 @@ export default function Services() {
         {services.map((service, index) => (
           <motion.div 
             key={index} 
-            className="bg-white rounded-lg shadow-md p-4 sm:p-6 border cursor-pointer overflow-hidden"
+            className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-xl border border-blue-300/40 cursor-pointer overflow-hidden relative p-4 sm:p-6"
+            style={{
+              boxShadow: "0 12px 40px rgba(59, 130, 246, 0.18), 0 0 0 1px rgba(147, 197, 253, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3)",
+              backdropFilter: "blur(20px)"
+            }}
             variants={cardVariants}
             custom={index}
             whileHover="hover"
@@ -148,7 +152,10 @@ export default function Services() {
             animate="visible"
           >
             <motion.div 
-              className="w-12 sm:w-16 h-12 sm:h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4 text-blue-600"
+              className="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-blue-500/25 to-blue-600/30 backdrop-blur-md rounded-2xl flex items-center justify-center mb-4 text-blue-600 border border-blue-400/40"
+              style={{
+                boxShadow: "0 6px 25px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 0 20px rgba(147, 197, 253, 0.1)"
+              }}
               variants={iconVariants}
               whileHover="hover"
             >
@@ -165,7 +172,7 @@ export default function Services() {
             </motion.h3>
             
             <motion.p 
-              className="text-gray-600 mb-4 text-sm sm:text-base"
+              className="text-black mb-4 text-sm sm:text-base"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
@@ -181,7 +188,7 @@ export default function Services() {
               {service.features.map((feature, featureIndex) => (
                 <motion.li 
                   key={featureIndex} 
-                  className="flex items-center text-sm text-gray-600"
+                  className="flex items-center text-sm text-black"
                   variants={featureVariants}
                   custom={featureIndex}
                   whileHover={{
@@ -211,28 +218,38 @@ export default function Services() {
       </motion.div>
 
       {/* Process Section */}
-      <section className="bg-gray-50 rounded-lg p-6 sm:p-8 md:p-12 mb-12 sm:mb-16">
+      <section className="bg-white/65 backdrop-blur-xl rounded-3xl p-6 sm:p-8 md:p-12 mb-12 sm:mb-16 border border-blue-300/30" style={{
+        boxShadow: "0 12px 40px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 30px rgba(147, 197, 253, 0.08)"
+      }}>
         <h2 className="text-2xl sm:text-3xl font-bold text-center text-blue-600 mb-8 sm:mb-12">Our Process</h2>
         <div className="grid md:grid-cols-4 gap-8">
           <div className="text-center">
-            <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-xl" style={{
+              boxShadow: "0 10px 30px rgba(59, 130, 246, 0.35), 0 0 0 1px rgba(147, 197, 253, 0.15), 0 0 25px rgba(59, 130, 246, 0.1)"
+            }}>1</div>
             <h3 className="text-blue-600 font-semibold mb-2">Discovery</h3>
-            <p className="text-gray-600">We understand your needs, goals, and challenges through detailed consultation.</p>
+            <p className="text-black">We understand your needs, goals, and challenges through detailed consultation.</p>
           </div>
           <div className="text-center">
-            <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-xl" style={{
+              boxShadow: "0 10px 30px rgba(59, 130, 246, 0.35), 0 0 0 1px rgba(147, 197, 253, 0.15), 0 0 25px rgba(59, 130, 246, 0.1)"
+            }}>2</div>
             <h3 className="text-blue-600  font-semibold mb-2">Planning</h3>
-            <p className="text-gray-600">We create a comprehensive strategy and roadmap for your project.</p>
+            <p className="text-black">We create a comprehensive strategy and roadmap for your project.</p>
           </div>
           <div className="text-center">
-            <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-xl" style={{
+              boxShadow: "0 10px 30px rgba(59, 130, 246, 0.35), 0 0 0 1px rgba(147, 197, 253, 0.15), 0 0 25px rgba(59, 130, 246, 0.1)"
+            }}>3</div>
             <h3 className="text-blue-600 font-semibold mb-2">Execution</h3>
-            <p className="text-gray-600">Our team implements the solution with regular updates and feedback loops.</p>
+            <p className="text-black">Our team implements the solution with regular updates and feedback loops.</p>
           </div>
           <div className="text-center">
-            <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-lg" style={{
+              boxShadow: "0 8px 25px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1)"
+            }}>4</div>
             <h3 className="text-blue-600 font-semibold mb-2">Delivery</h3>
-            <p className="text-gray-600">We deliver the final product with ongoing support and maintenance.</p>
+            <p className="text-black">We deliver the final product with ongoing support and maintenance.</p>
           </div>
         </div>
       </section>

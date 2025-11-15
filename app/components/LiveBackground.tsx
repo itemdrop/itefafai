@@ -44,7 +44,7 @@ export default function LiveBackground() {
           size: Math.random() * 4 + 2,
           speedX: (Math.random() - 0.5) * 0.4,
           speedY: (Math.random() - 0.5) * 0.4,
-          opacity: Math.random() * 0.6 + 0.3
+          opacity: Math.random() * 1.0 + 0.7
         });
       }
       setParticles(newParticles);
@@ -112,10 +112,10 @@ export default function LiveBackground() {
         className="absolute inset-0"
         animate={{
           background: [
-            'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%)',
-            'radial-gradient(circle at 80% 20%, rgba(147, 197, 253, 0.10) 0%, transparent 50%)',
-            'radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.09) 0%, transparent 50%)',
-            'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%)'
+            'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.25) 0%, transparent 60%)',
+            'radial-gradient(circle at 80% 20%, rgba(147, 197, 253, 0.30) 0%, transparent 60%)',
+            'radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.28) 0%, transparent 60%)',
+            'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.25) 0%, transparent 60%)'
           ]
         }}
         transition={{
@@ -133,7 +133,7 @@ export default function LiveBackground() {
         return (
           <motion.div
             key={`shape-${index}`}
-            className="absolute opacity-30"
+            className="absolute opacity-70"
             animate={{
               x: [
                 baseX,
@@ -157,9 +157,9 @@ export default function LiveBackground() {
             style={{
               width: `${80 + index * 30}px`,
               height: `${80 + index * 30}px`,
-              background: `linear-gradient(45deg, rgba(59, 130, 246, ${0.06 + index * 0.02}), rgba(147, 197, 253, ${0.04 + index * 0.01}))`,
-              border: `1px solid rgba(59, 130, 246, ${0.12 + index * 0.02})`,
-              boxShadow: `0 0 15px rgba(59, 130, 246, ${0.08 + index * 0.02})`
+              background: `linear-gradient(45deg, rgba(59, 130, 246, ${0.20 + index * 0.06}), rgba(147, 197, 253, ${0.15 + index * 0.04}))`,
+              border: `2px solid rgba(59, 130, 246, ${0.35 + index * 0.06})`,
+              boxShadow: `0 0 40px rgba(59, 130, 246, ${0.25 + index * 0.06}), 0 0 80px rgba(59, 130, 246, ${0.15 + index * 0.03})`
             }}
           />
         );
@@ -179,14 +179,14 @@ export default function LiveBackground() {
         }}
       >
         <motion.div
-          className="w-24 h-24 rounded-full opacity-20"
+          className="w-32 h-32 rounded-full opacity-50"
           style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
-            filter: 'blur(15px)'
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.40) 0%, transparent 70%)',
+            filter: 'blur(20px)'
           }}
           animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.15, 0.25, 0.15]
+            scale: [1, 1.2, 1],
+            opacity: [0.40, 0.60, 0.40]
           }}
           transition={{
             duration: 3,
@@ -198,16 +198,16 @@ export default function LiveBackground() {
 
       {/* Subtle grid overlay - simplified */}
       <motion.div
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+            linear-gradient(rgba(59, 130, 246, 0.25) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.25) 1px, transparent 1px)
           `,
           backgroundSize: '80px 80px'
         }}
         animate={{
-          opacity: [0.03, 0.08, 0.03]
+          opacity: [0.15, 0.25, 0.15]
         }}
         transition={{
           duration: 15,
@@ -226,12 +226,12 @@ export default function LiveBackground() {
             top: particle.y,
             width: particle.size,
             height: particle.size,
-            background: `rgba(59, 130, 246, ${particle.opacity * 0.6})`,
-            boxShadow: `0 0 ${particle.size * 3}px rgba(59, 130, 246, ${particle.opacity * 0.4}), 0 0 ${particle.size * 6}px rgba(59, 130, 246, ${particle.opacity * 0.2})`
+            background: `rgba(59, 130, 246, ${particle.opacity * 1.0})`,
+            boxShadow: `0 0 ${particle.size * 6}px rgba(59, 130, 246, ${particle.opacity * 0.8}), 0 0 ${particle.size * 12}px rgba(59, 130, 246, ${particle.opacity * 0.4}), 0 0 ${particle.size * 20}px rgba(59, 130, 246, ${particle.opacity * 0.2})`
           }}
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [particle.opacity * 0.8, particle.opacity * 1.2, particle.opacity * 0.8]
+            scale: [1, 1.3, 1],
+            opacity: [particle.opacity * 1.2, particle.opacity * 1.8, particle.opacity * 1.2]
           }}
           transition={{
             duration: 4 + Math.random() * 2,
@@ -243,7 +243,7 @@ export default function LiveBackground() {
 
       {/* Central morphing loader - simplified */}
       <motion.div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-5"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-25"
         animate={{
           rotate: [0, 360]
         }}
@@ -254,9 +254,9 @@ export default function LiveBackground() {
         }}
       >
         <motion.div
-          className="w-24 h-24 border border-blue-300"
+          className="w-32 h-32 border-2 border-blue-400"
           style={{
-            boxShadow: '0 0 20px rgba(59, 130, 246, 0.08)'
+            boxShadow: '0 0 50px rgba(59, 130, 246, 0.25), 0 0 100px rgba(59, 130, 246, 0.15)'
           }}
           animate={{
             borderRadius: ["50%", "25%", "50%"],

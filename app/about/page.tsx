@@ -1,21 +1,21 @@
 export default function About() {
   return (
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-blue-600  mb-4">About <span className="text-blue-600">Us</span></h1>
-          <p className="text-xl text-white max-w-3xl mx-auto">
+        <div className="text-center mb-12 sm:mb-16">
+          <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">About <span className="text-blue-600">Us</span></h1>
+          <p className="text-lg sm:text-xl text-white max-w-3xl mx-auto px-4">
             Learn more about our company, our mission, and what drives us to deliver exceptional results for our clients.
           </p>
         </div>
 
       {/* Mission Section */}
-      <section className="mb-16">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section className="mb-12 sm:mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold text-blue-600 mb-6">Our Mission</h2>
-            <p className="text-lg text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-blue-600 mb-4 sm:mb-6">Our Mission</h2>
+            <p className="text-base sm:text-lg text-white mb-4">
               We are dedicated to providing innovative solutions that help businesses thrive in today's digital landscape. 
               Our commitment to excellence and customer satisfaction drives everything we do.
             </p>

@@ -22,7 +22,7 @@ export default function Team() {
         instagram: "https://www.instagram.com/faisal079957/",
         github: "https://github.com/Fasolia101",
         facebook: "https://www.facebook.com/profile.php?id=100057024851439",
-        email: "faisal@yoursite.com"
+        email: "efansav@gmail.com"
       },
       image: "bg-gradient-to-br from-green-400 to-green-600"
     }
@@ -34,7 +34,7 @@ export default function Team() {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">Meet Our <span className="text-blue-600">Team</span></h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+          <p className="text-lg sm:text-xl text-white max-w-3xl mx-auto px-4">
             Our diverse team of experts is passionate about delivering exceptional results and helping your business succeed.
           </p>
         </div>
@@ -43,7 +43,9 @@ export default function Team() {
       <div className="flex justify-center">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16 max-w-4xl">
           {teamMembers.map((member, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+          <div key={index} className="bg-white/70 backdrop-blur-lg rounded-2xl overflow-hidden hover:scale-[1.04] hover:-translate-y-3 transition-all duration-300" style={{
+            boxShadow: "0 10px 30px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(147, 197, 253, 0.1), 0 0 25px rgba(59, 130, 246, 0.08)"
+          }}>
             {/* Profile Image Placeholder */}
             <div className={`h-48 sm:h-64 ${member.image} flex items-center justify-center`}>
               <div className="text-white text-center">
@@ -57,18 +59,18 @@ export default function Team() {
             </div>
 
             <div className="p-4 sm:p-6">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
+              <h3 className="text-lg sm:text-xl font-semibold text-blue-600 mb-1">{member.name}</h3>
               <p className="text-blue-600 font-medium mb-3 text-sm sm:text-base">{member.role}</p>
-              <p className="text-gray-600 mb-4 text-sm leading-relaxed">{member.bio}</p>
+              <p className="text-black mb-4 text-sm leading-relaxed">{member.bio}</p>
               
               {/* Skills */}
               <div className="mb-4">
-                <h4 className="text-sm font-semibold text-gray-900 mb-2">Expertise:</h4>
+                <h4 className="text-sm font-semibold text-blue-600 mb-2">Expertise:</h4>
                 <div className="flex flex-wrap gap-2">
                   {member.skills.map((skill, skillIndex) => (
                     <span
                       key={skillIndex}
-                      className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
+                      className="text-xs bg-gray-100 text-black px-2 py-1 rounded"
                     >
                       {skill}
                     </span>
@@ -125,7 +127,7 @@ export default function Team() {
 
       {/* Company Culture Section */}
       <section className="bg-gray-50 rounded-lg p-8 md:p-12 mb-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Our Culture & Values</h2>
+        <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Our Culture & Values</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <div className="text-center">
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -133,8 +135,8 @@ export default function Team() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3">Collaboration</h3>
-            <p className="text-gray-600">We believe great results come from working together, sharing ideas, and supporting each other's growth.</p>
+            <h3 className="text-xl font-semibold mb-3 text-blue-600">Collaboration</h3>
+            <p className="text-black">We believe great results come from working together, sharing ideas, and supporting each other's growth.</p>
           </div>
 
           <div className="text-center">
@@ -143,8 +145,8 @@ export default function Team() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3">Innovation</h3>
-            <p className="text-gray-600">We stay at the forefront of technology, always exploring new ways to solve problems and create value.</p>
+            <h3 className="text-xl font-semibold mb-3 text-blue-600">Innovation</h3>
+            <p className="text-black">We stay at the forefront of technology, always exploring new ways to solve problems and create value.</p>
           </div>
 
           <div className="text-center">
@@ -153,8 +155,8 @@ export default function Team() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-3">Passion</h3>
-            <p className="text-gray-600">We're passionate about what we do and committed to delivering exceptional results for our clients.</p>
+            <h3 className="text-xl font-semibold mb-3 text-blue-600">Passion</h3>
+            <p className="text-black">We're passionate about what we do and committed to delivering exceptional results for our clients.</p>
           </div>
         </div>
       </section>

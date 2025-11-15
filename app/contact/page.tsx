@@ -62,19 +62,21 @@ export default function Contact() {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">Contact <span className="text-blue-600">Us</span></h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+          <p className="text-lg sm:text-xl text-white max-w-3xl mx-auto px-4">
             Ready to start your project? Get in touch with us and let's discuss how we can help bring your vision to life.
           </p>
         </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
         {/* Contact Form */}
-        <div className="bg-white rounded-lg shadow-md p-6 sm:p-8">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
+        <div className="bg-white/70 backdrop-blur-lg rounded-2xl p-6 sm:p-8" style={{
+          boxShadow: "0 10px 30px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(147, 197, 253, 0.1), 0 0 25px rgba(59, 130, 246, 0.08)"
+        }}>
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-600 mb-6">Send us a Message</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="name" className="block text-sm font-medium text-black mb-2">
                   Full Name *
                 </label>
                 <input
@@ -89,7 +91,7 @@ export default function Contact() {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
                   Email Address *
                 </label>
                 <input
@@ -106,7 +108,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="company" className="block text-sm font-medium text-black mb-2">
                 Company Name
               </label>
               <input
@@ -121,7 +123,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="subject" className="block text-sm font-medium text-black mb-2">
                 Subject *
               </label>
               <select
@@ -143,7 +145,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="message" className="block text-sm font-medium text-black mb-2">
                 Message *
               </label>
               <textarea
@@ -170,8 +172,10 @@ export default function Contact() {
         {/* Contact Information */}
         <div className="space-y-8">
           {/* Contact Details */}
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h2>
+          <div className="bg-white/70 backdrop-blur-lg rounded-2xl p-8" style={{
+            boxShadow: "0 10px 30px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(147, 197, 253, 0.1), 0 0 25px rgba(59, 130, 246, 0.08)"
+          }}>
+            <h2 className="text-2xl font-bold text-blue-600 mb-6">Get in Touch</h2>
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -181,8 +185,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Office Address</h3>
-                  <p className="text-gray-600">Föreningsgatan 41<br />Malmö<br />Sweden</p>
+                  <h3 className="text-lg font-semibold text-blue-600">Office Address</h3>
+                  <p className="text-black">Föreningsgatan 41<br />Malmö<br />Sweden</p>
                 </div>
               </div>
 
@@ -193,8 +197,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Phone Number</h3>
-                  <p className="text-gray-600">+46720062874</p>
+                  <h3 className="text-lg font-semibold text-blue-600">Phone Number</h3>
+                  <p className="text-black">+46720062874</p>
                 </div>
               </div>
 
@@ -205,8 +209,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Email Address</h3>
-                  <p className="text-gray-600">efansavage@gmail.com</p>
+                  <h3 className="text-lg font-semibold text-blue-600">Email Address</h3>
+                  <p className="text-black">efansavage@gmail.com</p>
                 </div>
               </div>
 
@@ -217,16 +221,18 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Business Hours</h3>
-                  <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday: 10:00 AM - 4:00 PM<br />Sunday: Closed</p>
+                  <h3 className="text-lg font-semibold text-blue-600">Business Hours</h3>
+                  <p className="text-black">Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday: 10:00 AM - 4:00 PM<br />Sunday: Closed</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Social Media */}
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Follow Us</h2>
+          <div className="bg-white/70 backdrop-blur-lg rounded-2xl p-8" style={{
+            boxShadow: "0 10px 30px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(147, 197, 253, 0.1), 0 0 25px rgba(59, 130, 246, 0.08)"
+          }}>
+            <h2 className="text-2xl font-bold text-blue-600 mb-6">Follow Us</h2>
             <div className="flex space-x-4">
               <a href="#" className="w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -255,19 +261,19 @@ export default function Contact() {
 
       {/* FAQ Section */}
       <section className="mt-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Frequently Asked Questions</h2>
+        <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Frequently Asked Questions</h2>
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">How long does a typical project take?</h3>
-            <p className="text-gray-600">Project timelines vary depending on complexity and scope. Simple websites typically take 2-4 weeks, while complex applications can take 3-6 months. We'll provide a detailed timeline during our initial consultation.</p>
+            <h3 className="text-lg font-semibold text-blue-600 mb-2">How long does a typical project take?</h3>
+            <p className="text-black">Project timelines vary depending on complexity and scope. Simple websites typically take 2-4 weeks, while complex applications can take 3-6 months. We'll provide a detailed timeline during our initial consultation.</p>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Do you provide ongoing support and maintenance?</h3>
-            <p className="text-gray-600">Yes, we offer comprehensive support and maintenance packages to keep your website or application running smoothly. This includes updates, security patches, and technical support.</p>
+            <h3 className="text-lg font-semibold text-blue-600 mb-2">Do you provide ongoing support and maintenance?</h3>
+            <p className="text-black">Yes, we offer comprehensive support and maintenance packages to keep your website or application running smoothly. This includes updates, security patches, and technical support.</p>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">What is your pricing structure?</h3>
-            <p className="text-gray-600">Our pricing is project-based and depends on the specific requirements and complexity. We provide detailed quotes after understanding your needs and goals. Contact us for a free consultation and estimate.</p>
+            <h3 className="text-lg font-semibold text-blue-600 mb-2">What is your pricing structure?</h3>
+            <p className="text-black">Our pricing is project-based and depends on the specific requirements and complexity. We provide detailed quotes after understanding your needs and goals. Contact us for a free consultation and estimate.</p>
           </div>
         </div>
       </section>

@@ -204,9 +204,9 @@ export default function Portfolio() {
     }
 
     return (
-      <div className="p-6 max-w-6xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-3xl font-bold text-blue-400">Advanced Banking Platform</h3>
+      <div className="demo-container p-3 sm:p-6 max-w-6xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6 gap-2">
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-400">Advanced Banking Platform</h3>
           <button
             onClick={() => setIsAuthenticated(false)}
             className="text-gray-400 hover:text-white"
@@ -216,7 +216,7 @@ export default function Portfolio() {
         </div>
 
         {/* Account Cards */}
-        <div className="grid md:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
           {accounts.map((account, index) => (
             <motion.div
               key={account.id}
@@ -246,56 +246,56 @@ export default function Portfolio() {
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Quick Actions */}
-          <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-            <h4 className="text-xl font-semibold mb-4 text-blue-400">Quick Actions</h4>
+          <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 sm:p-4">
+            <h4 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-blue-400">Quick Actions</h4>
             
             {/* Deposit/Withdraw */}
-            <div className="space-y-4 mb-6">
+            <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
               <input
                 type="number"
                 placeholder="Amount"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-blue-500"
+                className="w-full p-2 sm:p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-blue-500 text-sm sm:text-base"
               />
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button
                   onClick={() => handleTransaction('credit')}
-                  className="bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg transition-all"
+                  className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white py-3 sm:py-3 rounded-lg transition-all text-base font-medium min-h-[48px] touch-manipulation"
                 >
-                  Deposit
+                  💰 Deposit
                 </button>
                 <button
                   onClick={() => handleTransaction('debit')}
-                  className="bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all"
+                  className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white py-3 rounded-lg transition-all text-base font-medium min-h-[48px] touch-manipulation"
                 >
-                  Withdraw
+                  💸 Withdraw
                 </button>
               </div>
             </div>
 
             {/* Transfer */}
-            <div className="space-y-3 pt-4 border-t border-gray-600">
-              <h5 className="font-medium text-blue-400">Quick Transfer</h5>
+            <div className="space-y-4 pt-4 border-t border-gray-600">
+              <h5 className="font-medium text-blue-400 text-base">Quick Transfer</h5>
               <input
                 type="text"
                 placeholder="Recipient email"
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
-                className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+                className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-blue-500 text-base min-h-[48px]"
               />
               <input
                 type="number"
                 placeholder="Transfer amount"
                 value={transferAmount}
                 onChange={(e) => setTransferAmount(e.target.value)}
-                className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+                className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-blue-500 text-base min-h-[48px]"
               />
               <button
                 onClick={handleTransfer}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded transition-all"
+                className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white py-3 rounded-lg transition-all text-base font-medium min-h-[48px] touch-manipulation"
               >
                 Send Money
               </button>
@@ -303,22 +303,22 @@ export default function Portfolio() {
           </div>
 
           {/* Transactions */}
-          <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-            <h4 className="text-xl font-semibold mb-4 text-blue-400">Recent Transactions</h4>
-            <div className="space-y-3 max-h-80 overflow-y-auto">
+          <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 sm:p-4">
+            <h4 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-blue-400">Recent Transactions</h4>
+            <div className="space-y-3 max-h-64 sm:max-h-80 overflow-y-auto">
               {transactions.map(transaction => (
-                <div key={transaction.id} className="bg-gray-700 p-3 rounded-lg">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="font-medium text-white">{transaction.desc}</p>
-                      <div className="flex items-center space-x-2 text-sm text-gray-400">
+                <div key={transaction.id} className="bg-gray-700 p-3 sm:p-4 rounded-lg min-h-[60px]">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                    <div className="flex-1">
+                      <p className="font-medium text-white text-sm sm:text-base">{transaction.desc}</p>
+                      <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-400 mt-1">
                         <span>{transaction.date}</span>
                         <span>•</span>
                         <span>{transaction.category}</span>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <span className={`font-bold ${
+                    <div className="text-left sm:text-right">
+                      <span className={`font-bold text-base sm:text-lg ${
                         transaction.type === 'credit' ? 'text-green-400' : 'text-red-400'
                       }`}>
                         {transaction.type === 'credit' ? '+' : '-'}${transaction.amount}
@@ -418,16 +418,16 @@ export default function Portfolio() {
     };
 
     return (
-      <div className="p-6 max-w-6xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg">
-        <h3 className="text-3xl font-bold mb-6 text-center text-blue-400">Advanced Healthcare Management</h3>
+      <div className="demo-container p-3 sm:p-6 max-w-6xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg overflow-hidden">
+        <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-center text-blue-400">Advanced Healthcare Management</h3>
         
         {/* Navigation Tabs */}
-        <div className="flex space-x-1 mb-6 bg-gray-800 p-1 rounded-lg">
+        <div className="flex space-x-1 mb-4 sm:mb-6 bg-gray-800 p-1 rounded-lg overflow-x-auto">
           {['dashboard', 'appointments', 'medications', 'vitals'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 px-4 rounded-md capitalize transition-all ${
+              className={`flex-1 py-2 px-2 sm:px-4 rounded-md capitalize transition-all text-sm sm:text-base whitespace-nowrap ${
                 activeTab === tab 
                   ? 'bg-blue-600 text-white' 
                   : 'text-gray-400 hover:text-white'
@@ -439,17 +439,17 @@ export default function Portfolio() {
         </div>
 
         {activeTab === 'dashboard' && (
-          <div className="grid lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             {/* Patient Profile */}
-            <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-2xl">
+            <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 sm:p-4">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-4 text-center sm:text-left">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-2xl flex-shrink-0">
                   👤
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-white">Sarah Johnson</h4>
-                  <p className="text-gray-400">Patient ID: #HP-2024-1892</p>
-                  <p className="text-gray-400">DOB: March 15, 1985</p>
+                  <h4 className="text-lg sm:text-xl font-bold text-white">Sarah Johnson</h4>
+                  <p className="text-gray-400 text-sm">Patient ID: #HP-2024-1892</p>
+                  <p className="text-gray-400 text-sm">DOB: March 15, 1985</p>
                 </div>
               </div>
               
@@ -471,23 +471,23 @@ export default function Portfolio() {
             </div>
 
             {/* Health Metrics */}
-            <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-              <h4 className="text-xl font-semibold mb-4 text-blue-400">Today's Health</h4>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gradient-to-br from-green-600 to-green-700 p-3 rounded text-center">
-                  <div className="text-2xl mb-1">👟</div>
-                  <div className="text-2xl font-bold">{healthMetrics.steps.toLocaleString()}</div>
-                  <div className="text-sm opacity-80">Steps</div>
+            <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 sm:p-4">
+              <h4 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-blue-400">Today's Health</h4>
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <div className="bg-gradient-to-br from-green-600 to-green-700 p-3 sm:p-4 rounded-lg text-center min-h-[80px] flex flex-col justify-center">
+                  <div className="text-xl sm:text-2xl mb-1">👟</div>
+                  <div className="text-lg sm:text-2xl font-bold">{healthMetrics.steps.toLocaleString()}</div>
+                  <div className="text-xs sm:text-sm opacity-80">Steps</div>
                 </div>
-                <div className="bg-gradient-to-br from-red-600 to-red-700 p-3 rounded text-center">
-                  <div className="text-2xl mb-1">🔥</div>
-                  <div className="text-2xl font-bold">{healthMetrics.calories}</div>
-                  <div className="text-sm opacity-80">Calories</div>
+                <div className="bg-gradient-to-br from-red-600 to-red-700 p-3 sm:p-4 rounded-lg text-center min-h-[80px] flex flex-col justify-center">
+                  <div className="text-xl sm:text-2xl mb-1">🔥</div>
+                  <div className="text-lg sm:text-2xl font-bold">{healthMetrics.calories}</div>
+                  <div className="text-xs sm:text-sm opacity-80">Calories</div>
                 </div>
-                <div className="bg-gradient-to-br from-purple-600 to-purple-700 p-3 rounded text-center">
-                  <div className="text-2xl mb-1">💤</div>
-                  <div className="text-2xl font-bold">{healthMetrics.sleep}h</div>
-                  <div className="text-sm opacity-80">Sleep</div>
+                <div className="bg-gradient-to-br from-purple-600 to-purple-700 p-3 sm:p-4 rounded-lg text-center min-h-[80px] flex flex-col justify-center">
+                  <div className="text-xl sm:text-2xl mb-1">💤</div>
+                  <div className="text-lg sm:text-2xl font-bold">{healthMetrics.sleep}h</div>
+                  <div className="text-xs sm:text-sm opacity-80">Sleep</div>
                 </div>
                 <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-3 rounded text-center">
                   <div className="text-2xl mb-1">💧</div>
@@ -534,27 +534,27 @@ export default function Portfolio() {
 
         {activeTab === 'appointments' && (
           <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <h4 className="text-2xl font-bold text-blue-400">All Appointments</h4>
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+              <h4 className="text-xl sm:text-2xl font-bold text-blue-400">All Appointments</h4>
               <button
                 onClick={bookAppointment}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-4 py-3 rounded-lg text-sm sm:text-base font-medium min-h-[48px] touch-manipulation"
               >
-                Schedule New Appointment
+                📅 Schedule New
               </button>
             </div>
             <div className="grid gap-4">
               {appointments.map(appointment => (
                 <motion.div 
                   key={appointment.id} 
-                  className="bg-gray-800 border border-gray-700 rounded-lg p-4"
+                  className="bg-gray-800 border border-gray-700 rounded-lg p-3 sm:p-4 min-h-[100px]"
                   whileHover={{ scale: 1.01 }}
                 >
-                  <div className="flex justify-between items-start">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
                     <div className="flex-1">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <h5 className="text-lg font-semibold text-white">{appointment.doctor}</h5>
-                        <span className={`px-2 py-1 rounded text-xs ${
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                        <h5 className="text-base sm:text-lg font-semibold text-white">{appointment.doctor}</h5>
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium self-start ${
                           appointment.status === 'confirmed' 
                             ? 'bg-green-600 text-white' 
                             : 'bg-yellow-600 text-white'
@@ -562,7 +562,7 @@ export default function Portfolio() {
                           {appointment.status}
                         </span>
                       </div>
-                      <p className="text-gray-300 mb-1">{appointment.type}</p>
+                      <p className="text-gray-300 mb-2 text-sm sm:text-base">{appointment.type}</p>
                       <p className="text-blue-400 mb-1">{appointment.department}</p>
                       <p className="text-gray-400">{appointment.date} at {appointment.time}</p>
                     </div>
@@ -817,22 +817,22 @@ export default function Portfolio() {
     });
     
     return (
-      <div className="p-6 max-w-7xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg">
-        <h3 className="text-3xl font-bold mb-6 text-center text-blue-600">Advanced Real Estate Platform</h3>
+      <div className="demo-container p-3 sm:p-6 max-w-7xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg overflow-hidden">
+        <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-center text-blue-600">Advanced Real Estate Platform</h3>
         
         {/* Navigation Tabs */}
-        <div className="flex space-x-1 mb-6 bg-gray-800 p-1 rounded-lg">
+        <div className="flex space-x-1 mb-4 sm:mb-6 bg-gray-800 p-1 rounded-lg overflow-x-auto">
           {['search', 'favorites', 'market', 'tools'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 px-4 rounded-md capitalize transition-all ${
+              className={`flex-1 py-2 px-2 sm:px-4 rounded-md capitalize transition-all text-sm sm:text-base whitespace-nowrap min-h-[44px] ${
                 activeTab === tab 
                   ? 'bg-blue-600 text-white' 
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              {tab}
+              {tab === 'search' ? '🔍 ' : tab === 'favorites' ? '❤️ ' : tab === 'market' ? '📊 ' : '🛠️ '}{tab}
             </button>
           ))}
         </div>
@@ -840,22 +840,22 @@ export default function Portfolio() {
         {activeTab === 'search' && (
           <div className="space-y-6">
             {/* Advanced Filters */}
-            <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-              <h4 className="text-lg font-semibold text-blue-600 mb-4">Search Filters</h4>
-              <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 sm:p-4">
+              <h4 className="text-base sm:text-lg font-semibold text-blue-600 mb-3 sm:mb-4">Search Filters</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4">
                 <input
                   type="number"
                   placeholder="Min Price"
                   value={filters.minPrice}
                   onChange={(e) => setFilters({...filters, minPrice: e.target.value})}
-                  className="bg-gray-700 text-white border border-gray-600 p-2 rounded"
+                  className="bg-gray-700 text-white border border-gray-600 p-3 rounded-lg text-base min-h-[48px]"
                 />
                 <input
                   type="number"
                   placeholder="Max Price"
                   value={filters.maxPrice}
                   onChange={(e) => setFilters({...filters, maxPrice: e.target.value})}
-                  className="bg-gray-700 text-white border border-gray-600 p-2 rounded"
+                  className="bg-gray-700 text-white border border-gray-600 p-3 rounded-lg text-base min-h-[48px]"
                 />
                 <select
                   value={filters.bedrooms}
@@ -1299,36 +1299,38 @@ export default function Portfolio() {
     };
 
     return (
-      <div className="p-6 max-w-6xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg">
-        <h3 className="text-3xl font-bold mb-6 text-center text-blue-600">Advanced Food Delivery Platform</h3>
+      <div className="demo-container p-3 sm:p-6 max-w-6xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg overflow-hidden">
+        <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-center text-blue-600">Advanced Food Delivery Platform</h3>
         
         {/* Location Selector */}
-        <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 mb-6">
-          <div className="flex items-center space-x-3">
-            <span className="text-2xl">📍</span>
-            <div>
-              <p className="text-blue-600 font-medium">Delivering to</p>
-              <p className="text-white">{currentLocation}</p>
+        <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
+            <div className="flex items-center space-x-3 flex-1">
+              <span className="text-2xl">📍</span>
+              <div>
+                <p className="text-blue-600 font-medium text-sm sm:text-base">Delivering to</p>
+                <p className="text-white text-sm sm:text-base">{currentLocation}</p>
+              </div>
             </div>
-            <button className="ml-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-              Change Address
+            <button className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-4 py-3 rounded-lg text-sm sm:text-base font-medium min-h-[48px] touch-manipulation">
+              📍 Change Address
             </button>
           </div>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex space-x-1 mb-6 bg-gray-800 p-1 rounded-lg">
+        <div className="flex space-x-1 mb-4 sm:mb-6 bg-gray-800 p-1 rounded-lg overflow-x-auto">
           {['browse', 'cart', 'orders', 'favorites'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 px-4 rounded-md capitalize transition-all relative ${
+              className={`flex-1 py-2 px-2 sm:px-4 rounded-md capitalize transition-all relative text-sm sm:text-base whitespace-nowrap min-h-[44px] ${
                 activeTab === tab 
                   ? 'bg-blue-600 text-white' 
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              {tab}
+              {tab === 'browse' ? '🍔 ' : tab === 'cart' ? '🛒 ' : tab === 'orders' ? '📋 ' : '❤️ '}{tab}
               {tab === 'cart' && cart.length > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {cart.length}
@@ -2113,7 +2115,7 @@ export default function Portfolio() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4"> <span className="text-blue-600">Our Portfolio</span></h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">Our <span className="text-blue-600">Portfolio</span></h1>
           <p className="text-lg sm:text-xl text-white max-w-3xl mx-auto px-4">
             Explore our recent projects and see how we've helped businesses achieve their digital goals.
           </p>
@@ -2136,7 +2138,10 @@ export default function Portfolio() {
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group border border-gray-100 cursor-pointer flex flex-col h-full min-h-[480px]"
+            className="bg-white/70 backdrop-blur-lg rounded-2xl overflow-hidden hover:scale-[1.04] hover:-translate-y-3 transition-all duration-300 cursor-pointer flex flex-col h-full min-h-[480px]"
+            style={{
+              boxShadow: "0 10px 30px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(147, 197, 253, 0.1), 0 0 25px rgba(59, 130, 246, 0.08)"
+            }}
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
@@ -2192,19 +2197,21 @@ export default function Portfolio() {
                 />
               </div>
               <div className="text-white text-center relative z-10">
-                <motion.svg 
-                  className="w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-2 opacity-80"
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
+                <motion.div 
+                  className="w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-2 opacity-80 flex items-center justify-center text-4xl sm:text-5xl"
                   whileHover={{ 
                     scale: 1.1,
                     rotate: 5,
                     transition: { duration: 0.3 }
                   }}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </motion.svg>
+                  {project.appType === 'ecommerce' ? '🛒' : 
+                   project.appType === 'banking' ? '🏦' : 
+                   project.appType === 'healthcare' ? '🏥' : 
+                   project.appType === 'realestate' ? '🏠' : 
+                   project.appType === 'food' ? '🍕' : 
+                   project.appType === 'learning' ? '🎓' : '💻'}
+                </motion.div>
                 <p className="text-xs sm:text-sm opacity-80 font-medium">Interactive Demo</p>
               </div>
               
@@ -2217,7 +2224,14 @@ export default function Portfolio() {
                   transition={{ duration: 0.3, delay: 0.1 }}
                 >
                   <div className="flex items-center justify-center space-x-2 mb-2">
-                    <span className="text-2xl">🚀</span>
+                    <span className="text-2xl">
+                      {project.appType === 'ecommerce' ? '�️' : 
+                       project.appType === 'banking' ? '💳' : 
+                       project.appType === 'healthcare' ? '🩺' : 
+                       project.appType === 'realestate' ? '🔑' : 
+                       project.appType === 'food' ? '🚚' : 
+                       project.appType === 'learning' ? '📚' : '�🚀'}
+                    </span>
                     <span className="font-semibold">Launch Demo</span>
                   </div>
                   <p className="text-sm opacity-90">Click to explore features</p>
@@ -2291,7 +2305,9 @@ export default function Portfolio() {
         <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Technologies We Use</h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-8 max-w-2xl mx-auto">
           {['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'EmailJS'].map((tech) => (
-            <div key={tech} className="text-center p-4 bg-white rounded-lg shadow-sm border flex items-center justify-center">
+            <div key={tech} className="text-center p-4 bg-white/60 backdrop-blur-md rounded-xl border border-blue-200/30 flex items-center justify-center" style={{
+              boxShadow: "0 4px 15px rgba(59, 130, 246, 0.1)"
+            }}>
               <div className="text-lg font-medium text-black">{tech}</div>
             </div>
           ))}
@@ -2325,7 +2341,7 @@ export default function Portfolio() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
+              className="fixed inset-0 z-50 flex items-center justify-center p-1 sm:p-4"
               style={{ pointerEvents: 'auto' }}
               onClick={() => setSelectedProject(null)}
             >
@@ -2339,16 +2355,16 @@ export default function Portfolio() {
               />
               {/* Modal content */}
               <motion.div
-                className="relative z-10 bg-white rounded-xl shadow-2xl w-full max-w-lg sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto flex flex-col pointer-events-auto"
-                style={{ width: '100%', overflow: 'hidden', maxHeight: '90vh' }}
+                className="relative z-10 bg-white rounded-lg sm:rounded-xl shadow-2xl w-full max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto flex flex-col pointer-events-auto"
+                style={{ width: '100%', overflow: 'hidden', maxHeight: '95vh' }}
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="overflow-y-auto" style={{ maxHeight: 'calc(90vh - 2rem)' }}>
+                <div className="overflow-y-auto" style={{ maxHeight: 'calc(95vh - 1rem)' }}>
                   {/* Modal header */}
-                  <div className="flex items-center justify-between p-4 border-b border-gray-200">
+                  <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200">
                     <div className="flex items-center space-x-2">
                       <div className="w-3 h-3 bg-red-400 rounded-full shadow-sm"></div>
                       <div className="w-3 h-3 bg-yellow-400 rounded-full shadow-sm"></div>

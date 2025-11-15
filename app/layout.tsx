@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import PageTransition from "./components/PageTransition";
 import LiveBackground from "./components/LiveBackground";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Professional Website",
-  description: "A modern website with multiple pages showcasing services, portfolio, and more",
+  title: "YourSite∞ - Infinite Digital Possibilities",
+  description: "YourSite∞ - Where creativity meets infinity. Professional web development, mobile apps, and limitless digital solutions.",
 };
 
 export const viewport = {
@@ -45,6 +46,7 @@ export default function RootLayout({
           </main>
         </PageTransition>
         <SpeedInsights />
+        <Analytics />
         <div id="portal-root" />
       </body>
     </html>

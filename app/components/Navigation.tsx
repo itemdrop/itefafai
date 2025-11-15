@@ -32,7 +32,7 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
             <Link href="/" className="text-xl sm:text-2xl font-bold text-blue-600" onClick={closeMobileMenu}>
-              YourSight
+              YourSite∞
             </Link>
           </div>
           
@@ -80,16 +80,16 @@ const Navigation = () => {
       <div className={`md:hidden transition-all duration-300 ease-in-out ${
         isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
       } overflow-hidden bg-white border-t border-gray-200 shadow-lg`}>
-        <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="px-3 pt-3 pb-4 space-y-2">
           {navItems.map((item, index) => (
             <Link
               key={item.name}
               href={item.href}
               onClick={closeMobileMenu}
-              className={`block px-3 py-3 rounded-md text-base font-medium transition-all duration-200 ease-in-out transform hover:scale-105 ${
+              className={`block px-4 py-4 rounded-lg text-base font-medium transition-all duration-200 ease-in-out min-h-[48px] flex items-center ${
                 pathname === item.href
                   ? 'bg-blue-100 text-blue-700 shadow-sm'
-                  : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600 hover:shadow-sm'
+                  : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600 hover:shadow-sm active:bg-gray-200'
               }`}
               style={{ 
                 animationDelay: `${index * 50}ms`,
