@@ -1,31 +1,37 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    company: "",
+    subject: "",
+    message: "",
+    file: null as File | null,
   });
 
   const handleChange = (e: any) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
+  };
+
+  const handleFileChange = (e: any) => {
+    const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
+    setFormData({ ...formData, file });
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    
+
     try {
-      const response = await fetch('https://formspree.io/f/xvgwdrvo', {
-        method: 'POST',
+      const response = await fetch("https://formspree.io/f/xvgwdrvo", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: formData.name,
@@ -38,21 +44,22 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        alert('Message sent successfully! We\'ll get back to you soon.');
+        alert("Message sent successfully! We'll get back to you soon.");
         // Reset form
         setFormData({
-          name: '',
-          email: '',
-          company: '',
-          subject: '',
-          message: ''
+          name: "",
+          email: "",
+          company: "",
+          subject: "",
+          message: "",
+          file: null,
         });
       } else {
-        alert('Failed to send message. Please try again or contact us directly.');
+        alert("Failed to send message. Please try again or contact us directly.");
       }
     } catch (error) {
-      console.error('Error sending message:', error);
-      alert('Failed to send message. Please try again or contact us directly.');
+      console.error("Error sending message:", error);
+      alert("Failed to send message. Please try again or contact us directly.");
     }
   };
 
@@ -140,7 +147,9 @@ export default function Contact() {
                 <option value="ui-ux-design">UI/UX Design</option>
                 <option value="digital-marketing">Digital Marketing</option>
                 <option value="consulting">Consulting</option>
+                <option value="career">Career</option>
                 <option value="other">Other</option>
+
               </select>
             </div>
 
@@ -160,14 +169,39 @@ export default function Contact() {
               ></textarea>
             </div>
 
+            {/* CV upload (UI-only) - always visible */}
+            <div>
+              <label className="block text-sm font-medium text-black mb-2">Attach CV (PDF, DOC, DOCX)</label>
+
+              {/* Hidden native file input */}
+              <input
+                id="cv"
+                name="cv"
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+
+              {/* Styled label that looks like the other boxed inputs */}
+              <label
+                htmlFor="cv"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent flex items-center justify-between cursor-pointer"
+              >
+                <span className="text-gray-700">
+                  {formData.file ? formData.file.name : 'Choose a file...'}
+                </span>
+                <span className="text-sm text-blue-600 font-medium">Browse</span>
+              </label>
+            </div>
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-lg"
             >
               Send Message
             </button>
-          </form>
-        </div>
+           </form>
+         </div>
 
         {/* Contact Information */}
         <div className="space-y-8">
@@ -199,6 +233,7 @@ export default function Contact() {
                 <div>
                   <h3 className="text-lg font-semibold text-blue-600">Phone Number</h3>
                   <p className="text-black">+46720062874</p>
+                
                 </div>
               </div>
 
