@@ -29,6 +29,7 @@ export default function Contact() {
     { visible: false, message: '', type: 'success' }
   );
 
+
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
     setToast({ visible: true, message, type });
     // auto-dismiss after 4 seconds
@@ -76,48 +77,6 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen">
-      {/* Toast container (fixed bottom-right so it doesn't move when scrolling) */}
-      <div aria-live="polite" className="fixed bottom-6 right-6 z-50 pointer-events-none">
-        <div className="flex flex-col items-end space-y-4">
-          {toast.visible && (
-            <div className={`pointer-events-auto w-full max-w-sm rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden transition-transform duration-200 ${
-              toast.type === 'success' ? 'bg-white' : 'bg-white'
-            }`}>
-            
-              <div className={`p-4 ${toast.type === 'success' ? '' : ''}`}>
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    {toast.type === 'success' ? (
-                      <svg className="h-6 w-6 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    ) : (
-                      <svg className="h-6 w-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    )}
-                  </div>
-                  <div className="ml-3 w-0 flex-1 pt-0.5">
-                    <p className="text-sm font-medium text-gray-900">{toast.type === 'success' ? 'Success' : 'Error'}</p>
-                    <p className="mt-1 text-sm text-gray-500">{toast.message}</p>
-                  </div>
-                  <div className="ml-4 flex-shrink-0 self-start">
-                    <button
-                      onClick={() => setToast({ visible: false, message: '', type: toast.type })}
-                      className="inline-flex text-gray-400 hover:text-gray-500 focus:outline-none"
-                    >
-                      <span className="sr-only">Close</span>
-                      <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
@@ -133,6 +92,45 @@ export default function Contact() {
           boxShadow: "0 10px 30px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(147, 197, 253, 0.1), 0 0 25px rgba(59, 130, 246, 0.08)"
         }}>
           <h2 className="text-xl sm:text-2xl font-bold text-blue-600 mb-6">Send us a Message</h2>
+
+          {/* Sticky toast tied to the contact form: will stick to top of viewport when scrolled */}
+          <div aria-live="polite" className="sticky top-6 z-40 mb-4">
+            {toast.visible && (
+              <div className={`pointer-events-auto w-full max-w-sm rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden transition-transform duration-200 ${toast.type === 'success' ? 'bg-white' : 'bg-white'}`}>
+                <div className={`p-4 ${toast.type === 'success' ? '' : ''}`}>
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      {toast.type === 'success' ? (
+                        <svg className="h-6 w-6 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      ) : (
+                        <svg className="h-6 w-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      )}
+                    </div>
+                    <div className="ml-3 w-0 flex-1 pt-0.5">
+                      <p className="text-sm font-medium text-gray-900">{toast.type === 'success' ? 'Success' : 'Error'}</p>
+                      <p className="mt-1 text-sm text-gray-500">{toast.message}</p>
+                    </div>
+                    <div className="ml-4 flex-shrink-0 self-start">
+                      <button
+                        onClick={() => setToast({ visible: false, message: '', type: toast.type })}
+                        className="inline-flex text-gray-400 hover:text-gray-500 focus:outline-none"
+                      >
+                        <span className="sr-only">Close</span>
+                        <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
