@@ -76,15 +76,14 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen">
-      {/* Toast container */}
-      <div aria-live="polite" className="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6">
-        <div className="w-full flex flex-col items-center space-y-4 sm:items-end">
+      {/* Toast container (fixed bottom-right so it doesn't move when scrolling) */}
+      <div aria-live="polite" className="fixed bottom-6 right-6 z-50 pointer-events-none">
+        <div className="flex flex-col items-end space-y-4">
           {toast.visible && (
-            <div
-              className={`pointer-events-auto w-full max-w-sm rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden transform transition-all duration-300 ${
-                toast.type === 'success' ? 'bg-white' : 'bg-white'
-              }`}
-            >
+            <div className={`pointer-events-auto w-full max-w-sm rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden transition-transform duration-200 ${
+              toast.type === 'success' ? 'bg-white' : 'bg-white'
+            }`}>
+            
               <div className={`p-4 ${toast.type === 'success' ? '' : ''}`}>
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
