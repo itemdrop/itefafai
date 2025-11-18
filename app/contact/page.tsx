@@ -24,6 +24,17 @@ export default function Contact() {
     setFormData({ ...formData, file });
   };
 
+  // Toast state for user-friendly messages
+  const [toast, setToast] = useState<{ visible: boolean; message: string; type: 'success' | 'error' }>(
+    { visible: false, message: '', type: 'success' }
+  );
+
+  const showToast = (message: string, type: 'success' | 'error' = 'success') => {
+    setToast({ visible: true, message, type });
+    // auto-dismiss after 4 seconds
+    setTimeout(() => setToast({ visible: false, message: '', type }), 4000);
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -44,7 +55,7 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        alert("Message sent successfully! We'll get back to you soon.");
+        showToast("Message sent successfully! We'll get back to you soon.", 'success');
         // Reset form
         setFormData({
           name: "",
@@ -55,16 +66,59 @@ export default function Contact() {
           file: null,
         });
       } else {
-        alert("Failed to send message. Please try again or contact us directly.");
+        showToast('Failed to send message. Please try again or contact us directly.', 'error');
       }
     } catch (error) {
       console.error("Error sending message:", error);
-      alert("Failed to send message. Please try again or contact us directly.");
+      showToast('Failed to send message. Please try again or contact us directly.', 'error');
     }
   };
 
   return (
     <div className="min-h-screen">
+      {/* Toast container */}
+      <div aria-live="polite" className="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6">
+        <div className="w-full flex flex-col items-center space-y-4 sm:items-end">
+          {toast.visible && (
+            <div
+              className={`pointer-events-auto w-full max-w-sm rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden transform transition-all duration-300 ${
+                toast.type === 'success' ? 'bg-white' : 'bg-white'
+              }`}
+            >
+              <div className={`p-4 ${toast.type === 'success' ? '' : ''}`}>
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    {toast.type === 'success' ? (
+                      <svg className="h-6 w-6 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : (
+                      <svg className="h-6 w-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    )}
+                  </div>
+                  <div className="ml-3 w-0 flex-1 pt-0.5">
+                    <p className="text-sm font-medium text-gray-900">{toast.type === 'success' ? 'Success' : 'Error'}</p>
+                    <p className="mt-1 text-sm text-gray-500">{toast.message}</p>
+                  </div>
+                  <div className="ml-4 flex-shrink-0 self-start">
+                    <button
+                      onClick={() => setToast({ visible: false, message: '', type: toast.type })}
+                      className="inline-flex text-gray-400 hover:text-gray-500 focus:outline-none"
+                    >
+                      <span className="sr-only">Close</span>
+                      <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
@@ -147,7 +201,6 @@ export default function Contact() {
                 <option value="ui-ux-design">UI/UX Design</option>
                 <option value="digital-marketing">Digital Marketing</option>
                 <option value="consulting">Consulting</option>
-                <option value="career">Career</option>
                 <option value="other">Other</option>
 
               </select>
