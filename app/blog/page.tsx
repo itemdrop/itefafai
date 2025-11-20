@@ -1,42 +1,8 @@
+import Link from "next/link";
+import { blogPosts as posts } from "../../lib/posts";
+
 export default function Blog() {
-  const blogPosts = [
-    {
-      title: "Building Scalable Applications with Microservices",
-      excerpt: "Learn how microservices architecture can help you build more maintainable and scalable applications.",
-      author: "Efan Savage",
-      date: "March 10, 2025",
-      category: "Architecture",
-      readTime: "8 min read",
-      featured: false
-    },
-    {
-      title: "UX Design Principles That Drive Conversions",
-      excerpt: "Discover the key UX design principles that can significantly improve your website's conversion rates.",
-      author: "Lina Witt",
-      date: "March 8, 2025",
-      category: "Design",
-      readTime: "6 min read",
-      featured: false
-    },
-    {
-      title: "Mobile-First Development: Best Practices",
-      excerpt: "Essential strategies for implementing mobile-first development in your next project.",
-      author: "Faisal Faisal Sameer",
-      date: "March 5, 2025",
-      category: "Mobile",
-      readTime: "7 min read",
-      featured: false
-    },
-    {
-      title: "The Rise of AI in Software Development",
-      excerpt: "How artificial intelligence is transforming the way we develop, test, and deploy software applications.",
-      author: "Phil Savage",
-      date: "February 28, 2025",
-      category: "AI & ML",
-      readTime: "9 min read",
-      featured: false
-    }
-  ];
+  const blogPosts = posts;
 
   const categories = ["All", "Technology", "Design", "Mobile", "Security", "AI & ML", "Architecture"];
   const featuredPost = blogPosts.find(post => post.featured);
@@ -71,9 +37,9 @@ export default function Blog() {
                   <span className="opacity-75">•</span>
                   <span className="opacity-75">{featuredPost.readTime}</span>
                 </div>
-                <button className="bg-white text-blue-600 px-4 sm:px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm sm:text-base">
+                <Link href={`/blog/${featuredPost.slug}`} className="bg-white text-blue-600 px-4 sm:px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm sm:text-base inline-block">
                   Read More
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -130,9 +96,7 @@ export default function Blog() {
                     <div className="text-xs text-black">{post.date}</div>
                   </div>
                 </div>
-                <button className="text-blue-600 hover:text-blue-800 font-medium">
-                  Read More
-                </button>
+                <Link href={`/blog/${post.slug}`} className="text-blue-600 hover:text-blue-800 font-medium">Read More</Link>
               </div>
             </div>
           </article>
