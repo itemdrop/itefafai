@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Team() {
   const teamMembers = [
     {
@@ -24,7 +26,8 @@ export default function Team() {
         facebook: "https://www.facebook.com/profile.php?id=100057024851439",
         email: "efansav@gmail.com"
       },
-      image: "bg-gradient-to-br from-green-400 to-green-600"
+      image: "bg-gradient-to-br from-green-400 to-green-600",
+      profileImage: "/images/screenshot-2025-11-20.png"
     }
   ];
 
@@ -46,15 +49,29 @@ export default function Team() {
           <div key={index} className="bg-white/70 backdrop-blur-lg rounded-2xl overflow-hidden hover:scale-[1.04] hover:-translate-y-3 transition-all duration-300" style={{
             boxShadow: "0 10px 30px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(147, 197, 253, 0.1), 0 0 25px rgba(59, 130, 246, 0.08)"
           }}>
-            {/* Profile Image Placeholder */}
+            {/* Profile Image */}
             <div className={`h-48 sm:h-64 ${member.image} flex items-center justify-center`}>
               <div className="text-white text-center">
-                <div className="w-16 sm:w-24 h-16 sm:h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 sm:w-12 h-8 sm:h-12" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                  </svg>
+                <div className="w-16 sm:w-24 h-16 sm:h-24 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden relative">
+                  {member.profileImage ? (
+                    <Image
+                      src={member.profileImage}
+                      alt={`${member.name} profile photo`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 96px, 96px"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                      <svg className="w-8 sm:w-12 h-8 sm:h-12" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                      </svg>
+                    </div>
+                  )}
                 </div>
-                <p className="text-xs sm:text-sm opacity-80">Profile Photo</p>
+                <p className="text-xs sm:text-sm opacity-80">
+                  {member.profileImage ? member.name.split(' ')[0] : 'Profile Photo'}
+                </p>
               </div>
             </div>
 
