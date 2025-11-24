@@ -4,7 +4,7 @@ import { blogPosts as posts } from "../../lib/posts";
 export default function Blog() {
   const blogPosts = posts;
 
-  const categories = ["All", "Technology", "Design", "Mobile", "Security", "AI & ML", "Architecture"];
+  const categories = ["All", "Technology", "Design", "Mobile", "Security",  "Architecture"];
   const featuredPost = blogPosts.find(post => post.featured);
   const regularPosts = blogPosts.filter(post => !post.featured);
 

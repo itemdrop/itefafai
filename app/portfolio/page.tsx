@@ -2304,13 +2304,27 @@ export default function Portfolio() {
       <section className="mb-16">
         <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Technologies We Use</h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-8 max-w-2xl mx-auto">
-          {['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'EmailJS'].map((tech) => (
-            <div key={tech} className="text-center p-4 bg-white/60 backdrop-blur-md rounded-xl border border-blue-200/30 flex items-center justify-center" style={{
-              boxShadow: "0 4px 15px rgba(59, 130, 246, 0.1)"
-            }}>
-              <div className="text-lg font-medium text-black">{tech}</div>
-            </div>
-          ))}
+          {['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'EmailJS'].map((tech) => {
+            const urls: Record<string,string> = {
+              "Next.js": "https://nextjs.org",
+              React: "https://reactjs.org",
+              TypeScript: "https://www.typescriptlang.org",
+              "Tailwind CSS": "https://tailwindcss.com",
+              "Framer Motion": "https://www.framer.com/motion/",
+              EmailJS: "https://www.emailjs.com",
+            };
+            const href = urls[tech] || '#';
+
+            return (
+              <div key={tech} className="text-center p-4 bg-white/60 backdrop-blur-md rounded-xl border border-blue-200/30 flex items-center justify-center" style={{
+                boxShadow: "0 4px 15px rgba(59, 130, 246, 0.1)"
+              }}>
+                <a href={href} target="_blank" rel="noopener noreferrer" className="text-lg font-medium text-black hover:underline">
+                  {tech}
+                </a>
+              </div>
+            );
+          })}
         </div>
       </section>
 
