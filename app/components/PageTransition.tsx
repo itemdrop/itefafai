@@ -83,20 +83,12 @@ const overlayVariants = {
   visible: { 
     opacity: 1,
     scale: 1,
-    rotate: 180,
-    transition: {
-      duration: TRANSITION_DURATION * 0.25, // Faster appearance
-      ease: [0.25, 0.46, 0.45, 0.94]
-    }
+    rotate: 180
   },
   exit: { 
     opacity: 0,
     scale: 1.1,
-    rotate: 270,
-    transition: {
-      duration: TRANSITION_DURATION * 0.15, // Faster exit
-      ease: [0.25, 0.46, 0.45, 0.94]
-    }
+    rotate: 270
   }
 };
 
@@ -112,7 +104,7 @@ const loadingVariants = {
     transition: {
       width: {
         duration: TRANSITION_DURATION * 0.7, // Complete 70% through transition
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: "easeOut"
       },
       opacity: {
         duration: 0.2,
@@ -211,7 +203,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
                 transition={{ 
                   duration: TRANSITION_DURATION * 0.6,
                   repeat: 1,
-                  ease: [0.25, 0.46, 0.45, 0.94]
+                  ease: "easeOut"
                 }}
               />
               <motion.div 
@@ -223,7 +215,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
                 transition={{ 
                   duration: TRANSITION_DURATION * 0.5,
                   repeat: 1,
-                  ease: [0.25, 0.46, 0.45, 0.94]
+                  ease: "easeOut"
                 }}
               />
             </div>

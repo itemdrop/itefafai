@@ -1,12 +1,34 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 import { blogPosts as posts } from "../../lib/posts";
 
-export default function Blog() {
-  const blogPosts = posts;
+// Derive BlogPost type from data source
+type BlogPost = (typeof posts)[number];
 
+export default function Blog() {
+  const blogPosts: BlogPost[] = posts;
+
+  // Categories (can include ones without posts yet for future expansion)
   const categories = ["All", "Technology", "Design", "Mobile", "Security", "AI & ML", "Architecture"];
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
   const featuredPost = blogPosts.find(post => post.featured);
   const regularPosts = blogPosts.filter(post => !post.featured);
+  const filteredPosts = activeCategory === "All"
+    ? regularPosts
+    : regularPosts.filter(p => p.category === activeCategory);
+
+  const handleCategoryClick = (category: string) => {
+    setActiveCategory(category);
+  };
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Placeholder: integrate real subscription endpoint here
+    // eslint-disable-next-line no-console
+    console.log("Newsletter subscription attempted");
+  };
 
   return (
     <div className="min-h-screen">
@@ -47,26 +69,42 @@ export default function Blog() {
       )}
 
       {/* Category Filter */}
-      <div className="flex flex-wrap justify-center gap-4 mb-12">
-        {categories.map((category) => (
-          <button
-            key={category}
-            className="px-6 py-2 rounded-full border border-gray-300 text-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors"
-          >
-            {category}
-          </button>
-        ))}
+      <div className="flex flex-wrap justify-center gap-4 mb-12" aria-label="Filter blog posts by category">
+        {categories.map((category) => {
+          const isActive = category === activeCategory;
+          return (
+            <button
+              key={category}
+              type="button"
+              onClick={() => handleCategoryClick(category)}
+              aria-pressed={isActive}
+              className={
+                `px-6 py-2 rounded-full border text-sm sm:text-base transition-colors ` +
+                (isActive
+                  ? "bg-blue-600 text-white border-blue-600 shadow"
+                  : "border-gray-300 text-white hover:bg-blue-600 hover:text-white hover:border-blue-600")
+              }
+            >
+              {category}
+            </button>
+          );
+        })}
       </div>
 
       {/* Blog Posts Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        {regularPosts.map((post, index) => (
-          <article key={index} className="bg-white/70 backdrop-blur-lg rounded-2xl overflow-hidden hover:scale-[1.04] hover:-translate-y-3 transition-all duration-300" style={{
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" aria-live="polite">
+        {filteredPosts.length === 0 && (
+          <div className="md:col-span-2 lg:col-span-3 text-center text-white opacity-80">
+            No posts found for "{activeCategory}".
+          </div>
+        )}
+        {filteredPosts.map((post) => (
+          <article key={post.slug} className="bg-white/70 backdrop-blur-lg rounded-2xl overflow-hidden hover:scale-[1.04] hover:-translate-y-3 transition-all duration-300" style={{
             boxShadow: "0 10px 30px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(147, 197, 253, 0.1), 0 0 25px rgba(59, 130, 246, 0.08)"
           }}>
             {/* Post Image Placeholder */}
-            <div className="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
-              <div className="text-4xl">
+            <div className="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center" role="img" aria-label={`${post.category} illustration`}>
+              <div className="text-4xl" aria-hidden="true">
                 {post.category === 'Architecture' ? '🏗️' : 
                  post.category === 'Design' ? '🎨' : 
                  post.category === 'Mobile' ? '📱' : 
@@ -90,7 +128,7 @@ export default function Blog() {
               
               <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                 <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
+                  <div className="w-8 h-8 bg-gray-300 rounded-full" aria-hidden="true" />
                   <div>
                     <div className="text-sm font-medium text-black">{post.author}</div>
                     <div className="text-xs text-black">{post.date}</div>
@@ -112,16 +150,19 @@ export default function Blog() {
           <p className="text-xl text-black mb-8">
             Get the latest articles and insights delivered straight to your inbox.
           </p>
-          <div className="max-w-md mx-auto flex gap-4">
+          <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto flex gap-4" aria-label="Newsletter subscription form">
+            <label htmlFor="newsletter-email" className="sr-only">Email address</label>
             <input
+              id="newsletter-email"
               type="email"
               placeholder="Enter your email"
+              required
               className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+            <button type="submit" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
               Subscribe
             </button>
-          </div>
+          </form>
         </div>
       </section>
 

@@ -1,15 +1,37 @@
 "use client";
-"use client";
-
 
 import DemoAppTemplate from "../DemoAppTemplate";
 import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
-// --- Demo Mini-Apps (copied from main portfolio page) ---
+// Import the new unique demo layouts with aliases
+import { 
+  ECommerceApp as NewECommerceApp, 
+  BankingApp as NewBankingApp, 
+  HealthcareApp as NewHealthcareApp, 
+  RealEstateApp as NewRealEstateApp, 
+  FoodDeliveryApp as NewFoodDeliveryApp, 
+  LearningApp as NewLearningApp 
+} from "./unique-demos";
+
+// --- Legacy imports (keeping for fallback) ---
 import { useState } from "react";
 
 function ECommerceApp() {
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    zipCode: '',
+    preferences: [] as string[]
+  });
+  const [signupStep, setSignupStep] = useState(1);
+
   // Tabs and state
   const [tab, setTab] = useState<'catalog'|'cart'|'orders'|'profile'|'admin'|'wishlist'|'analytics'|'reviews'|'support'>('catalog');
   // Product catalog
@@ -49,7 +71,7 @@ function ECommerceApp() {
   ]);
 
   // Cart handlers
-  function addToCart(product) {
+  function addToCart(product: any) {
     setCart((prev) => {
       const found = prev.find((item) => item.id === product.id);
       if (found) {
@@ -59,7 +81,7 @@ function ECommerceApp() {
       }
     });
   }
-  function removeFromCart(productId) {
+  function removeFromCart(productId: number) {
     setCart((prev) => prev.filter((item) => item.id !== productId));
   }
   function checkout() {
@@ -73,32 +95,243 @@ function ECommerceApp() {
     setWishlist((prev) => prev.includes(id) ? prev.filter((wid) => wid !== id) : [...prev, id]);
   }
 
+  // Signup handlers
+  function handleSignupComplete() {
+    // Save user info to localStorage (simulated database)
+    localStorage.setItem('ecommerce_user', JSON.stringify(userInfo));
+    setIsAuthenticated(true);
+  }
+
+  function handleInputChange(field: string, value: string) {
+    setUserInfo(prev => ({ ...prev, [field]: value }));
+  }
+
+  function handlePreferenceToggle(preference: string) {
+    setUserInfo(prev => ({
+      ...prev,
+      preferences: prev.preferences.includes(preference)
+        ? prev.preferences.filter(p => p !== preference)
+        : [...prev.preferences, preference]
+    }));
+  }
+
+  // Show signup wall if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-8 bg-gradient-to-br from-pink-50 via-purple-50 to-pink-50">
+        <div className="max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="text-4xl sm:text-6xl mb-3 sm:mb-4 animate-bounce">✨</div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 bg-clip-text text-transparent px-2">
+              Welcome to ShopEase!
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-600 px-2">Create your account to start shopping with personalized recommendations</p>
+          </div>
+
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-pink-100/50">
+            {/* Progress indicator */}
+            <div className="flex justify-center mb-6 sm:mb-8">
+              <div className="flex items-center space-x-2 sm:space-x-4">
+                <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${signupStep >= 1 ? 'bg-pink-600 text-white' : 'bg-gray-200 text-gray-500'}`}>1</div>
+                <div className={`w-8 sm:w-16 h-1 ${signupStep >= 2 ? 'bg-pink-600' : 'bg-gray-200'}`}></div>
+                <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${signupStep >= 2 ? 'bg-pink-600 text-white' : 'bg-gray-200 text-gray-500'}`}>2</div>
+                <div className={`w-8 sm:w-16 h-1 ${signupStep >= 3 ? 'bg-pink-600' : 'bg-gray-200'}`}></div>
+                <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${signupStep >= 3 ? 'bg-pink-600 text-white' : 'bg-gray-200 text-gray-500'}`}>3</div>
+              </div>
+            </div>
+
+            {signupStep === 1 && (
+              <div className="animate-fadeInUp">
+                <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 text-gray-800">Personal Information</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 sm:mb-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                    <input
+                      type="text"
+                      value={userInfo.firstName}
+                      onChange={(e) => handleInputChange('firstName', e.target.value)}
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-pink-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition-all text-sm sm:text-base"
+                      placeholder="Enter your first name"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                    <input
+                      type="text"
+                      value={userInfo.lastName}
+                      onChange={(e) => handleInputChange('lastName', e.target.value)}
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-pink-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition-all text-sm sm:text-base"
+                      placeholder="Enter your last name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-4 sm:mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                  <input
+                    type="email"
+                    value={userInfo.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-pink-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition-all text-sm sm:text-base"
+                    placeholder="Enter your email address"
+                    required
+                  />
+                </div>
+                <div className="mb-6 sm:mb-8">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                  <input
+                    type="tel"
+                    value={userInfo.phone}
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-pink-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition-all text-sm sm:text-base"
+                    placeholder="Enter your phone number"
+                  />
+                </div>
+                <button
+                  onClick={() => setSignupStep(2)}
+                  disabled={!userInfo.firstName || !userInfo.lastName || !userInfo.email}
+                  className="w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white py-3 sm:py-4 px-6 rounded-lg sm:rounded-xl font-bold hover:from-pink-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+                >
+                  Continue to Address →
+                </button>
+              </div>
+            )}
+
+            {signupStep === 2 && (
+              <div className="animate-fadeInUp">
+                <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 text-gray-800">Shipping Address</h2>
+                <div className="mb-4 sm:mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Street Address *</label>
+                  <input
+                    type="text"
+                    value={userInfo.address}
+                    onChange={(e) => handleInputChange('address', e.target.value)}
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-pink-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition-all text-sm sm:text-base"
+                    placeholder="Enter your street address"
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 sm:mb-8">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">City *</label>
+                    <input
+                      type="text"
+                      value={userInfo.city}
+                      onChange={(e) => handleInputChange('city', e.target.value)}
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-pink-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition-all text-sm sm:text-base"
+                      placeholder="Enter your city"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">ZIP Code *</label>
+                    <input
+                      type="text"
+                      value={userInfo.zipCode}
+                      onChange={(e) => handleInputChange('zipCode', e.target.value)}
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-pink-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition-all text-sm sm:text-base"
+                      placeholder="Enter ZIP code"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <button
+                    onClick={() => setSignupStep(1)}
+                    className="w-full sm:flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg sm:rounded-xl font-bold hover:bg-gray-300 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    onClick={() => setSignupStep(3)}
+                    disabled={!userInfo.address || !userInfo.city || !userInfo.zipCode}
+                    className="w-full sm:flex-1 bg-gradient-to-r from-pink-600 to-purple-600 text-white py-3 px-6 rounded-lg sm:rounded-xl font-bold hover:from-pink-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+                  >
+                    Continue to Preferences →
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {signupStep === 3 && (
+              <div className="animate-fadeInUp">
+                <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 text-gray-800">Shopping Preferences</h2>
+                <p className="text-gray-600 text-center mb-4 sm:mb-6 text-sm sm:text-base px-2">Select your interests to get personalized recommendations</p>
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
+                  {['Clothing', 'Electronics', 'Home & Garden', 'Sports & Outdoors', 'Beauty & Health', 'Books & Media'].map((preference) => (
+                    <button
+                      key={preference}
+                      onClick={() => handlePreferenceToggle(preference)}
+                      className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 transition-all duration-300 transform hover:scale-105 ${
+                        userInfo.preferences.includes(preference)
+                          ? 'border-pink-500 bg-pink-50 text-pink-700'
+                          : 'border-gray-200 bg-white text-gray-700 hover:border-pink-300'
+                      }`}
+                    >
+                      <div className="text-xl sm:text-2xl mb-1 sm:mb-2">
+                        {preference === 'Clothing' ? '👕' :
+                         preference === 'Electronics' ? '📱' :
+                         preference === 'Home & Garden' ? '🏡' :
+                         preference === 'Sports & Outdoors' ? '⚽' :
+                         preference === 'Beauty & Health' ? '💄' : '📚'}
+                      </div>
+                      <div className="text-xs sm:text-sm font-medium leading-tight">{preference}</div>
+                    </button>
+                  ))}
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <button
+                    onClick={() => setSignupStep(2)}
+                    className="w-full sm:flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg sm:rounded-xl font-bold hover:bg-gray-300 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    onClick={handleSignupComplete}
+                    className="w-full sm:flex-1 bg-gradient-to-r from-pink-600 to-purple-600 text-white py-3 px-6 rounded-lg sm:rounded-xl font-bold hover:from-pink-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base"
+                  >
+                    Complete Registration ✨
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="text-center mt-4 sm:mt-6 text-xs sm:text-sm text-gray-500 px-4">
+            By creating an account, you agree to our Terms of Service and Privacy Policy
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // UI
   return (
-  <div className="flex flex-row gap-8 min-h-[700px] max-w-[1400px] mx-auto w-full px-6 py-8 overflow-x-auto">
+  <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 min-h-[600px] max-w-full mx-auto w-full px-3 sm:px-4 lg:px-6 py-4 lg:py-6 overflow-hidden">
       {/* Sidebar */}
-  <aside className="w-64 flex-shrink-0 bg-gradient-to-b from-pink-600 via-pink-500 to-pink-400 rounded-2xl p-6 shadow-2xl flex flex-col min-h-[700px] sticky left-0 top-0 h-fit border border-pink-300/30 backdrop-blur-sm animate-slideInLeft">
-        <div className="font-extrabold text-white text-2xl mb-8 tracking-wide animate-glow">✨ ShopEase</div>
+  <aside className="w-full lg:w-48 xl:w-52 flex-shrink-0 bg-gradient-to-b from-pink-600 via-pink-500 to-pink-400 rounded-lg lg:rounded-xl p-3 lg:p-4 shadow-lg lg:shadow-xl flex flex-col min-h-fit lg:min-h-[600px] border border-pink-300/30 backdrop-blur-sm">
+        <div className="font-extrabold text-white text-lg lg:text-xl mb-3 lg:mb-6 tracking-wide animate-glow text-center lg:text-left">✨ ShopEase</div>
         <nav className="flex-1">
-          <ul className="space-y-2">
-            <li><button className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${tab==='catalog'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-xl border-2 border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('catalog')}>🛍️ Catalog</button></li>
-            <li><button className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${tab==='cart'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-xl border-2 border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('cart')}>🛒 Cart ({cart.length})</button></li>
-            <li><button className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${tab==='orders'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-xl border-2 border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('orders')}>📦 Orders</button></li>
-            <li><button className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${tab==='wishlist'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-xl border-2 border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('wishlist')}>💖 Wishlist ({wishlist.length})</button></li>
-            <li><button className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${tab==='reviews'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-xl border-2 border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('reviews')}>⭐ Reviews</button></li>
-            <li><button className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${tab==='profile'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-xl border-2 border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('profile')}>👤 Profile</button></li>
-            <li><button className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${tab==='analytics'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-xl border-2 border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('analytics')}>📈 Analytics</button></li>
-            <li><button className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${tab==='support'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-xl border-2 border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('support')}>💬 Support</button></li>
-            <li><button className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${tab==='admin'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-xl border-2 border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('admin')}>� Admin</button></li>
+          <ul className="grid grid-cols-3 lg:grid-cols-1 gap-1 lg:space-y-1 lg:gap-0">
+            <li><button className={`w-full text-center lg:text-left px-1 lg:px-3 py-1 lg:py-2 rounded-md lg:rounded-lg font-medium text-xs transition-all duration-300 transform hover:scale-105 hover:shadow-md ${tab==='catalog'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-md border border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('catalog')}>🛍️ <span className="hidden lg:inline text-xs">Catalog</span></button></li>
+            <li><button className={`w-full text-center lg:text-left px-1 lg:px-3 py-1 lg:py-2 rounded-md lg:rounded-lg font-medium text-xs transition-all duration-300 transform hover:scale-105 hover:shadow-md ${tab==='cart'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-md border border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('cart')}>🛒 <span className="hidden lg:inline text-xs">Cart ({cart.length})</span></button></li>
+            <li><button className={`w-full text-center lg:text-left px-1 lg:px-3 py-1 lg:py-2 rounded-md lg:rounded-lg font-medium text-xs transition-all duration-300 transform hover:scale-105 hover:shadow-md ${tab==='orders'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-md border border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('orders')}>📦 <span className="hidden lg:inline text-xs">Orders</span></button></li>
+            <li><button className={`w-full text-center lg:text-left px-1 lg:px-3 py-1 lg:py-2 rounded-md lg:rounded-lg font-medium text-xs transition-all duration-300 transform hover:scale-105 hover:shadow-md ${tab==='wishlist'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-md border border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('wishlist')}>💖 <span className="hidden lg:inline text-xs">Wishlist ({wishlist.length})</span></button></li>
+            <li><button className={`w-full text-center lg:text-left px-1 lg:px-3 py-1 lg:py-2 rounded-md lg:rounded-lg font-medium text-xs transition-all duration-300 transform hover:scale-105 hover:shadow-md ${tab==='reviews'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-md border border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('reviews')}>⭐ <span className="hidden lg:inline text-xs">Reviews</span></button></li>
+            <li><button className={`w-full text-center lg:text-left px-1 lg:px-3 py-1 lg:py-2 rounded-md lg:rounded-lg font-medium text-xs transition-all duration-300 transform hover:scale-105 hover:shadow-md ${tab==='profile'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-md border border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('profile')}>👤 <span className="hidden lg:inline text-xs">Profile</span></button></li>
+            <li><button className={`w-full text-center lg:text-left px-1 lg:px-3 py-1 lg:py-2 rounded-md lg:rounded-lg font-medium text-xs transition-all duration-300 transform hover:scale-105 hover:shadow-md ${tab==='analytics'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-md border border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('analytics')}>📈 <span className="hidden lg:inline text-xs">Analytics</span></button></li>
+            <li><button className={`w-full text-center lg:text-left px-1 lg:px-3 py-1 lg:py-2 rounded-md lg:rounded-lg font-medium text-xs transition-all duration-300 transform hover:scale-105 hover:shadow-md ${tab==='support'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-md border border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('support')}>💬 <span className="hidden lg:inline text-xs">Support</span></button></li>
+            <li><button className={`w-full text-center lg:text-left px-1 lg:px-3 py-1 lg:py-2 rounded-md lg:rounded-lg font-medium text-xs transition-all duration-300 transform hover:scale-105 hover:shadow-md ${tab==='admin'?'bg-gradient-to-r from-white to-pink-50 text-pink-700 shadow-md border border-pink-200':'text-white hover:bg-pink-500/80 hover:shadow-pink-500/50'}`} onClick={()=>setTab('admin')}>🛠️ <span className="hidden lg:inline text-xs">Admin</span></button></li>
           </ul>
         </nav>
-        <div className="mt-8 text-xs text-pink-100 opacity-80 animate-pulse">© 2025 ShopEase. All rights reserved.</div>
+        <div className="mt-2 lg:mt-4 text-xs text-pink-100 opacity-80 animate-pulse text-center lg:text-left">© 2025 ShopEase</div>
       </aside>
       {/* Main Content */}
-  <main className="flex-1 bg-gradient-to-br from-white via-pink-50/30 to-white rounded-2xl px-8 py-8 shadow-2xl overflow-x-auto min-w-0 border border-pink-100/50 backdrop-blur-sm animate-slideInRight min-h-[700px]">
+  <main className="flex-1 bg-gradient-to-br from-white via-pink-50/30 to-white rounded-xl lg:rounded-2xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 shadow-xl lg:shadow-2xl overflow-auto min-w-0 border border-pink-100/50 backdrop-blur-sm min-h-[500px] lg:min-h-[600px]">
         {tab === 'catalog' && (
           <div>
-            <div className="text-4xl font-black mb-8 bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">🛍️ Product Catalog</div>
+            <div className="text-2xl sm:text-3xl lg:text-4xl font-black mb-4 sm:mb-6 lg:mb-8 bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">🛍️ Product Catalog</div>
             
             {/* Advanced Search and Filters */}
             <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl p-6 mb-8 border border-pink-100/50 shadow-lg animate-fadeInUp">
@@ -139,7 +372,7 @@ function ECommerceApp() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
               {products
                 .filter(p => 
                   (!searchTerm || p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.desc.toLowerCase().includes(searchTerm.toLowerCase())) &&
@@ -156,28 +389,27 @@ function ECommerceApp() {
                   }
                 })
                 .map((p, idx) => (
-                <div key={p.id} className="bg-gradient-to-br from-pink-50 to-white rounded-2xl p-6 shadow-xl hover:shadow-2xl flex flex-col items-center border border-pink-100/50 transform hover:scale-105 hover:shadow-pink-500/30 transition-all duration-500 hover:-rotate-1 animate-fadeInUp group" style={{animationDelay: `${idx * 100}ms`}}>
-                  <div className="relative mb-4">
-                    <div className="w-32 h-32 bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl flex items-center justify-center text-5xl group-hover:animate-bounce transition-all duration-300">{p.img}</div>
-                    {p.stock < 10 && <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold animate-pulse">Low Stock!</div>}
-                    <div className="absolute -bottom-2 -left-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs px-2 py-1 rounded-full font-bold">{p.category}</div>
+                <div key={p.id} className="bg-gradient-to-br from-pink-50 to-white rounded-lg lg:rounded-xl p-3 lg:p-4 shadow-lg hover:shadow-xl flex flex-col items-center border border-pink-100/50 transform hover:scale-105 hover:shadow-pink-500/30 transition-all duration-500 animate-fadeInUp group" style={{animationDelay: `${idx * 100}ms`}}>
+                  <div className="relative mb-2 lg:mb-3">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-pink-100 to-purple-100 rounded-lg lg:rounded-xl flex items-center justify-center text-lg sm:text-2xl lg:text-3xl group-hover:animate-bounce transition-all duration-300">{p.img}</div>
+                    {p.stock < 10 && <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1 py-0.5 rounded-full font-bold animate-pulse text-xs">Low</div>}
+                    <div className="absolute -bottom-1 -left-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs px-1 py-0.5 rounded-full font-bold">{p.category.slice(0,3)}</div>
                   </div>
-                  <div className="font-bold text-lg mb-1 text-gray-800 text-center leading-tight">{p.name}</div>
-                  <div className="text-3xl font-black mb-2 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">${p.price}</div>
-                  <div className="text-gray-700 text-sm mb-3 text-center leading-relaxed">{p.desc}</div>
-                  <div className="mb-3 flex items-center gap-2">
-                    <div className="text-yellow-500 text-lg">{'★'.repeat(Math.floor(p.rating))}{'☆'.repeat(5-Math.floor(p.rating))}</div>
-                    <span className="text-xs text-gray-600 font-medium">({p.rating}) • {p.reviews} reviews</span>
+                  <div className="font-bold text-sm lg:text-base mb-1 text-gray-800 text-center leading-tight truncate w-full">{p.name}</div>
+                  <div className="text-lg lg:text-xl font-black mb-1 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">${p.price}</div>
+                  <div className="text-gray-700 text-xs mb-2 text-center leading-tight line-clamp-2 h-8">{p.desc}</div>
+                  <div className="mb-2 flex items-center justify-center gap-1">
+                    <div className="text-yellow-500 text-sm">{'★'.repeat(Math.floor(p.rating))}</div>
+                    <span className="text-xs text-gray-600 font-medium">({p.rating})</span>
                   </div>
-                  <div className="mb-3 text-center">
-                    <div className="text-xs text-gray-700 mb-1">Colors: {p.colors.slice(0,3).join(', ')}{p.colors.length > 3 && '...'}</div>
-                    <div className="text-xs text-gray-700">Stock: {p.stock} available</div>
+                  <div className="mb-2 text-center">
+                    <div className="text-xs text-gray-700">Stock: {p.stock}</div>
                   </div>
-                  <div className="flex gap-2 w-full mt-auto">
-                    <button className="flex-1 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-xl hover:from-pink-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 font-bold shadow-lg hover:shadow-pink-500/50 disabled:opacity-50" onClick={()=>addToCart(p)} disabled={p.stock === 0}>
-                      {p.stock === 0 ? '❌ Sold Out' : '🛒 Add to Cart'}
+                  <div className="flex gap-1 w-full mt-auto">
+                    <button className="flex-1 px-2 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-md hover:from-pink-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 font-bold shadow-md hover:shadow-pink-500/50 disabled:opacity-50 text-xs" onClick={()=>addToCart(p)} disabled={p.stock === 0}>
+                      {p.stock === 0 ? '❌' : '🛒'}
                     </button>
-                    <button className={`px-4 py-3 rounded-xl transform hover:scale-105 transition-all duration-300 font-bold shadow-lg ${wishlist.includes(p.id)?'bg-gradient-to-r from-yellow-400 to-orange-400 text-white shadow-yellow-500/50':'bg-gradient-to-r from-gray-200 to-gray-300 text-gray-700 hover:from-yellow-100 hover:to-yellow-200'}`} onClick={()=>toggleWishlist(p.id)}>
+                    <button className={`px-2 py-1.5 rounded-md transform hover:scale-105 transition-all duration-300 font-bold shadow-md text-xs ${wishlist.includes(p.id)?'bg-gradient-to-r from-yellow-400 to-orange-400 text-white shadow-yellow-500/50':'bg-gradient-to-r from-gray-200 to-gray-300 text-gray-700 hover:from-yellow-100 hover:to-yellow-200'}`} onClick={()=>toggleWishlist(p.id)}>
                       {wishlist.includes(p.id)?'💖':'🤍'}
                     </button>
                   </div>
@@ -922,7 +1154,7 @@ function RealEstateApp() {
   const [messages, setMessages] = useState([{ from: 'Agent', text: 'Hi! How can I help you find your dream home?' }]);
   const [newMsg, setNewMsg] = useState('');
   // Mortgage calculator
-  const [mortgage, setMortgage] = useState({ price: '', down: '', rate: '', result: null });
+  const [mortgage, setMortgage] = useState<{ price: string; down: string; rate: string; result: string | null }>({ price: '', down: '', rate: '', result: null });
 
   function toggleFavorite(id: number) {
     setFavorites((prev) => prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]);
@@ -1170,13 +1402,13 @@ function FoodDeliveryApp() {
     { id: 3, name: 'Sushi Spot', cuisine: 'Japanese', rating: 4.8, deliveryTime: '30-40 min', deliveryFee: 3.99, image: '🍣', menu: [ { id: 5, name: 'Dragon Roll', price: 16.99, desc: 'Eel, cucumber, avocado, topped with eel sauce', rating: 4.9 }, { id: 6, name: 'Salmon Sashimi', price: 19.99, desc: 'Fresh salmon slices (8 pieces)', rating: 4.8 } ] },
     { id: 4, name: 'Taco Fiesta', cuisine: 'Mexican', rating: 4.4, deliveryTime: '15-25 min', deliveryFee: 1.49, image: '🌮', menu: [ { id: 7, name: 'Chicken Tacos', price: 12.99, desc: '3 tacos with grilled chicken, onions, cilantro', rating: 4.5 }, { id: 8, name: 'Beef Burrito', price: 15.99, desc: 'Large burrito with seasoned beef and beans', rating: 4.3 } ] },
   ]);
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [selectedRestaurant, setSelectedRestaurant] = useState<any>(null);
   const [cart, setCart] = useState<{ id: number; name: string; price: number; qty: number; restaurant: string }[]>([]);
   const [orders, setOrders] = useState([
     { id: 1, restaurant: 'Pizza Palace', total: 28.50, date: '2025-11-05', status: 'Delivered', items: ['Margherita Pizza', 'Pepperoni Pizza'] },
     { id: 2, restaurant: 'Sushi Spot', total: 45.75, date: '2025-11-03', status: 'Delivered', items: ['Dragon Roll', 'Salmon Sashimi'] }
   ]);
-  const [currentOrder, setCurrentOrder] = useState(null);
+  const [currentOrder, setCurrentOrder] = useState<any>(null);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('');
   const [profile] = useState({ name: 'Jane Customer', email: 'jane@email.com', address: '123 Main St, Downtown', phone: '(555) 123-4567' });
@@ -1185,7 +1417,7 @@ function FoodDeliveryApp() {
     { id: 2, restaurant: 'Sushi Spot', rating: 4, text: 'Fresh sushi, good quality.', date: '2025-11-03' }
   ]);
 
-  function addToCart(item) {
+  function addToCart(item: any) {
     setCart((prev) => {
       const found = prev.find((i) => i.id === item.id);
       if (found) {
@@ -1195,7 +1427,7 @@ function FoodDeliveryApp() {
       }
     });
   }
-  function removeFromCart(itemId) {
+  function removeFromCart(itemId: number) {
     setCart((prev) => prev.filter((i) => i.id !== itemId));
   }
   function checkout() {
@@ -1444,7 +1676,7 @@ function LearningApp() {
     { id: 3, title: 'Machine Learning Basics', progress: 30, duration: '20 hours', difficulty: 'Intermediate', instructor: 'Prof. AI Watson', rating: 4.7, enrolled: 650, modules: ['Linear Regression', 'Neural Networks', 'Data Processing'], image: '🤖' },
     { id: 4, title: 'Python for Data Science', progress: 0, duration: '15 hours', difficulty: 'Intermediate', instructor: 'Dr. Data Smith', rating: 4.6, enrolled: 980, modules: ['Pandas & NumPy', 'Data Visualization', 'Statistical Analysis'], image: '🐍' },
   ]);
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
   const [quiz, setQuiz] = useState({
     questions: [
       { q: "What is the capital of France?", a: "Paris", options: ["Paris", "London", "Berlin", "Madrid"] },
@@ -1774,17 +2006,17 @@ const projects = [
 function renderMiniApp(appType) {
   switch (appType) {
     case "ecommerce":
-      return <ECommerceApp />;
+      return <NewECommerceApp />;
     case "banking":
-      return <BankingApp />;
+      return <NewBankingApp />;
     case "healthcare":
-      return <HealthcareApp />;
+      return <NewHealthcareApp />;
     case "realestate":
-      return <RealEstateApp />;
+      return <NewRealEstateApp />;
     case "food":
-      return <FoodDeliveryApp />;
+      return <NewFoodDeliveryApp />;
     case "learning":
-      return <LearningApp />;
+      return <NewLearningApp />;
     default:
       return <div className="p-8 text-center">App not found</div>;
   }
@@ -1865,6 +2097,23 @@ export default function DemoPage() {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
           }
+          @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+          }
+          @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+          }
           
           .animate-shimmer { 
             animation: shimmer 3s ease-in-out infinite; 
@@ -1875,12 +2124,23 @@ export default function DemoPage() {
           .animate-slideInLeft { animation: slideInLeft 0.8s ease-out; }
           .animate-slideInRight { animation: slideInRight 0.8s ease-out; }
           .animate-slideInUp { animation: slideInUp 0.8s ease-out; }
+          .animate-slideInDown { animation: slideInDown 0.8s ease-out; }
+          .animate-bounceIn { animation: bounceIn 0.8s ease-out; }
+          .animate-heartbeat { animation: heartbeat 1.5s ease-in-out infinite; }
           .animate-glow { animation: glow 2s ease-in-out infinite; }
           .animate-float { animation: float 3s ease-in-out infinite; }
           .animate-bounce { animation: bounce 2s infinite; }
           .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
           
           .bg-300% { background-size: 300% 300%; }
+          
+          .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
           
           .hover\\:shadow-glow:hover {
             box-shadow: 0 0 20px rgba(236, 72, 153, 0.5), 0 0 40px rgba(236, 72, 153, 0.3), 0 0 60px rgba(236, 72, 153, 0.1);

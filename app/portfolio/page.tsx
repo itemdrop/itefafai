@@ -2304,7 +2304,7 @@ export default function Portfolio() {
       <section className="mb-16">
         <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Technologies We Use</h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-8 max-w-2xl mx-auto">
-          {['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'EmailJS'].map((tech) => (
+          {['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Formspree'].map((tech) => (
             <div key={tech} className="text-center p-4 bg-white/60 backdrop-blur-md rounded-xl border border-blue-200/30 flex items-center justify-center" style={{
               boxShadow: "0 4px 15px rgba(59, 130, 246, 0.1)"
             }}>
