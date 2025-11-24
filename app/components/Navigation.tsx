@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
+import { siteConfig } from '../../lib/siteConfig';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
@@ -31,8 +33,24 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <Link href="/" className="text-xl sm:text-2xl font-bold text-blue-600" onClick={closeMobileMenu}>
-              YourSite∞
+            <Link href="/" onClick={closeMobileMenu} className="flex items-center gap-3 group">
+              <Image
+                src={siteConfig.logoPath || '/next.svg'}
+                alt={`${siteConfig.name} logo`}
+                width={56}
+                height={56}
+                className="h-14 w-14 rounded-xl object-cover border border-gray-300 shadow-sm group-hover:border-blue-400 group-hover:shadow-md transition-all duration-200"
+                priority
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  if (!target.src.endsWith('/next.svg')) {
+                    target.src = '/next.svg';
+                  }
+                }}
+              />
+              <span className="text-2xl sm:text-3xl font-bold text-black group-hover:text-blue-600 transition-colors">
+                {siteConfig.name}
+              </span>
             </Link>
           </div>
           

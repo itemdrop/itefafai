@@ -12,7 +12,6 @@ export default function Blog() {
   // Categories (can include ones without posts yet for future expansion)
   const categories = ["All", "Technology", "Design", "Mobile", "Security", "AI & ML", "Architecture"];
   const [activeCategory, setActiveCategory] = useState<string>("All");
-
   const featuredPost = blogPosts.find(post => post.featured);
   const regularPosts = blogPosts.filter(post => !post.featured);
   const filteredPosts = activeCategory === "All"
