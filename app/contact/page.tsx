@@ -133,7 +133,7 @@ export default function Contact() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
+                <div>
                 <label htmlFor="name" className="block text-sm font-medium text-black mb-2">
                   Full Name *
                 </label>
@@ -144,10 +144,10 @@ export default function Contact() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out text-black"
                   placeholder="Your full name"
                 />
-              </div>
+                </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
                   Email Address *
@@ -159,7 +159,7 @@ export default function Contact() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out text-black"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -175,7 +175,7 @@ export default function Contact() {
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out text-black"
                 placeholder="Your company name"
               />
             </div>
@@ -190,7 +190,7 @@ export default function Contact() {
                 required
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out text-black"
               >
                 <option value="">Select a subject</option>
                 <option value="web-development">Web Development</option>
@@ -214,7 +214,7 @@ export default function Contact() {
                 rows={6}
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-solid resize-none transition-all duration-200 ease-in-out text-black"
                 placeholder="Tell us about your project..."
               ></textarea>
             </div>
@@ -236,7 +236,7 @@ export default function Contact() {
               {/* Styled label that looks like the other boxed inputs */}
               <label
                 htmlFor="cv"
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent flex items-center justify-between cursor-pointer"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent flex items-center justify-between cursor-pointer transition-all duration-200 ease-in-out text-black"
               >
                 <span className="text-gray-700">
                   {formData.file ? formData.file.name : 'Choose a file...'}
@@ -246,7 +246,7 @@ export default function Contact() {
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-lg"
+              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-lg transition-all duration-50 ease-in-out text-black"
             >
               Send Message
             </button>

@@ -1,35 +1,50 @@
 export const blogPosts = [
   {
-    slug: "building-scalable-applications-with-microservices",
-    title: "Building Scalable Applications with Microservices",
-    excerpt: "Learn how microservices architecture can help you build more maintainable and scalable applications.",
+    slug: "deploying-nextjs-on-vercel-efficiently",
+    title: "Deploying Next.js on Vercel Efficiently",
+    excerpt: "Learn how to optimize your Next.js deployments on Vercel for better performance and cost efficiency.",
     author: "Efan Savage",
     date: "March 10, 2025",
-    category: "Architecture",
-    readTime: "8 min read",
+    category: "Deployment",
+    readTime: "6 min read",
     featured: false,
-  content: `Microservices are a design approach where an application is composed of small, independently deployable services. This article walks through why teams adopt microservices, the benefits they bring, and the practical steps to design and run them successfully.
+  content: `Vercel makes deploying Next.js applications incredibly simple, but there are key strategies to optimize your deployments for both performance and cost.
 
-Key benefits:
-- Independent deployability: teams can ship features without coordinating a large, monolithic release.
-- Scalability: services can be scaled individually according to demand.
-- Technology heterogeneity: teams can choose the best tools per service.
+\n\n
 
-Design considerations:
-- Define clear service boundaries around business capabilities and data ownership.
-- Prefer asynchronous communication where possible to reduce coupling; use request/response for synchronous needs.
-- Keep APIs stable and versioned; use API contracts and schema validation to prevent regressions.
+Getting Started:
+- Connect your GitHub repository to Vercel for automatic deployments
+- Configure environment variables in the Vercel dashboard
+- Set up custom domains with automatic SSL certificates
+- Use preview deployments for testing before going live
 
-Operational concerns:
-- Observability is essential: instrument tracing, metrics, and logs so you can reason across service boundaries.
-- Automate deployments with CI/CD and use health checks, circuit breakers, and retries to make systems resilient.
-- Plan for data consistency: choose patterns (sagas, event sourcing, or compensating actions) that match your consistency requirements.
+\n\n
 
-Challenges and pitfalls:
-- Avoid creating too many fine-grained services early — operational overhead can overwhelm small teams.
-- Watch out for distributed transactions and increased latency from chatty services.
+Performance Optimization:
+- Enable Next.js Image Optimization for automatic WebP conversion
+- Implement Incremental Static Regeneration (ISR) for dynamic content
+- Use Vercel Analytics to monitor Core Web Vitals
+- Leverage Edge Functions for globally distributed API endpoints
 
-In short, microservices can unlock velocity and scalability when combined with strong engineering practices around design, testing, and operations. This article includes patterns and examples teams can adopt gradually to reduce risk while reaping benefits.`
+\n\n
+
+Best Practices:
+- Keep serverless functions lightweight to reduce cold start times
+- Use static generation where possible to minimize function invocations
+- Implement proper caching strategies with Vercel's built-in CDN
+- Monitor function execution times and optimize long-running processes
+
+\n\n
+
+Common Pitfalls:
+- Avoid large dependencies in API routes
+- Don't forget to configure proper redirects for SEO
+- Always test deployments in preview environments first
+- Use environment-specific configurations for different stages
+
+\n\n
+
+Vercel's zero-config approach combined with these optimization techniques will help you build fast, scalable applications that perform well globally while keeping costs manageable.`
   },
   {
     slug: "ux-design-principles-that-drive-conversions",

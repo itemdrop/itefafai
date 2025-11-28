@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { siteConfig } from '../../lib/siteConfig';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import SearchBar from './SearchBar';
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -33,7 +34,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <Link href="/" onClick={closeMobileMenu} className="flex items-center gap-3 group">
+            <Link href="/" onClick={closeMobileMenu} className="flex items-center group relative" aria-label={siteConfig.name}>
               <Image
                 src={siteConfig.logoPath || '/next.svg'}
                 alt={`${siteConfig.name} logo`}
@@ -48,15 +49,20 @@ const Navigation = () => {
                   }
                 }}
               />
-              <span className="text-2xl sm:text-3xl font-bold text-black group-hover:text-blue-600 transition-colors">
+              {/* Hover-only brand text tooltip - slides out from icon */}
+              <span className="absolute left-full top-1/2 -translate-y-1/2 ml-0 px-3 py-1 rounded-lg bg-blue-600 text-white text-sm font-semibold whitespace-nowrap opacity-0 scale-x-0 origin-left group-hover:opacity-100 group-hover:scale-x-100 group-hover:ml-3 transition-all duration-300 ease-out pointer-events-none shadow-lg">
                 {siteConfig.name}
               </span>
             </Link>
           </div>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-6 lg:space-x-8">
+          <div className="hidden md:flex md:items-center md:space-x-8">
+            {/* Search Bar */}
+            <SearchBar className="w-64 lg:w-80" />
+            
+            {/* Navigation Links */}
+            <div className="flex items-baseline space-x-6 lg:space-x-8">
               {navItems.map((item) => (
                 <Link
                   key={item.name}

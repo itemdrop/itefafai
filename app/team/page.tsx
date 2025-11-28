@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 export default function Team() {
@@ -13,7 +15,8 @@ export default function Team() {
         facebook: "https://www.facebook.com/efan.savage",
         email: "savage@yoursite.com"
       },
-      image: "bg-gradient-to-br from-blue-400 to-blue-600"
+      image: "bg-gradient-to-br from-blue-400 to-blue-600",
+      profileImage: "/images/Efan.png"
     },
     {
       name: "Faisal Faisal Sameer",
@@ -27,7 +30,7 @@ export default function Team() {
         email: "efansav@gmail.com"
       },
       image: "bg-gradient-to-br from-green-400 to-green-600",
-      profileImage: "/images/screenshot-2025-11-20.png"
+      profileImage: "/images/Faisal.png"
     }
   ];
 
@@ -52,21 +55,23 @@ export default function Team() {
             {/* Profile Image */}
             <div className={`h-48 sm:h-64 ${member.image} flex items-center justify-center`}>
               <div className="text-white text-center">
-                <div className="w-16 sm:w-24 h-16 sm:h-24 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden relative">
+                <div className="w-16 sm:w-24 h-16 sm:h-24 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden relative bg-white bg-opacity-20">
                   {member.profileImage ? (
                     <Image
                       src={member.profileImage}
                       alt={`${member.name} profile photo`}
                       fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 96px, 96px"
+                      className="object-cover rounded-full"
+                      sizes="(max-width: 640px) 64px, 96px"
+                      onError={(e) => {
+                        // Hide the image and show fallback on error
+                        e.currentTarget.style.display = 'none';
+                      }}
                     />
                   ) : (
-                    <div className="w-full h-full bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                      <svg className="w-8 sm:w-12 h-8 sm:h-12" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                      </svg>
-                    </div>
+                    <svg className="w-8 sm:w-12 h-8 sm:h-12" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
                   )}
                 </div>
                 <p className="text-xs sm:text-sm opacity-80">
