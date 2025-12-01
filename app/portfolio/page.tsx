@@ -681,75 +681,118 @@ export default function Portfolio() {
     const [properties, setProperties] = useState([
       { 
         id: 1, 
-        address: '2847 Oceanview Drive', 
-        price: 1250000, 
-        bedrooms: 4, 
-        bathrooms: 3, 
-        sqft: 2800, 
-        type: 'House',
+        address: '2847 Oceanview Drive, Malibu, CA 90265', 
+        price: 2450000, 
+        bedrooms: 5, 
+        bathrooms: 4, 
+        sqft: 3200, 
+        type: 'Luxury Villa',
         image: '🏖️',
-        description: 'Stunning oceanfront home with panoramic views',
-        amenities: ['Ocean View', 'Private Beach', 'Pool', 'Garage'],
-        yearBuilt: 2018,
+        description: 'Breathtaking oceanfront estate with private beach access and infinity pool',
+        amenities: ['Ocean View', 'Private Beach', 'Infinity Pool', '3-Car Garage', 'Wine Cellar', 'Home Theater'],
+        yearBuilt: 2020,
         status: 'For Sale',
         agent: 'Sarah Mitchell',
+        agentPhone: '(555) 123-4567',
         daysOnMarket: 12,
         virtualTour: true,
-        favorites: false
+        favorites: false,
+        pricePerSqft: 766,
+        neighborhood: 'Malibu Beachfront',
+        schools: ['Malibu Elementary (9/10)', 'Malibu Middle (8/10)'],
+        images: ['🏖️', '🌊', '🏊‍♀️']
       },
       { 
         id: 2, 
-        address: '1456 Mountain Ridge', 
-        price: 875000, 
-        bedrooms: 3, 
-        bathrooms: 2, 
-        sqft: 2100, 
-        type: 'House',
+        address: '1456 Mountain Ridge Way, Aspen, CO 81611', 
+        price: 1875000, 
+        bedrooms: 4, 
+        bathrooms: 3, 
+        sqft: 2800, 
+        type: 'Mountain Estate',
         image: '🏔️',
-        description: 'Modern mountain home with spectacular views',
-        amenities: ['Mountain View', 'Fireplace', 'Deck', 'Hiking Trails'],
-        yearBuilt: 2020,
+        description: 'Contemporary mountain retreat with panoramic Alpine views and ski-in access',
+        amenities: ['Mountain View', 'Fireplace', 'Hot Tub', 'Ski Access', 'Chef\'s Kitchen', 'Office'],
+        yearBuilt: 2021,
         status: 'For Sale',
         agent: 'Michael Chen',
+        agentPhone: '(555) 987-6543',
         daysOnMarket: 8,
         virtualTour: true,
-        favorites: false
+        favorites: false,
+        pricePerSqft: 670,
+        neighborhood: 'Aspen Highlands',
+        schools: ['Aspen Elementary (9/10)', 'Aspen High School (10/10)'],
+        images: ['🏔️', '🎿', '🔥']
       },
       { 
         id: 3, 
-        address: '789 Downtown Loft', 
-        price: 650000, 
+        address: '789 Downtown Loft St, NYC, NY 10013', 
+        price: 1200000, 
         bedrooms: 2, 
         bathrooms: 2, 
-        sqft: 1400, 
-        type: 'Condo',
+        sqft: 1600, 
+        type: 'Luxury Penthouse',
         image: '🏙️',
-        description: 'Luxury downtown loft in the heart of the city',
-        amenities: ['City View', 'Gym', 'Concierge', 'Rooftop'],
+        description: 'Ultra-modern penthouse loft with floor-to-ceiling windows and rooftop terrace',
+        amenities: ['City Skyline View', 'Rooftop Terrace', 'Concierge', 'Gym', 'Doorman', 'Storage'],
         yearBuilt: 2019,
         status: 'For Sale',
         agent: 'Emily Rodriguez',
+        agentPhone: '(555) 456-7890',
         daysOnMarket: 25,
-        virtualTour: false,
-        favorites: false
+        virtualTour: true,
+        favorites: false,
+        pricePerSqft: 750,
+        neighborhood: 'SoHo District',
+        schools: ['PS 234 (8/10)', 'NYC Lab School (9/10)'],
+        images: ['🏙️', '🌃', '🏢']
       },
       { 
         id: 4, 
-        address: '3421 Suburban Circle', 
-        price: 485000, 
-        bedrooms: 3, 
-        bathrooms: 2, 
-        sqft: 1800, 
-        type: 'House',
+        address: '3421 Suburban Circle, Austin, TX 78731', 
+        price: 685000, 
+        bedrooms: 4, 
+        bathrooms: 3, 
+        sqft: 2400, 
+        type: 'Modern Family Home',
         image: '🏡',
-        description: 'Perfect family home in quiet neighborhood',
-        amenities: ['Garden', 'Garage', 'Playground Nearby', 'Good Schools'],
-        yearBuilt: 2015,
+        description: 'Beautifully designed family home with open concept living and smart home features',
+        amenities: ['Smart Home Tech', 'Solar Panels', 'Garden', '2-Car Garage', 'Game Room', 'Study'],
+        yearBuilt: 2020,
         status: 'For Sale',
         agent: 'David Wilson',
+        agentPhone: '(555) 234-5678',
         daysOnMarket: 18,
         virtualTour: true,
-        favorites: false
+        favorites: false,
+        pricePerSqft: 285,
+        neighborhood: 'West Lake Hills',
+        schools: ['Hill Elementary (10/10)', 'West Lake High (9/10)'],
+        images: ['🏡', '🌳', '☀️']
+      },
+      {
+        id: 5,
+        address: '567 Tech Hub Plaza, San Francisco, CA 94107',
+        price: 1650000,
+        bedrooms: 3,
+        bathrooms: 2,
+        sqft: 1800,
+        type: 'Tech District Condo',
+        image: '🌉',
+        description: 'Sleek contemporary condo in the heart of SOMA with Bay Bridge views',
+        amenities: ['Bay Views', 'Fitness Center', 'Business Center', 'Pet Spa', 'Bike Storage', 'EV Charging'],
+        yearBuilt: 2022,
+        status: 'For Sale',
+        agent: 'Jessica Park',
+        agentPhone: '(555) 345-6789',
+        daysOnMarket: 5,
+        virtualTour: true,
+        favorites: false,
+        pricePerSqft: 917,
+        neighborhood: 'SOMA District',
+        schools: ['SF Community School (8/10)', 'Lincoln High (7/10)'],
+        images: ['🌉', '🏢', '🚲']
       }
     ]);
     
@@ -759,23 +802,39 @@ export default function Portfolio() {
       bedrooms: '', 
       type: '',
       amenities: '',
-      sortBy: 'price-asc'
+      sortBy: 'price-asc',
+      location: '',
+      priceRange: 'all'
     });
     
     const [savedProperties, setSavedProperties] = useState([]);
     const [searchHistory, setSearchHistory] = useState([
-      'Oceanfront homes under $2M',
-      'Downtown condos',
-      '3 bedroom houses',
-      'Properties with pool'
+      'Luxury oceanfront homes under $3M',
+      'Modern downtown penthouses',
+      '4+ bedroom family homes',
+      'Properties with mountain views',
+      'Smart homes with solar panels'
     ]);
     
     const [marketData, setMarketData] = useState({
-      averagePrice: 815000,
-      priceChange: '+3.2%',
-      inventory: 1247,
-      daysOnMarket: 28,
-      soldLastMonth: 89
+      averagePrice: 1370000,
+      priceChange: '+5.7%',
+      inventory: 1847,
+      daysOnMarket: 18,
+      soldLastMonth: 147,
+      newListings: 89,
+      pricePerSqft: 623,
+      marketTrend: 'Seller\'s Market'
+    });
+    
+    const [selectedProperty, setSelectedProperty] = useState(null);
+    const [showMortgageCalculator, setShowMortgageCalculator] = useState(false);
+    const [mortgageData, setMortgageData] = useState({
+      loanAmount: 0,
+      interestRate: 7.2,
+      loanTerm: 30,
+      downPayment: 20,
+      monthlyPayment: 0
     });
 
     const toggleFavorite = (id: number) => {
@@ -1182,11 +1241,17 @@ export default function Portfolio() {
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
     const [cart, setCart] = useState([]);
     const [orderTotal, setOrderTotal] = useState(0);
-    const [currentLocation, setCurrentLocation] = useState('123 Main St, Downtown');
+    const [currentLocation, setCurrentLocation] = useState('Downtown Tech District, San Francisco');
     const [orderHistory, setOrderHistory] = useState([
-      { id: 1, restaurant: 'Pizza Palace', total: 28.50, date: '2024-11-05', status: 'Delivered', items: ['Margherita Pizza', 'Caesar Salad'] },
-      { id: 2, restaurant: 'Sushi Spot', total: 45.75, date: '2024-11-03', status: 'Delivered', items: ['Dragon Roll', 'Miso Soup', 'Edamame'] }
+      { id: 1, restaurant: 'Artisan Italiano', total: 68.50, date: '2024-12-01', status: 'Delivered', items: ['Truffle Risotto', 'Burrata Caprese', 'Tiramisu'], estimatedTime: '45 min' },
+      { id: 2, restaurant: 'Sakura Sushi House', total: 89.75, date: '2024-11-30', status: 'Delivered', items: ['Omakase Set', 'Miso Soup', 'Green Tea Ice Cream'], estimatedTime: '35 min' },
+      { id: 3, restaurant: 'Farm & Table', total: 45.25, date: '2024-11-29', status: 'Delivered', items: ['Quinoa Power Bowl', 'Cold Pressed Juice', 'Acai Bowl'], estimatedTime: '25 min' }
     ]);
+    
+    const [searchQuery, setSearchQuery] = useState('');
+    const [cuisineFilter, setCuisineFilter] = useState('all');
+    const [priceFilter, setPriceFilter] = useState('all');
+    const [sortBy, setSortBy] = useState('recommended');
     
     const restaurants = [
       { 
@@ -1578,14 +1643,18 @@ export default function Portfolio() {
     const [activeTab, setActiveTab] = useState('dashboard');
     const [selectedCourse, setSelectedCourse] = useState(null);
     const [progress, setProgress] = useState({ 
-      webdev: 78, 
-      datascience: 45, 
-      mobile: 32, 
-      ai: 15,
-      blockchain: 60
+      webdev: 85, 
+      datascience: 72, 
+      mobile: 68, 
+      ai: 45,
+      blockchain: 38,
+      cybersecurity: 92
     });
-    const [studyStreak, setStudyStreak] = useState(7);
-    const [totalPoints, setTotalPoints] = useState(2450);
+    const [studyStreak, setStudyStreak] = useState(21);
+    const [totalPoints, setTotalPoints] = useState(8750);
+    const [weeklyGoal, setWeeklyGoal] = useState(10);
+    const [hoursThisWeek, setHoursThisWeek] = useState(7.5);
+    const [certificatesEarned, setCertificatesEarned] = useState(3);
     
     const courses = [
       { 
