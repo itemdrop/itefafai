@@ -36,15 +36,16 @@ export default function LiveBackground() {
   useEffect(() => {
     const generateParticles = () => {
       const newParticles: Particle[] = [];
-      for (let i = 0; i < 25; i++) {
+      // Reduced particle count from 25 to 15 to improve performance and reduce flickering
+      for (let i = 0; i < 15; i++) {
         newParticles.push({
           id: i,
           x: Math.random() * dimensions.width,
           y: Math.random() * dimensions.height,
-          size: Math.random() * 4 + 2,
-          speedX: (Math.random() - 0.5) * 0.4,
-          speedY: (Math.random() - 0.5) * 0.4,
-          opacity: Math.random() * 1.0 + 0.7
+          size: Math.random() * 3 + 1.5, // Smaller particles
+          speedX: (Math.random() - 0.5) * 0.2, // Slower movement to reduce flickering
+          speedY: (Math.random() - 0.5) * 0.2,
+          opacity: Math.random() * 0.6 + 0.4 // Reduced opacity variation
         });
       }
       setParticles(newParticles);

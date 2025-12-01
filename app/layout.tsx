@@ -11,16 +11,26 @@ import { Analytics } from "@vercel/analytics/react";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
   title: "YourSite∞ - Infinite Digital Possibilities",
   description: "YourSite∞ - Where creativity meets infinity. Professional web development, mobile apps, and limitless digital solutions.",
+  other: {
+    // Preload critical resources to prevent flickering
+    'preload': 'true',
+    'dns-prefetch': 'https://fonts.googleapis.com',
+    'preconnect': 'https://fonts.gstatic.com'
+  }
 };
 
 export const viewport = {
@@ -35,8 +45,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Resource hints to prevent loading flickering */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preload" href={`${geistSans.variable}`} as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href={`${geistMono.variable}`} as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/* Optimize rendering */}
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="color-scheme" content="light" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white relative`}
+        style={{ 
+          willChange: 'auto',
+          backfaceVisibility: 'hidden',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale'
+        } as React.CSSProperties}
       >
         <LiveBackground />
         <Navigation />

@@ -18,24 +18,58 @@ html.has-modal, body.has-modal {
 
 * {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 html {
   scroll-behavior: smooth;
+  font-display: swap;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-display: swap;
+  will-change: auto;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Performance optimizations for all devices */
+* {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: auto;
+}
+
+/* Prevent flickering during animations */
+.animate-fadeIn,
+.animate-fadeInUp,
+.animate-pulse,
+.animate-bounce {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* Mobile optimizations */
 @media (max-width: 768px) {
   /* Reduce animation complexity on mobile for better performance */
   * {
-    animation-duration: 0.2s !important;
-    transition-duration: 0.2s !important;
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
+  }
+  
+  /* Disable expensive animations on mobile */
+  [style*="filter: blur"],
+  [class*="backdrop-blur"] {
+    filter: none !important;
+    backdrop-filter: none !important;
   }
   
   /* Optimize backdrop-blur for mobile */
@@ -176,6 +210,59 @@ html, body {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
+}
+
+/* Additional anti-flickering optimizations */
+/* Force GPU acceleration for smooth animations */
+.motion-element,
+[data-framer-motion] {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+}
+
+/* Optimize image rendering to prevent flicker */
+img {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Font rendering optimization is handled in layout.tsx */
+
+/* Reduce reflow/repaint for frequently updated elements */
+.particle,
+.animated-element,
+.transition-element {
+  contain: layout style paint;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Optimize modals and overlays */
+[role="dialog"],
+.modal,
+.overlay {
+  contain: layout style paint;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Improve scroll performance */
+.overflow-auto,
+.overflow-y-auto,
+.overflow-x-auto,
+.scrollable {
+  contain: layout style paint;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 /* Smooth blur transitions */

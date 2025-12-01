@@ -1,73 +1,65 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, cubicBezier } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 // Define page order for navigation direction detection
 const pageOrder = ['/', '/about', '/services', '/portfolio', '/blog', '/team', '/contact'];
 
-// Alternative smooth morphing transition (uncomment to use)
+// Optimized transition without expensive filters to prevent flickering
 const getMorphVariants = (direction: 'forward' | 'backward' | 'none') => {
   return {
     initial: {
       opacity: 0,
-      scale: direction === 'none' ? 0.8 : 0.9,
-      y: direction === 'forward' ? 40 : direction === 'backward' ? -40 : 20,
-      rotateX: direction === 'forward' ? 15 : direction === 'backward' ? -15 : 0,
-      filter: 'blur(8px) brightness(0.8)'
+      scale: 0.98,
+      y: direction === 'forward' ? 20 : direction === 'backward' ? -20 : 10,
+      // Removed rotateX and filter effects to prevent flickering
     },
     in: {
       opacity: 1,
       scale: 1,
       y: 0,
-      rotateX: 0,
-      filter: 'blur(0px) brightness(1)'
+      // Removed rotateX and filter effects to prevent flickering
     },
     out: {
       opacity: 0,
-      scale: 1.05,
-      y: direction === 'forward' ? -30 : direction === 'backward' ? 30 : -20,
-      rotateX: direction === 'forward' ? -10 : direction === 'backward' ? 10 : 0,
-      filter: 'blur(4px) brightness(1.2)'
+      scale: 1.02,
+      y: direction === 'forward' ? -15 : direction === 'backward' ? 15 : -10,
+      // Removed rotateX and filter effects to prevent flickering
     }
   };
 };
 
 const getSlideVariants = (direction: 'forward' | 'backward' | 'none') => {
-  const slideDistance = 60;
+  const slideDistance = 30; // Reduced distance for smoother animations
   
   return {
     initial: {
       opacity: 0,
       x: direction === 'forward' ? slideDistance : direction === 'backward' ? -slideDistance : 0,
-      scale: 0.96,
-      rotateY: direction === 'forward' ? 3 : direction === 'backward' ? -3 : 0,
-      filter: 'blur(4px)'
+      scale: 0.98,
+      // Removed rotateY and filter effects to prevent flickering
     },
     in: {
       opacity: 1,
       x: 0,
       scale: 1,
-      rotateY: 0,
-      filter: 'blur(0px)'
+      // Removed rotateY and filter effects to prevent flickering
     },
     out: {
       opacity: 0,
       x: direction === 'forward' ? -slideDistance : direction === 'backward' ? slideDistance : 0,
-      scale: 0.94,
-      rotateY: direction === 'forward' ? -2 : direction === 'backward' ? 2 : 0,
-      filter: 'blur(2px)'
+      scale: 1.02,
+      // Removed rotateY and filter effects to prevent flickering
     }
   };
 };
 
 const pageTransition = {
-  type: 'spring' as const,
-  damping: 20,
-  stiffness: 300,
-  mass: 0.8,
-  duration: 0.8
+  type: 'tween' as const, // Changed from spring to tween for more predictable animations
+  duration: 0.4, // Reduced duration to minimize flickering
+  ease: cubicBezier(0.4, 0, 0.2, 1) // easeInOut cubic-bezier for smooth transitions
 };
 
 // Synchronized transition timing - all animations use this duration
