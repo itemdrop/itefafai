@@ -970,35 +970,49 @@ export default function Portfolio() {
                     className="w-full bg-gray-700/80 text-white border border-gray-600/50 p-3 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                   >
                     <option value="">All Types</option>
-                  <option value="House">House</option>
-                  <option value="Condo">Condo</option>
-                  <option value="Townhouse">Townhouse</option>
-                </select>
-                <input
-                  type="text"
-                  placeholder="Amenities"
-                  value={filters.amenities}
-                  onChange={(e) => setFilters({...filters, amenities: e.target.value})}
-                  className="bg-gray-700 text-white border border-gray-600 p-2 rounded"
-                />
-                <select
-                  value={filters.sortBy}
-                  onChange={(e) => setFilters({...filters, sortBy: e.target.value})}
-                  className="bg-gray-700 text-white border border-gray-600 p-2 rounded"
-                >
-                  <option value="price-asc">Price: Low to High</option>
-                  <option value="price-desc">Price: High to Low</option>
-                  <option value="size-asc">Size: Small to Large</option>
-                  <option value="size-desc">Size: Large to Small</option>
-                  <option value="newest">Newest First</option>
-                </select>
+                    <option value="House">House</option>
+                    <option value="Condo">Condo</option>
+                    <option value="Townhouse">Townhouse</option>
+                  </select>
+                </div>
               </div>
-              <button
-                onClick={() => setFilters({ minPrice: '', maxPrice: '', bedrooms: '', type: '', amenities: '', sortBy: 'price-asc' })}
-                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-              >
-                Clear All Filters
-              </button>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div className="space-y-2">
+                  <label className="text-gray-300 text-sm font-medium">🔍 Amenities</label>
+                  <input
+                    type="text"
+                    placeholder="Pool, Gym, Parking..."
+                    value={filters.amenities}
+                    onChange={(e) => setFilters({...filters, amenities: e.target.value})}
+                    className="w-full bg-gray-700/80 text-white border border-gray-600/50 p-3 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <label className="text-gray-300 text-sm font-medium">📊 Sort By</label>
+                  <select
+                    value={filters.sortBy}
+                    onChange={(e) => setFilters({...filters, sortBy: e.target.value})}
+                    className="w-full bg-gray-700/80 text-white border border-gray-600/50 p-3 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  >
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="size-asc">Size: Small to Large</option>
+                    <option value="size-desc">Size: Large to Small</option>
+                    <option value="newest">Newest First</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div className="mt-6 flex justify-center">
+                <button
+                  onClick={() => setFilters({ minPrice: '', maxPrice: '', bedrooms: '', type: '', amenities: '', sortBy: 'price-asc', location: '', priceRange: 'all' })}
+                  className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg"
+                >
+                  🗑️ Clear All Filters
+                </button>
+              </div>
             </div>
 
             {/* Property Results */}
@@ -1382,7 +1396,8 @@ export default function Portfolio() {
         total: orderTotal + 2.99, // Add delivery fee
         date: new Date().toISOString().split('T')[0],
         status: 'Preparing',
-        items: cart.map(item => item.name)
+        items: cart.map(item => item.name),
+        estimatedTime: '25-35 min'
       };
       
       setOrderHistory([newOrder, ...orderHistory]);
