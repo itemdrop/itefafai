@@ -876,63 +876,100 @@ export default function Portfolio() {
     });
     
     return (
-      <div className="demo-container p-3 sm:p-6 max-w-7xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg overflow-hidden">
-        <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-center text-blue-600">Advanced Real Estate Platform</h3>
+      <div className="demo-container p-3 sm:p-6 max-w-7xl mx-auto bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white rounded-xl overflow-hidden border border-blue-500/20 shadow-2xl">
+        {/* Professional Header */}
+        <div className="text-center mb-8 py-6 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-xl border border-blue-500/20">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 bg-gradient-to-r from-blue-400 via-blue-300 to-purple-400 bg-clip-text text-transparent">
+            🏠 Elite Real Estate Platform
+          </h3>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            Discover premium properties with advanced search, market analytics, and professional tools
+          </p>
+        </div>
         
-        {/* Navigation Tabs */}
-        <div className="flex space-x-1 mb-4 sm:mb-6 bg-gray-800 p-1 rounded-lg overflow-x-auto">
-          {['search', 'favorites', 'market', 'tools'].map((tab) => (
+        {/* Enhanced Navigation Tabs */}
+        <div className="flex space-x-2 mb-6 bg-gradient-to-r from-gray-800/90 to-gray-700/90 p-2 rounded-xl backdrop-blur-sm border border-gray-600/50 overflow-x-auto shadow-lg">
+          {[
+            { key: 'search', label: 'Property Search', icon: '🔍' },
+            { key: 'favorites', label: 'Saved Properties', icon: '❤️' },
+            { key: 'market', label: 'Market Analytics', icon: '📊' },
+            { key: 'tools', label: 'Pro Tools', icon: '🛠️' }
+          ].map((tab) => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 px-2 sm:px-4 rounded-md capitalize transition-all text-sm sm:text-base whitespace-nowrap min-h-[44px] ${
-                activeTab === tab 
-                  ? 'bg-blue-600 text-white' 
-                  : 'text-gray-400 hover:text-white'
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`flex-1 py-3 px-4 rounded-lg transition-all duration-300 text-sm sm:text-base whitespace-nowrap min-h-[50px] flex items-center justify-center gap-2 transform hover:scale-105 ${
+                activeTab === tab.key 
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/30' 
+                  : 'text-gray-300 hover:text-white hover:bg-gray-700/50'
               }`}
             >
-              {tab === 'search' ? '🔍 ' : tab === 'favorites' ? '❤️ ' : tab === 'market' ? '📊 ' : '🛠️ '}{tab}
+              <span className="text-lg">{tab.icon}</span>
+              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="sm:hidden">{tab.key}</span>
             </button>
           ))}
         </div>
 
         {activeTab === 'search' && (
           <div className="space-y-6">
-            {/* Advanced Filters */}
-            <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 sm:p-4">
-              <h4 className="text-base sm:text-lg font-semibold text-blue-600 mb-3 sm:mb-4">Search Filters</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4">
-                <input
-                  type="number"
-                  placeholder="Min Price"
-                  value={filters.minPrice}
-                  onChange={(e) => setFilters({...filters, minPrice: e.target.value})}
-                  className="bg-gray-700 text-white border border-gray-600 p-3 rounded-lg text-base min-h-[48px]"
-                />
-                <input
-                  type="number"
-                  placeholder="Max Price"
-                  value={filters.maxPrice}
-                  onChange={(e) => setFilters({...filters, maxPrice: e.target.value})}
-                  className="bg-gray-700 text-white border border-gray-600 p-3 rounded-lg text-base min-h-[48px]"
-                />
-                <select
-                  value={filters.bedrooms}
-                  onChange={(e) => setFilters({...filters, bedrooms: e.target.value})}
-                  className="bg-gray-700 text-white border border-gray-600 p-2 rounded"
-                >
-                  <option value="">Any Bedrooms</option>
-                  <option value="1">1+</option>
-                  <option value="2">2+</option>
-                  <option value="3">3+</option>
-                  <option value="4">4+</option>
-                </select>
-                <select
-                  value={filters.type}
-                  onChange={(e) => setFilters({...filters, type: e.target.value})}
-                  className="bg-gray-700 text-white border border-gray-600 p-2 rounded"
-                >
-                  <option value="">Any Type</option>
+            {/* Professional Search Filters */}
+            <div className="bg-gradient-to-br from-gray-800/90 to-gray-700/90 backdrop-blur-sm border border-gray-600/50 rounded-xl p-6 shadow-lg">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center border border-blue-500/30">
+                  <span className="text-xl">🔍</span>
+                </div>
+                <h4 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  Advanced Property Search
+                </h4>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                <div className="space-y-2">
+                  <label className="text-gray-300 text-sm font-medium">💰 Price Range</label>
+                  <input
+                    type="number"
+                    placeholder="Min Price ($)"
+                    value={filters.minPrice}
+                    onChange={(e) => setFilters({...filters, minPrice: e.target.value})}
+                    className="w-full bg-gray-700/80 text-white border border-gray-600/50 p-3 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <label className="text-gray-300 text-sm font-medium">💰 Max Budget</label>
+                  <input
+                    type="number"
+                    placeholder="Max Price ($)"
+                    value={filters.maxPrice}
+                    onChange={(e) => setFilters({...filters, maxPrice: e.target.value})}
+                    className="w-full bg-gray-700/80 text-white border border-gray-600/50 p-3 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <label className="text-gray-300 text-sm font-medium">🛏️ Bedrooms</label>
+                  <select
+                    value={filters.bedrooms}
+                    onChange={(e) => setFilters({...filters, bedrooms: e.target.value})}
+                    className="w-full bg-gray-700/80 text-white border border-gray-600/50 p-3 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  >
+                    <option value="">Any Bedrooms</option>
+                    <option value="1">1+ Bedroom</option>
+                    <option value="2">2+ Bedrooms</option>
+                    <option value="3">3+ Bedrooms</option>
+                    <option value="4">4+ Bedrooms</option>
+                  </select>
+                </div>
+                
+                <div className="space-y-2">
+                  <label className="text-gray-300 text-sm font-medium">🏠 Property Type</label>
+                  <select
+                    value={filters.type}
+                    onChange={(e) => setFilters({...filters, type: e.target.value})}
+                    className="w-full bg-gray-700/80 text-white border border-gray-600/50 p-3 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  >
+                    <option value="">All Types</option>
                   <option value="House">House</option>
                   <option value="Condo">Condo</option>
                   <option value="Townhouse">Townhouse</option>
@@ -1364,21 +1401,31 @@ export default function Portfolio() {
     };
 
     return (
-      <div className="demo-container p-3 sm:p-6 max-w-6xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg overflow-hidden">
-        <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-center text-blue-600">Advanced Food Delivery Platform</h3>
+      <div className="demo-container p-4 sm:p-6 max-w-7xl mx-auto bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white rounded-xl overflow-hidden shadow-2xl border border-gray-700/50">
+        <div className="text-center mb-6">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+            🍽️ Premium Food Delivery
+          </h3>
+          <p className="text-gray-300 text-sm sm:text-base">Discover San Francisco's finest restaurants</p>
+        </div>
         
-        {/* Location Selector */}
-        <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
-          <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
-            <div className="flex items-center space-x-3 flex-1">
-              <span className="text-2xl">📍</span>
+        {/* Enhanced Location Selector */}
+        <div className="bg-gradient-to-r from-gray-800/90 to-gray-700/90 backdrop-blur-sm border border-gray-600/50 rounded-xl p-4 mb-6 shadow-lg">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center space-x-4">
+              <div className="bg-blue-600/20 p-3 rounded-full">
+                <span className="text-2xl">📍</span>
+              </div>
               <div>
-                <p className="text-blue-600 font-medium text-sm sm:text-base">Delivering to</p>
-                <p className="text-white text-sm sm:text-base">{currentLocation}</p>
+                <h4 className="font-semibold text-white text-lg">Delivery Location</h4>
+                <p className="text-gray-300 flex items-center">
+                  <span className="mr-2">🏢</span>{currentLocation}
+                  <span className="ml-2 bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-xs">Available</span>
+                </p>
               </div>
             </div>
-            <button className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-4 py-3 rounded-lg text-sm sm:text-base font-medium min-h-[48px] touch-manipulation">
-              📍 Change Address
+            <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all">
+              📍 Change Location
             </button>
           </div>
         </div>
@@ -1770,27 +1817,51 @@ export default function Portfolio() {
     };
 
     return (
-      <div className="p-6 max-w-7xl mx-auto bg-gradient-to-br from-gray-900 to-blue-900 text-white rounded-lg">
-        <h3 className="text-3xl font-bold mb-6 text-center text-blue-600">Advanced Learning Management System</h3>
+      <div className="p-6 max-w-7xl mx-auto bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 text-white rounded-xl shadow-2xl border border-gray-700/50">
+        <div className="text-center mb-8">
+          <h3 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent mb-3">
+            🧠 AI Learning Platform
+          </h3>
+          <p className="text-gray-300 text-lg">Personalized education powered by artificial intelligence</p>
+        </div>
         
-        {/* User Stats Bar */}
-        <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 mb-6">
-          <div className="grid md:grid-cols-4 gap-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-400">{totalPoints}</div>
-              <div className="text-gray-400 text-sm">Total Points</div>
+        {/* Enhanced User Stats Dashboard */}
+        <div className="bg-gradient-to-r from-gray-800/90 to-gray-700/90 backdrop-blur-sm border border-gray-600/50 rounded-xl p-6 mb-8 shadow-lg">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center p-4 bg-blue-600/10 rounded-xl border border-blue-600/20">
+              <div className="text-3xl mb-2">💎</div>
+              <div className="text-2xl font-bold text-blue-400">{totalPoints.toLocaleString()}</div>
+              <div className="text-gray-300 text-sm font-medium">XP Points</div>
             </div>
-            <div className="text-center">
+            <div className="text-center p-4 bg-green-600/10 rounded-xl border border-green-600/20">
+              <div className="text-3xl mb-2">🔥</div>
               <div className="text-2xl font-bold text-green-400">{studyStreak}</div>
-              <div className="text-gray-400 text-sm">Day Streak</div>
+              <div className="text-gray-300 text-sm font-medium">Day Streak</div>
             </div>
-            <div className="text-center">
+            <div className="text-center p-4 bg-yellow-600/10 rounded-xl border border-yellow-600/20">
+              <div className="text-3xl mb-2">📚</div>
               <div className="text-2xl font-bold text-yellow-400">{courses.filter(c => c.progress > 0).length}</div>
-              <div className="text-gray-400 text-sm">Active Courses</div>
+              <div className="text-gray-300 text-sm font-medium">Active Courses</div>
             </div>
-            <div className="text-center">
+            <div className="text-center p-4 bg-purple-600/10 rounded-xl border border-purple-600/20">
+              <div className="text-3xl mb-2">🏆</div>
               <div className="text-2xl font-bold text-purple-400">{achievements.filter(a => a.earned).length}</div>
-              <div className="text-gray-400 text-sm">Achievements</div>
+              <div className="text-gray-300 text-sm font-medium">Achievements</div>
+            </div>
+          </div>
+          <div className="mt-6 p-4 bg-gray-700/50 rounded-lg">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-gray-300 font-medium">Weekly Learning Goal</span>
+              <span className="text-blue-400 font-bold">{hoursThisWeek}/{weeklyGoal} hours</span>
+            </div>
+            <div className="w-full bg-gray-600 rounded-full h-3">
+              <div 
+                className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-500"
+                style={{width: `${Math.min((hoursThisWeek / weeklyGoal) * 100, 100)}%`}}
+              ></div>
+            </div>
+            <div className="mt-2 text-sm text-gray-400 text-center">
+              {hoursThisWeek >= weeklyGoal ? "🎉 Goal achieved this week!" : `${(weeklyGoal - hoursThisWeek).toFixed(1)} hours to reach your weekly goal`}
             </div>
           </div>
         </div>
@@ -2059,38 +2130,53 @@ export default function Portfolio() {
             
             <div className="grid md:grid-cols-2 gap-6">
               {courses.filter(c => c.progress > 0).map(course => (
-                <div key={course.id} className="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                <div key={course.id} className="bg-gradient-to-br from-gray-800/90 to-gray-700/90 backdrop-blur-sm border border-gray-600/50 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
                   <div className="flex items-center space-x-4 mb-4">
-                    <span className="text-3xl">{course.image}</span>
-                    <div>
-                      <h5 className="text-lg font-semibold text-white">{course.title}</h5>
-                      <p className="text-blue-600 text-sm">{course.instructor}</p>
+                    <div className="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center border border-blue-500/30">
+                      <span className="text-3xl">{course.image}</span>
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="text-lg font-semibold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">{course.title}</h5>
+                      <p className="text-blue-400 text-sm font-medium">{course.instructor}</p>
+                      <div className="flex items-center gap-1 mt-1">
+                        <span className="text-yellow-400 text-sm">⭐</span>
+                        <span className="text-gray-300 text-sm">{course.rating} • {course.students.toLocaleString()} students</span>
+                      </div>
                     </div>
                   </div>
                   
-                  <div className="mb-4">
+                  <div className="mb-6">
                     <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-400">Overall Progress</span>
-                      <span className="text-white">{course.progress}%</span>
+                      <span className="text-gray-300 font-medium">Course Progress</span>
+                      <span className="text-white font-bold">{course.progress}%</span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div className="w-full bg-gray-600/50 rounded-full h-3 overflow-hidden">
                       <div 
-                        className="bg-blue-500 h-3 rounded-full"
+                        className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-700 relative"
                         style={{ width: `${course.progress}%` }}
-                      ></div>
+                      >
+                        <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+                      </div>
+                    </div>
+                    <div className="mt-2 text-xs text-gray-400">
+                      {course.progress === 100 ? "🎉 Course completed!" : `${course.lessons - course.completed} lessons remaining`}
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-4 text-center">
-                    <div className="bg-gray-700 p-3 rounded">
-                      <div className="text-xl font-bold text-green-400">{course.completed}</div>
-                      <div className="text-gray-400 text-sm">Completed</div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-green-600/10 border border-green-600/20 p-4 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-green-400">{course.completed}</div>
+                      <div className="text-gray-300 text-sm font-medium">Lessons Done</div>
                     </div>
-                    <div className="bg-gray-700 p-3 rounded">
-                      <div className="text-xl font-bold text-yellow-400">{course.lessons - course.completed}</div>
-                      <div className="text-gray-400 text-sm">Remaining</div>
+                    <div className="bg-yellow-600/10 border border-yellow-600/20 p-4 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-yellow-400">{course.lessons - course.completed}</div>
+                      <div className="text-gray-300 text-sm font-medium">To Complete</div>
                     </div>
                   </div>
+                  
+                  <button className="w-full mt-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 px-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                    Continue Learning
+                  </button>
                 </div>
               ))}
             </div>
@@ -2101,28 +2187,56 @@ export default function Portfolio() {
           <div className="space-y-6">
             <h4 className="text-2xl font-bold text-blue-600">Achievements</h4>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {achievements.map(achievement => (
-                <div key={achievement.id} className={`border rounded-lg p-4 ${
+                <div key={achievement.id} className={`rounded-xl p-6 transition-all duration-300 transform hover:scale-105 ${
                   achievement.earned 
-                    ? 'bg-gray-800 border-blue-500' 
-                    : 'bg-gray-800 border-gray-700 opacity-60'
+                    ? 'bg-gradient-to-br from-blue-600/20 to-purple-600/20 border-2 border-blue-500/50 shadow-lg shadow-blue-500/20' 
+                    : 'bg-gray-800/60 border border-gray-600/50 opacity-70 hover:opacity-90'
                 }`}>
-                  <div className="flex items-center space-x-3 mb-3">
-                    <span className="text-2xl">{achievement.icon}</span>
-                    <div>
-                      <h5 className={`font-semibold ${achievement.earned ? 'text-white' : 'text-gray-400'}`}>
+                  <div className="flex items-start space-x-4 mb-4">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl ${
+                      achievement.earned 
+                        ? 'bg-gradient-to-br from-yellow-400/20 to-orange-400/20 border border-yellow-400/30' 
+                        : 'bg-gray-700/50 border border-gray-600/50'
+                    }`}>
+                      <span>{achievement.icon}</span>
+                    </div>
+                    <div className="flex-1">
+                      <h5 className={`font-bold text-lg mb-2 ${
+                        achievement.earned 
+                          ? 'bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent' 
+                          : 'text-gray-400'
+                      }`}>
                         {achievement.title}
                       </h5>
-                      <p className="text-gray-400 text-sm">{achievement.description}</p>
+                      <p className={`text-sm leading-relaxed ${
+                        achievement.earned ? 'text-gray-300' : 'text-gray-500'
+                      }`}>
+                        {achievement.description}
+                      </p>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className={`text-sm ${achievement.earned ? 'text-green-400' : 'text-gray-500'}`}>
-                      {achievement.earned ? 'Completed' : 'Locked'}
-                    </span>
-                    <span className="text-yellow-400 font-semibold">{achievement.points} pts</span>
+                  
+                  <div className="flex justify-between items-center pt-4 border-t border-gray-600/30">
+                    <div className="flex items-center gap-2">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        achievement.earned 
+                          ? 'bg-green-600/20 text-green-400 border border-green-600/30' 
+                          : 'bg-gray-700/50 text-gray-500 border border-gray-600/30'
+                      }`}>
+                        {achievement.earned ? '✓ Earned' : '🔒 Locked'}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="text-yellow-400 text-sm">💎</span>
+                      <span className="text-yellow-400 font-bold">{achievement.points}</span>
+                    </div>
                   </div>
+                  
+                  {achievement.earned && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl pointer-events-none"></div>
+                  )}
                 </div>
               ))}
             </div>
@@ -2133,29 +2247,58 @@ export default function Portfolio() {
           <div className="space-y-6">
             <h4 className="text-2xl font-bold text-blue-600">Leaderboard</h4>
             
-            <div className="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden">
+            <div className="bg-gradient-to-br from-gray-800/90 to-gray-700/90 backdrop-blur-sm border border-gray-600/50 rounded-xl overflow-hidden shadow-lg">
               {leaderboard.map(user => (
-                <div key={user.rank} className={`p-4 border-b border-gray-700 last:border-b-0 ${
-                  user.name === 'You' ? 'bg-blue-900 bg-opacity-50' : ''
+                <div key={user.rank} className={`p-6 border-b border-gray-600/30 last:border-b-0 transition-all duration-300 hover:bg-gray-700/30 ${
+                  user.name === 'You' ? 'bg-gradient-to-r from-blue-600/20 to-purple-600/20 border-l-4 border-l-blue-500' : ''
                 }`}>
                   <div className="flex items-center space-x-4">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
-                      user.rank === 1 ? 'bg-yellow-500 text-black' :
-                      user.rank === 2 ? 'bg-gray-400 text-black' :
-                      user.rank === 3 ? 'bg-orange-600 text-white' :
-                      'bg-gray-600 text-white'
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg shadow-lg ${
+                      user.rank === 1 ? 'bg-gradient-to-br from-yellow-400 to-yellow-500 text-black shadow-yellow-400/30' :
+                      user.rank === 2 ? 'bg-gradient-to-br from-gray-300 to-gray-400 text-black shadow-gray-400/30' :
+                      user.rank === 3 ? 'bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-orange-500/30' :
+                      'bg-gradient-to-br from-gray-600 to-gray-700 text-white shadow-gray-600/30'
                     }`}>
-                      {user.rank}
+                      {user.rank <= 3 ? (
+                        <span>{user.rank === 1 ? '🥇' : user.rank === 2 ? '🥈' : '🥉'}</span>
+                      ) : (
+                        user.rank
+                      )}
                     </div>
-                    <span className="text-2xl">{user.avatar}</span>
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center border border-blue-500/30">
+                      <span className="text-2xl">{user.avatar}</span>
+                    </div>
                     <div className="flex-1">
-                      <h5 className={`font-semibold ${user.name === 'You' ? 'text-blue-400' : 'text-white'}`}>
-                        {user.name}
+                      <h5 className={`font-bold text-lg ${
+                        user.name === 'You' 
+                          ? 'bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent' 
+                          : 'text-white'
+                      }`}>
+                        {user.name} {user.name === 'You' && '👤'}
                       </h5>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-gray-300 text-sm">Level {Math.floor(user.points / 1000) + 1}</span>
+                        <span className="text-gray-500">•</span>
+                        <span className="text-gray-400 text-sm">{Math.floor(Math.random() * 50) + 10} courses</span>
+                      </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-xl font-bold text-yellow-400">{user.points}</div>
-                      <div className="text-gray-400 text-sm">points</div>
+                      <div className="flex items-center gap-1 justify-end mb-1">
+                        <span className="text-yellow-400">💎</span>
+                        <div className="text-xl font-bold text-yellow-400">{user.points.toLocaleString()}</div>
+                      </div>
+                      <div className="text-gray-400 text-sm">XP Points</div>
+                      {user.rank <= 3 && (
+                        <div className="mt-1">
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            user.rank === 1 ? 'bg-yellow-600/20 text-yellow-400 border border-yellow-600/30' :
+                            user.rank === 2 ? 'bg-gray-600/20 text-gray-300 border border-gray-600/30' :
+                            'bg-orange-600/20 text-orange-400 border border-orange-600/30'
+                          }`}>
+                            Top {user.rank}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
