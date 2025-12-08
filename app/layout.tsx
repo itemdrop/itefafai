@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "YourSite - Infinite Digital Possibilities",
-  description: "YourSite∞ - Where creativity meets infinity. Professional web development, mobile apps, and limitless digital solutions.",
+  description: "YourSite - Where creativity meets infinity. Professional web development, mobile apps, and limitless digital solutions.",
   other: {
     // Preload critical resources to prevent flickering
     'preload': 'true',
