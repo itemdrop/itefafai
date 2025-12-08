@@ -63,7 +63,7 @@ export default function Team() {
                       fill
                       className="object-cover rounded-full"
                       sizes="(max-width: 640px) 64px, 96px"
-                      onError={(e) => {
+                      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                         // Hide the image and show fallback on error
                         e.currentTarget.style.display = 'none';
                       }}

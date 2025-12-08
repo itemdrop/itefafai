@@ -42,7 +42,7 @@ const Navigation = () => {
                 height={56}
                 className="h-14 w-14 rounded-xl object-cover border border-gray-300 shadow-sm group-hover:border-blue-400 group-hover:shadow-md transition-all duration-200"
                 priority
-                onError={(e) => {
+                onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                   const target = e.target as HTMLImageElement;
                   if (!target.src.endsWith('/next.svg')) {
                     target.src = '/next.svg';
