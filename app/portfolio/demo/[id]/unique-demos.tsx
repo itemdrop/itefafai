@@ -1796,6 +1796,9 @@ function FoodDeliveryApp() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState<'distance'|'rating'|'deliveryTime'|'price'>('distance');
   const [cart, setCart] = useState<any[]>([]);
+  const [secondDropOff, setSecondDropOff] = useState<string>('');
+  const [deliveryInstructions, setDeliveryInstructions] = useState<string>('');
+  const [showSecondDropOff, setShowSecondDropOff] = useState(false);
   
   const [userProfile] = useState({
     name: 'Erik Andersson',
@@ -1978,14 +1981,58 @@ function FoodDeliveryApp() {
     setLocationPermission('pending');
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           const { latitude, longitude } = position.coords;
-          setLocation({ latitude, longitude, address: 'Malmö, Sweden' });
-          setLocationPermission('granted');
-          // Filter restaurants by distance (simulate based on Malmö location)
-          const nearby = malmöRestaurants.filter(r => r.distance <= 3).sort((a, b) => a.distance - b.distance);
-          setNearbyRestaurants(nearby);
-          setTab('browse');
+          
+          // Use reverse geocoding to get actual address from coordinates
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`,
+              {
+                headers: {
+                  'User-Agent': 'MalmöEats-FoodDelivery-App'
+                }
+              }
+            );
+            const data = await response.json();
+            
+            // Extract detailed address information
+            const addressParts = [];
+            if (data.address?.road) addressParts.push(data.address.road);
+            if (data.address?.house_number) addressParts.push(data.address.house_number);
+            if (data.address?.postcode) addressParts.push(data.address.postcode);
+            if (data.address?.city || data.address?.town || data.address?.village) {
+              addressParts.push(data.address.city || data.address.town || data.address.village);
+            }
+            
+            const fullAddress = addressParts.length > 0 
+              ? addressParts.join(', ')
+              : data.display_name || `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+            
+            setLocation({ 
+              latitude, 
+              longitude, 
+              address: fullAddress
+            });
+            setLocationPermission('granted');
+            
+            // Filter restaurants by distance
+            const nearby = malmöRestaurants.filter(r => r.distance <= 3).sort((a, b) => a.distance - b.distance);
+            setNearbyRestaurants(nearby);
+            setTab('browse');
+          } catch (error) {
+            console.error('Geocoding error:', error);
+            // Fallback to coordinates if geocoding fails
+            setLocation({ 
+              latitude, 
+              longitude, 
+              address: `Location: ${latitude.toFixed(6)}, ${longitude.toFixed(6)}`
+            });
+            setLocationPermission('granted');
+            const nearby = malmöRestaurants.filter(r => r.distance <= 3).sort((a, b) => a.distance - b.distance);
+            setNearbyRestaurants(nearby);
+            setTab('browse');
+          }
         },
         (error) => {
           console.error('Location error:', error);
@@ -1993,6 +2040,11 @@ function FoodDeliveryApp() {
           // Use mock Malmö location
           setLocation({ address: 'Malmö Central, Sweden' });
           setNearbyRestaurants(malmöRestaurants);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
         }
       );
     } else {
@@ -2426,22 +2478,110 @@ function FoodDeliveryApp() {
                   </div>
                 ))}
                 
+                {/* Delivery Details */}
+                <div className="bg-white rounded-2xl shadow-lg p-5 border-2 border-blue-100">
+                  <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <span>📍</span> Delivery Details
+                  </h3>
+                  
+                  {/* Primary Delivery Address */}
+                  <div className="mb-4 p-3 bg-blue-50 rounded-xl">
+                    <label className="text-xs font-semibold text-blue-700 mb-1 block">Primary Delivery</label>
+                    <p className="text-sm text-gray-800 font-medium">{location.address || 'Set your location first'}</p>
+                  </div>
+                  
+                  {/* Second Drop-off Toggle */}
+                  <button
+                    onClick={() => setShowSecondDropOff(!showSecondDropOff)}
+                    className="flex items-center gap-2 text-blue-600 text-sm font-semibold mb-3 hover:text-blue-700 transition-colors"
+                  >
+                    <span className="text-lg">{showSecondDropOff ? '➖' : '➕'}</span>
+                    {showSecondDropOff ? 'Remove' : 'Add'} Second Drop-off Location
+                  </button>
+                  
+                  {/* Second Drop-off Input */}
+                  {showSecondDropOff && (
+                    <div className="mb-4 p-4 bg-green-50 rounded-xl border-2 border-green-200 animate-slideInDown">
+                      <label className="text-xs font-semibold text-green-700 mb-2 block">Second Drop-off Address</label>
+                      <input
+                        type="text"
+                        value={secondDropOff}
+                        onChange={(e) => setSecondDropOff(e.target.value)}
+                        placeholder="e.g., Möllevångsgatan 25, Malmö"
+                        className="w-full px-4 py-3 border-2 border-green-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm font-medium"
+                      />
+                      <p className="text-xs text-gray-600 mt-2 flex items-center gap-1">
+                        <span>💡</span> We'll deliver to this address after the first drop-off
+                      </p>
+                    </div>
+                  )}
+                  
+                  {/* Delivery Instructions */}
+                  <div className="mb-4">
+                    <label className="text-xs font-semibold text-gray-700 mb-2 block">Delivery Instructions (Optional)</label>
+                    <textarea
+                      value={deliveryInstructions}
+                      onChange={(e) => setDeliveryInstructions(e.target.value)}
+                      placeholder="e.g., Leave at door, Ring doorbell, etc."
+                      rows={3}
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm font-medium resize-none"
+                    />
+                  </div>
+                </div>
+                
+                {/* Order Summary */}
                 <div className="bg-white rounded-2xl shadow-lg p-4 border-t-4 border-blue-500">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-bold text-gray-800">Total</span>
-                    <span className="font-bold text-xl text-blue-600">
-                      {cart.reduce((sum, item) => sum + item.deliveryFee, 0)} SEK
-                    </span>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Subtotal</span>
+                      <span className="font-medium text-gray-800">
+                        {cart.reduce((sum, item) => sum + item.deliveryFee, 0)} SEK
+                      </span>
+                    </div>
+                    {showSecondDropOff && secondDropOff && (
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-600">Second Drop-off Fee</span>
+                        <span className="font-medium text-gray-800">29 SEK</span>
+                      </div>
+                    )}
+                    <div className="border-t-2 border-gray-200 pt-2 flex items-center justify-between">
+                      <span className="font-bold text-gray-800">Total</span>
+                      <span className="font-bold text-xl text-blue-600">
+                        {cart.reduce((sum, item) => sum + item.deliveryFee, 0) + (showSecondDropOff && secondDropOff ? 29 : 0)} SEK
+                      </span>
+                    </div>
                   </div>
                   <button 
                     onClick={() => {
-                      alert('Order placed successfully! 🎉');
+                      if (!location.address) {
+                        alert('⚠️ Please set your location first!');
+                        setTab('location');
+                        return;
+                      }
+                      if (showSecondDropOff && !secondDropOff) {
+                        alert('⚠️ Please enter the second drop-off address or remove it!');
+                        return;
+                      }
+                      const deliveryInfo = [
+                        `📍 Delivery to: ${location.address}`,
+                        showSecondDropOff && secondDropOff ? `\n📍 Second drop-off: ${secondDropOff}` : '',
+                        deliveryInstructions ? `\n📝 Instructions: ${deliveryInstructions}` : ''
+                      ].filter(Boolean).join('');
+                      alert(`Order placed successfully! 🎉\n\n${deliveryInfo}`);
                       setCart([]);
+                      setSecondDropOff('');
+                      setDeliveryInstructions('');
+                      setShowSecondDropOff(false);
                       setTab('orders');
                     }}
-                    className="w-full bg-gradient-to-r from-blue-600 to-yellow-500 text-white py-3 rounded-full font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                    disabled={!location.address}
+                    className={`w-full py-3 rounded-full font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-300 ${
+                      !location.address
+                        ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                        : 'bg-gradient-to-r from-blue-600 to-yellow-500 text-white'
+                    }`}
                   >
-                    Place Order 🇸🇪
+                    {!location.address ? '⚠️ Set Location First' : 'Place Order 🇸🇪'}
                   </button>
                 </div>
               </div>
