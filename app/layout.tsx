@@ -7,7 +7,6 @@ import PageTransition from "./components/PageTransition";
 import LiveBackground from "./components/LiveBackground";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
-import { AuthProvider } from "./contexts/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,17 +64,15 @@ export default function RootLayout({
           MozOsxFontSmoothing: 'grayscale'
         } as React.CSSProperties}
       >
-        <AuthProvider>
-          <LiveBackground />
-          <Navigation />
-          <PageTransition>
-            <main className="min-h-screen relative z-10">
-              {children}
-            </main>
-          </PageTransition>
-          <SpeedInsights />
-          <Analytics />
-        </AuthProvider>
+        <LiveBackground />
+        <Navigation />
+        <PageTransition>
+          <main className="min-h-screen relative z-10">
+            {children}
+          </main>
+        </PageTransition>
+        <SpeedInsights />
+        <Analytics />
         <div id="portal-root" />
       </body>
     </html>
